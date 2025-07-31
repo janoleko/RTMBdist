@@ -29,7 +29,7 @@ rgamma2(n, mean = 1, sd = 1)
 
 \item{p}{vector of probabilities}
 
-\item{n}{number of observations. If \code{length(n) > 1}, the length is taken to be the number required.}
+\item{n}{number of random values to return.}
 }
 \value{
 \code{dgamma2} gives the density, \code{pgamma2} gives the distribution function, \code{qgamma2} gives the quantile function, and \code{rgamma2} generates random deviates.

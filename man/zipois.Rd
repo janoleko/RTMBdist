@@ -4,14 +4,17 @@
 \alias{zipois}
 \alias{dzipois}
 \alias{rzipois}
+\alias{pzipois}
 \title{Zero-inflated Poisson distribution}
 \usage{
-dzipois(x, lambda, zeroprob, log = FALSE)
+dzipois(x, lambda, zeroprob = 0, log = FALSE)
 
-rzipois(n, lambda, zeroprob)
+rzipois(n, lambda, zeroprob = 0)
+
+pzipois(q, lambda, zeroprob = 0)
 }
 \arguments{
-\item{x}{integer vector of counts}
+\item{x, q}{integer vector of counts}
 
 \item{lambda}{vector of (non-negative) means}
 

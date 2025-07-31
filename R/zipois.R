@@ -1,6 +1,6 @@
 #' Zero-inflated Poisson distribution
 #'
-#' @param x integer vector of counts
+#' @param x,q integer vector of counts
 #' @param n number of random values to return.
 #' @param lambda vector of (non-negative) means
 #' @param zeroprob zero-inflation probability between 0 and 1
@@ -15,10 +15,14 @@ NULL
 #' @rdname zipois
 #' @export
 #' @importFrom RTMB logspace_add dpois
-dzipois <- function(x, lambda, zeroprob, log = FALSE) {
+dzipois <- function(x, lambda, zeroprob = 0, log = FALSE) {
 
-  # if (any(lambda < 0)) stop("lambda must be >= 0")
-  # if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  if(inherits(x, "simref")){
+    return(dGenericSim("dzipois", x = x, lambda = lambda, zeroprob = zeroprob, log=log))
+  }
+  if(inherits(x, "osa")) {
+    return(dGenericOSA("dzipois", x = x, lambda = lambda, zeroprob = zeroprob, log=log))
+  }
 
   logdens <- numeric(length(x))
   zero_idx <- (x == 0)
@@ -33,10 +37,30 @@ dzipois <- function(x, lambda, zeroprob, log = FALSE) {
 #' @rdname zipois
 #' @importFrom stats runif rpois
 #' @export
-rzipois <- function(n, lambda, zeroprob) {
+rzipois <- function(n, lambda, zeroprob = 0) {
   if (any(lambda < 0)) stop("lambda must be >= 0")
   if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
   u <- runif(n)
   res <- ifelse(u < zeroprob, 0, rpois(n, lambda))
   return(res)
+}
+#' @rdname zipois
+#' @importFrom RTMB ppois
+#' @export
+pzipois <- function(q, lambda, zeroprob = 0) {
+  if (any(lambda < 0)) stop("lambda must be >= 0")
+  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+
+  q <- floor(q)  # make sure it's integer-valued
+  cdf <- numeric(length(q))
+
+  below_zero <- q < 0
+  is_zero <- q == 0
+  positive <- q > 0
+
+  cdf[below_zero] <- 0
+  cdf[is_zero] <- zeroprob + (1 - zeroprob) * ppois(0, lambda)
+  cdf[positive] <- zeroprob + (1 - zeroprob) * ppois(q[positive], lambda)
+
+  return(cdf)
 }
