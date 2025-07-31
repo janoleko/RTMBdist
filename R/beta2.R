@@ -1,7 +1,7 @@
-#' Reparametrised beta distribution
+#' Reparameterised beta distribution
 #'
 #' Density, distribution function, quantile function and random generation for
-#' the beta distribution reparametrised in terms of mean and concentration.
+#' the beta distribution reparameterised in terms of mean and concentration.
 #'
 #' @details
 #' This implementation allows for automatic differentiation with \code{RTMB}.

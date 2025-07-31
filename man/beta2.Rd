@@ -6,7 +6,7 @@
 \alias{pbeta2}
 \alias{qbeta2}
 \alias{rbeta2}
-\title{Reparametrised beta distribution}
+\title{Reparameterised beta distribution}
 \usage{
 dbeta2(x, mu, phi, log = FALSE)
 
@@ -34,7 +34,7 @@ rbeta2(n, mu, phi)
 }
 \description{
 Density, distribution function, quantile function and random generation for
-the beta distribution reparametrised in terms of mean and concentration.
+the beta distribution reparameterised in terms of mean and concentration.
 }
 \details{
 This implementation allows for automatic differentiation with \code{RTMB}.

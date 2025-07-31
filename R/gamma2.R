@@ -1,7 +1,7 @@
-#' Reparametrised gamma distribution
+#' Reparameterised gamma distribution
 #'
 #' Density, distribution function, quantile function and random generation for
-#' the gamma distribution reparametrised in terms of mean and standard deviation.
+#' the gamma distribution reparameterised in terms of mean and standard deviation.
 #'
 #' @details
 #' This implementation allows for automatic differentiation with \code{RTMB}.

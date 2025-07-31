@@ -6,7 +6,7 @@
 \alias{pgamma2}
 \alias{qgamma2}
 \alias{rgamma2}
-\title{Reparametrised gamma distribution}
+\title{Reparameterised gamma distribution}
 \usage{
 dgamma2(x, mean = 1, sd = 1, log = FALSE)
 
@@ -36,7 +36,7 @@ rgamma2(n, mean = 1, sd = 1)
 }
 \description{
 Density, distribution function, quantile function and random generation for
-the gamma distribution reparametrised in terms of mean and standard deviation.
+the gamma distribution reparameterised in terms of mean and standard deviation.
 }
 \details{
 This implementation allows for automatic differentiation with \code{RTMB}.
