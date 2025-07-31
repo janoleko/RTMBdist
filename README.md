@@ -10,14 +10,14 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R-CMD-check](https://github.com/janoleko/RTMBdist/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/janoleko/RTMBdist/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The `RTMBdist` package extends the functionality of the `RTMB` framework
-by providing a collection of non-standard probability distributions that
-are compatible with automatic differentiation (AD). While `RTMB` enables
-flexible and efficient modelling - including random effects - its
-built-in support is limited to standard distributions. This package
-fills that gap by offering additional, AD-compatible distributions,
-broadening the range of models that can be implemented and estimated
-using `RTMB`.
+The `RTMBdist` package extends the functionality of the
+[`RTMB`](https://kaskr.r-universe.dev/RTMB) framework by providing a
+collection of non-standard probability distributions that are compatible
+with automatic differentiation (AD). While `RTMB` enables flexible and
+efficient modelling - including random effects - its built-in support is
+limited to standard distributions. This package fills that gap by
+offering additional, AD-compatible distributions, broadening the range
+of models that can be implemented and estimated using `RTMB`.
 
 ## Installation
 
@@ -68,7 +68,7 @@ x_new <- obj$simulate()
 
 # calculate residuals
 osa <- oneStepPredict(obj, method = "cdf", trace = FALSE)
-qqnorm(osa$res); abline(0,1)
+qqnorm(osa$res); abline(0, 1)
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />
