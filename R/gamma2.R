@@ -8,7 +8,7 @@
 #'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
-#' @param n number of observations. If \code{length(n) > 1}, the length is taken to be the number required.
+#' @param n number of random values to return.
 #' @param mean mean parameter, must be positive.
 #' @param sd standard deviation parameter, must be positive.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
