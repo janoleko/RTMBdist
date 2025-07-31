@@ -1,6 +1,7 @@
 #' Zero-inflated Poisson distribution
 #'
 #' @param x integer vector of counts
+#' @param n number of random values to return.
 #' @param lambda vector of (non-negative) means
 #' @param zeroprob zero-inflation probability between 0 and 1
 #' @param log logical; return log-density if TRUE
@@ -13,7 +14,7 @@
 NULL
 #' @rdname zipois
 #' @export
-#' @importFrom RTMB logspace_add
+#' @importFrom RTMB logspace_add dpois
 dzipois <- function(x, lambda, zeroprob, log = FALSE) {
   if (any(lambda < 0)) stop("lambda must be >= 0")
   if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
@@ -28,6 +29,7 @@ dzipois <- function(x, lambda, zeroprob, log = FALSE) {
   return(exp(logdens))
 }
 #' @rdname zipois
+#' @importFrom stats runif rpois
 #' @export
 rzipois <- function(n, lambda, zeroprob) {
   if (any(lambda < 0)) stop("lambda must be >= 0")

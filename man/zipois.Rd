@@ -18,6 +18,8 @@ rzipois(n, lambda, zeroprob)
 \item{zeroprob}{zero-inflation probability between 0 and 1}
 
 \item{log}{logical; return log-density if TRUE}
+
+\item{n}{number of random values to return.}
 }
 \description{
 Zero-inflated Poisson distribution
