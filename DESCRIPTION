@@ -1,9 +1,16 @@
 Package: RTMBdist
-Title: What the Package Does (One Line, Title Case)
+Type: Package
+Title: Distributions compatible with automatic differentiation by RTMB
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Authors@R: c(
+    person(given = "Jan-Ole", family = "Koslik", 
+          email = "jan-ole.koslik@uni-bielefeld.de",
+          role = c("aut", "cre"),
+          comment = c(ORCID = "0009-0004-1556-9053")))
+Description: 
+  The RTMBdist package extends the functionality of the RTMB framework by providing a collection of non-standard probability distributions that are compatible with automatic differentiation (AD). 
+  While RTMB enables flexible and efficient modelling - including random effects - its built-in support is limited to standard distributions. 
+  This package fills that gap by offering additional, AD-compatible distributions, broadening the range of models that can be implemented and estimated using RTMB.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Imports:

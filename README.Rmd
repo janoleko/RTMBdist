@@ -20,38 +20,42 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/janoleko/RTMBdist/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/janoleko/RTMBdist/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of RTMBdist is to ...
+The `RTMBdist` package extends the functionality of the `RTMB` framework by providing a collection of non-standard probability distributions that are compatible with automatic differentiation (AD). 
+While `RTMB` enables flexible and efficient modelling - including random effects - its built-in support is limited to standard distributions. 
+This package fills that gap by offering additional, AD-compatible distributions, broadening the range of models that can be implemented and estimated using `RTMB`.
 
 ## Installation
 
 You can install the development version of RTMBdist from [GitHub](https://github.com/) with:
 
-``` r
-# install.packages("pak")
-pak::pak("janoleko/RTMBdist")
+```{r install, eval = FALSE}
+devtools::install_github("janoleko/RTMBdist")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Let's pretend we want to do numerical maximum likelihood estimation (MLE) for a gamma distribution that is parametrised in terms of mean and standard deviation.
 
 ```{r example}
 library(RTMBdist)
-## basic example code
+
+# draw data
+x <- rgamma2(100, mean = 5, sd = 2)
+
+# negative log-likelihood function
+nll <- function(par) {
+  mu <- exp(par[1]); ADREPORT(mu)
+  sigma <- exp(par[2]); ADREPORT(sigma)
+  -sum(dgamma2(x, mu, sigma, log = TRUE))
+}
+
+# automatically differentiable objective function object
+obj <- MakeADFun(nll, c(log(5), log(2)), silent = TRUE)
+
+# model fitting
+opt <- nlminb(obj$par, obj$fn, obj$gr)
+
+summary(sdreport(obj))
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.

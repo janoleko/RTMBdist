@@ -10,7 +10,14 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R-CMD-check](https://github.com/janoleko/RTMBdist/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/janoleko/RTMBdist/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of RTMBdist is to …
+The `RTMBdist` package extends the functionality of the `RTMB` framework
+by providing a collection of non-standard probability distributions that
+are compatible with automatic differentiation (AD). While `RTMB` enables
+flexible and efficient modelling - including random effects - its
+built-in support is limited to standard distributions. This package
+fills that gap by offering additional, AD-compatible distributions,
+broadening the range of models that can be implemented and estimated
+using `RTMB`.
 
 ## Installation
 
@@ -18,39 +25,39 @@ You can install the development version of RTMBdist from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("pak")
-pak::pak("janoleko/RTMBdist")
+devtools::install_github("janoleko/RTMBdist")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Let’s pretend we want to do numerical maximum likelihood estimation
+(MLE) for a gamma distribution that is parametrised in terms of mean and
+standard deviation.
 
 ``` r
 library(RTMBdist)
-## basic example code
+#> Loading required package: RTMB
+
+# draw data
+x <- rgamma2(100, mean = 5, sd = 2)
+
+# negative log-likelihood function
+nll <- function(par) {
+  mu <- exp(par[1]); ADREPORT(mu)
+  sigma <- exp(par[2]); ADREPORT(sigma)
+  -sum(dgamma2(x, mu, sigma, log = TRUE))
+}
+
+# automatically differentiable objective function object
+obj <- MakeADFun(nll, c(log(5), log(2)), silent = TRUE)
+
+# model fitting
+opt <- nlminb(obj$par, obj$fn, obj$gr)
+
+summary(sdreport(obj))
+#>        Estimate Std. Error
+#> par   1.6471688 0.03694199
+#> par   0.6513479 0.07840871
+#> mu    5.1922584 0.19181235
+#> sigma 1.9181246 0.15039767
 ```
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
