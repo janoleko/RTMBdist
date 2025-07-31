@@ -11,8 +11,6 @@
 #' @param n number of observations. If \code{length(n) > 1}, the length is taken to be the number required.
 #' @param mu mean parameter, must be in the interval from 0 to 1.
 #' @param phi concentration parameter, must be positive.
-#' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dbeta2} gives the density, \code{pbeta2} gives the distribution function, \code{qbeta2} gives the quantile function, and \code{rbeta2} generates random deviates.
@@ -53,8 +51,8 @@ pbeta2 <- function(q, mu, phi) {
 }
 #' @rdname beta2
 #' @export
-#' @importFrom stats qbeta
-qbeta2 <- function(p, mu, phi, lower.tail = TRUE, log.p = FALSE) {
+#' @importFrom RTMB qbeta
+qbeta2 <- function(p, mu, phi) {
   # ensure mu in [0,1]
   if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
   # ensure phi > 0
@@ -62,7 +60,7 @@ qbeta2 <- function(p, mu, phi, lower.tail = TRUE, log.p = FALSE) {
 
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
-  stats::qbeta(p, shape1 = shape1, shape2 = shape2, lower.tail = lower.tail, log.p = log.p)
+  RTMB::qbeta(p, shape1 = shape1, shape2 = shape2)
 }
 #' @rdname beta2
 #' @export
