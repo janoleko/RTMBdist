@@ -16,8 +16,10 @@ NULL
 #' @export
 #' @importFrom RTMB logspace_add dpois
 dzipois <- function(x, lambda, zeroprob, log = FALSE) {
-  if (any(lambda < 0)) stop("lambda must be >= 0")
-  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+
+  # if (any(lambda < 0)) stop("lambda must be >= 0")
+  # if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+
   logdens <- numeric(length(x))
   zero_idx <- (x == 0)
 

@@ -29,9 +29,9 @@ NULL
 #' @importFrom RTMB dbeta
 dbeta2 <- function(x, mu, phi, log = FALSE) {
   # ensure mu in [0,1]
-  if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
+  # if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
   # ensure phi > 0
-  if (any(phi <= 0)) stop("phi must be strictly positive.")
+  # if (any(phi <= 0)) stop("phi must be strictly positive.")
 
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi

@@ -26,7 +26,7 @@ NULL
 #' @export
 dwrpcauchy <- function(x, mu = 0, rho, log = FALSE) {
   # ensure rho in [0,1]
-  if (any(rho < 0 | rho > 1)) stop("rho must be in the interval [0, 1].")
+  # if (any(rho < 0 | rho > 1)) stop("rho must be in the interval [0, 1].")
 
   logdens <- - log(2 * pi) +
     log(1 - rho^2) -

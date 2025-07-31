@@ -34,7 +34,7 @@ NULL
 dskewnorm <- function(x, xi = 0, omega = 1, alpha = 0, log = FALSE) {
 
   # ensure omega > 0
-  if (any(omega <= 0)) stop("omega must be strictly positive.")
+  # if (any(omega <= 0)) stop("omega must be strictly positive.")
 
   z = (x - xi) / omega # standardised observation
 
