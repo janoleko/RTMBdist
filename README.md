@@ -57,8 +57,8 @@ opt <- nlminb(obj$par, obj$fn, obj$gr)
 # model summary
 summary(sdreport(obj))
 #>        Estimate Std. Error
-#> par   1.5861705 0.03857296
-#> par   0.6335525 0.07907337
-#> mu    4.8850059 0.18842915
-#> sigma 1.8842926 0.14899737
+#> par   1.5705170 0.03480726
+#> par   0.5151734 0.07757581
+#> mu    4.8091338 0.16739278
+#> sigma 1.6739287 0.12985637
 ```
