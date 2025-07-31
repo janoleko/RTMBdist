@@ -93,14 +93,10 @@ the beta distribution reparametrised in terms of mean and concentration.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fu">rbeta2</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in rbeta2(1):</span> argument "mu" is missing, with no default</span>
-<span class="r-in"><span><span class="va">d</span> <span class="op">=</span> <span class="fu">dbeta2</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in dbeta2(x):</span> argument "mu" is missing, with no default</span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu">pbeta2</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in pbeta2(x):</span> argument "mu" is missing, with no default</span>
-<span class="r-in"><span><span class="va">q</span> <span class="op">=</span> <span class="fu">qbeta2</span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in qbeta2(p):</span> argument "mu" is missing, with no default</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fu">rbeta2</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">=</span> <span class="fu">dbeta2</span><span class="op">(</span><span class="va">x</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu">pbeta2</span><span class="op">(</span><span class="va">x</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">q</span> <span class="op">=</span> <span class="fu">qbeta2</span><span class="op">(</span><span class="va">p</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
