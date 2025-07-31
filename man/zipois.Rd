@@ -24,8 +24,15 @@ pzipois(q, lambda, zeroprob = 0)
 
 \item{n}{number of random values to return.}
 }
+\value{
+\code{dzipois} gives the probability mass function, \code{pzipois} gives the distribution function, and \code{rzipois} generates random deviates.
+}
 \description{
-Zero-inflated Poisson distribution
+Probability mass function, distribution function, and random generation for
+the zero-inflated Poisson distribution.
+}
+\details{
+This implementation allows for automatic differentiation with \code{RTMB}.
 }
 \examples{
 set.seed(123)

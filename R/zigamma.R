@@ -1,6 +1,6 @@
 #' Zero-inflated gamma distribution
 #'
-#' Density, distribution function, quantile function and random generation for
+#' Density, distribution function, and random generation for
 #' the zero-inflated gamma distribution.
 #'
 #' @details
@@ -14,7 +14,7 @@
 #' @param log logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
 #'
 #' @return
-#' \code{dzigamma} gives the density, \code{pzigamma} gives the distribution function, \code{qzigamma} gives the quantile function, and \code{rzigamma} generates random deviates.
+#' \code{dzigamma} gives the density, \code{pzigamma} gives the distribution function, and \code{rzigamma} generates random deviates.
 #'
 #' @examples
 #' x = rzigamma(1, 1, 1, 0.5)
@@ -50,6 +50,7 @@ dzigamma = function(x, shape, scale, zeroprob = 0, log = FALSE) {
 #' @importFrom stats runif rgamma
 #' @export
 rzigamma <- function(n, shape, scale, zeroprob = 0) {
+  # ensure shape >= 0, scale > 0, zeroprob in [0,1]
   if (any(shape < 0)) stop("shape must be >= 0")
   if (any(scale <= 0)) stop("scale must be > 0")
   if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
@@ -61,6 +62,7 @@ rzigamma <- function(n, shape, scale, zeroprob = 0) {
 #' @importFrom RTMB pgamma
 #' @export
 pzigamma <- function(q, shape, scale, zeroprob = 0) {
+  # ensure shape >= 0, scale > 0, zeroprob in [0,1]
   if (any(shape < 0)) stop("shape must be >= 0")
   if (any(scale <= 0)) stop("scale must be > 0")
   if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")

@@ -29,10 +29,6 @@ NULL
 #' @export
 #' @importFrom RTMB dgamma
 dgamma2 = function(x, mean = 1, sd = 1, log = FALSE) {
-  # ensure mean, sd > 0
-  # if (any(mean <= 0)) stop("mean must be strictly positive.")
-  # if (any(sd <= 0)) stop("sd must be strictly positive.")
-
   if(inherits(x, "simref")) {
     return(dGenericSim("dgamma2", x=x, mean = mean, sd = sd, log=log))
   }
@@ -40,6 +36,7 @@ dgamma2 = function(x, mean = 1, sd = 1, log = FALSE) {
     return(dGenericOSA("dgamma2", x=x, mean = mean, sd = sd, log=log))
   }
 
+  # parameter transformation
   shape = mean^2 / sd^2
   scale = sd^2 / mean
   dgamma(x = x, shape = shape, scale = scale, log = log)
@@ -53,6 +50,7 @@ pgamma2 = function(q, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
   if (any(mean <= 0)) stop("mean must be strictly positive.")
   if (any(sd <= 0)) stop("sd must be strictly positive.")
 
+  # parameter transformation
   shape = mean^2 / sd^2
   scale = sd^2 / mean
   pgamma(q = q, shape = shape, scale = scale, lower.tail = lower.tail, log.p = log.p)
@@ -66,6 +64,7 @@ qgamma2 = function(p, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
   if (any(mean <= 0)) stop("mean must be strictly positive.")
   if (any(sd <= 0)) stop("sd must be strictly positive.")
 
+  # parameter transformation
   shape = mean^2 / sd^2
   scale = sd^2 / mean
   qgamma(p = p, shape = shape, scale = scale, lower.tail = lower.tail, log.p = log.p)
@@ -79,6 +78,7 @@ rgamma2 = function(n, mean = 1, sd = 1) {
   if (any(mean <= 0)) stop("mean must be strictly positive.")
   if (any(sd <= 0)) stop("sd must be strictly positive.")
 
+  # parameter transformation
   shape = mean^2 / sd^2
   scale = sd^2 / mean
   rgamma(n = n, shape = shape, scale = scale)

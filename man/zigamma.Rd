@@ -27,10 +27,10 @@ pzigamma(q, shape, scale, zeroprob = 0)
 \item{n}{number of random values to return}
 }
 \value{
-\code{dzigamma} gives the density, \code{pzigamma} gives the distribution function, \code{qzigamma} gives the quantile function, and \code{rzigamma} generates random deviates.
+\code{dzigamma} gives the density, \code{pzigamma} gives the distribution function, and \code{rzigamma} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function and random generation for
+Density, distribution function, and random generation for
 the zero-inflated gamma distribution.
 }
 \details{
