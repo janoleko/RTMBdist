@@ -23,6 +23,8 @@ rbeta2(n, mu, phi)
 
 \item{phi}{concentration parameter, must be positive.}
 
+\item{log}{logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.}
+
 \item{p}{vector of probabilities}
 
 \item{n}{number of observations. If \code{length(n) > 1}, the length is taken to be the number required.}

@@ -11,6 +11,7 @@
 #' @param n number of observations. If \code{length(n) > 1}, the length is taken to be the number required.
 #' @param mu mean parameter, must be in the interval from 0 to 1.
 #' @param phi concentration parameter, must be positive.
+#' @param log logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
 #'
 #' @return
 #' \code{dbeta2} gives the density, \code{pbeta2} gives the distribution function, \code{qbeta2} gives the quantile function, and \code{rbeta2} generates random deviates.
