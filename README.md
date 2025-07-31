@@ -32,7 +32,7 @@ devtools::install_github("janoleko/RTMBdist")
 
 Let’s pretend we want to do numerical maximum likelihood estimation
 (MLE) for a gamma distribution that is parametrised in terms of mean and
-standard deviation.
+standard deviation, which is available in the `gamma2` family:
 
 ``` r
 library(RTMBdist)
@@ -55,9 +55,9 @@ obj <- MakeADFun(nll, c(log(5), log(2)), silent = TRUE)
 opt <- nlminb(obj$par, obj$fn, obj$gr)
 
 summary(sdreport(obj))
-#>        Estimate Std. Error
-#> par   1.6471688 0.03694199
-#> par   0.6513479 0.07840871
-#> mu    5.1922584 0.19181235
-#> sigma 1.9181246 0.15039767
+#>       Estimate Std. Error
+#> par   1.562386 0.03496374
+#> par   0.511528 0.07763541
+#> mu    4.770190 0.16678367
+#> sigma 1.667838 0.12948327
 ```
