@@ -15,7 +15,8 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Imports:
     stats,
-    circular
+    circular,
+    sn
 Depends:
     R (>= 3.5.0), 
     RTMB
