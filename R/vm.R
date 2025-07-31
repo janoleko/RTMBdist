@@ -33,6 +33,13 @@ dvm = function(x, mu = 0, kappa = 1, log = FALSE) {
   # ensure kappa > 0
   # if (any(kappa <= 0)) stop("kappa must be strictly positive.")
 
+  if(inherits(x, "simref")){
+    return(dGenericSim("dvm", x = x, mu = mu, kappa = kappa, log=log))
+  }
+  if(inherits(x, "osa")) {
+    return(dGenericOSA("dvm", x = x, mu = mu, kappa = kappa, log=log))
+  }
+
   logdens <- -log(2 * pi) -
     log(besselI(kappa, 0)) +
     kappa * cos(x - mu)

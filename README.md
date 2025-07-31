@@ -43,6 +43,7 @@ x <- rgamma2(100, mean = 5, sd = 2)
 
 # negative log-likelihood function
 nll <- function(par) {
+  x <- OBS(x) # mark x as the response
   mu <- exp(par[1]); ADREPORT(mu)
   sigma <- exp(par[2]); ADREPORT(sigma)
   -sum(dgamma2(x, mu, sigma, log = TRUE))
@@ -61,4 +62,13 @@ summary(sdreport(obj))
 #> par   0.5151734 0.07757581
 #> mu    4.8091338 0.16739278
 #> sigma 1.6739287 0.12985637
+
+# simulate new data
+x_new <- obj$simulate()
+
+# calculate residuals
+osa <- oneStepPredict(obj, method = "cdf", trace = FALSE)
+qqnorm(osa$res); abline(0,1)
 ```
+
+<img src="man/figures/README-example-1.png" width="100%" />

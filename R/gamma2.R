@@ -33,6 +33,13 @@ dgamma2 = function(x, mean = 1, sd = 1, log = FALSE) {
   # if (any(mean <= 0)) stop("mean must be strictly positive.")
   # if (any(sd <= 0)) stop("sd must be strictly positive.")
 
+  if(inherits(x, "simref")) {
+    return(dGenericSim("dgamma2", x=x, mean = mean, sd = sd, log=log))
+  }
+  if(inherits(x, "osa")) {
+    return(dGenericOSA("dgamma2", x=x, mean = mean, sd = sd, log=log))
+  }
+
   shape = mean^2 / sd^2
   scale = sd^2 / mean
   dgamma(x = x, shape = shape, scale = scale, log = log)
