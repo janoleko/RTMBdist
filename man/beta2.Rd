@@ -42,6 +42,7 @@ the beta distribution reparametrised in terms of mean and concentration.
 This implementation allows for automatic differentiation with \code{RTMB}.
 }
 \examples{
+set.seed(123)
 x = rbeta2(1, 0.5, 1)
 d = dbeta2(x, 0.5, 1)
 p = pbeta2(x, 0.5, 1)

@@ -18,6 +18,7 @@
 #' \code{dbeta2} gives the density, \code{pbeta2} gives the distribution function, \code{qbeta2} gives the quantile function, and \code{rbeta2} generates random deviates.
 #'
 #' @examples
+#' set.seed(123)
 #' x = rbeta2(1, 0.5, 1)
 #' d = dbeta2(x, 0.5, 1)
 #' p = pbeta2(x, 0.5, 1)
@@ -35,7 +36,7 @@ dbeta2 <- function(x, mu, phi, log = FALSE) {
 
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
-  dbeta(x, shape1 = shape1, shape2 = shape2, log = log)
+  RTMB::dbeta(x, shape1 = shape1, shape2 = shape2, log = log)
 }
 #' @rdname beta2
 #' @export
@@ -48,7 +49,7 @@ pbeta2 <- function(q, mu, phi) {
 
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
-  pbeta(q, shape1 = shape1, shape2 = shape2)
+  RTMB::pbeta(q, shape1 = shape1, shape2 = shape2)
 }
 #' @rdname beta2
 #' @export
@@ -61,7 +62,7 @@ qbeta2 <- function(p, mu, phi, lower.tail = TRUE, log.p = FALSE) {
 
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
-  qbeta(p, shape1 = shape1, shape2 = shape2, lower.tail = lower.tail, log.p = log.p)
+  stats::qbeta(p, shape1 = shape1, shape2 = shape2, lower.tail = lower.tail, log.p = log.p)
 }
 #' @rdname beta2
 #' @export
@@ -74,7 +75,7 @@ rbeta2 <- function(n, mu, phi) {
 
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
-  rbeta(n, shape1 = shape1, shape2 = shape2)
+  stats::rbeta(n, shape1 = shape1, shape2 = shape2)
 }
 
 
