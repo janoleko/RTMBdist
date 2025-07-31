@@ -42,8 +42,8 @@ the beta distribution reparametrised in terms of mean and concentration.
 This implementation allows for automatic differentiation with \code{RTMB}.
 }
 \examples{
-x = rbeta2(1)
-d = dbeta2(x)
-p = pbeta2(x)
-q = qbeta2(p)
+x = rbeta2(1, 0.5, 1)
+d = dbeta2(x, 0.5, 1)
+p = pbeta2(x, 0.5, 1)
+q = qbeta2(p, 0.5, 1)
 }

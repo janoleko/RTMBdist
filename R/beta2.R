@@ -18,10 +18,10 @@
 #' \code{dbeta2} gives the density, \code{pbeta2} gives the distribution function, \code{qbeta2} gives the quantile function, and \code{rbeta2} generates random deviates.
 #'
 #' @examples
-#' x = rbeta2(1)
-#' d = dbeta2(x)
-#' p = pbeta2(x)
-#' q = qbeta2(p)
+#' x = rbeta2(1, 0.5, 1)
+#' d = dbeta2(x, 0.5, 1)
+#' p = pbeta2(x, 0.5, 1)
+#' q = qbeta2(p, 0.5, 1)
 #' @name beta2
 NULL
 #' @rdname beta2
