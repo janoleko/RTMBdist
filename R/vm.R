@@ -29,6 +29,10 @@ NULL
 #' @export
 #' @importFrom RTMB besselI
 dvm = function(x, mu = 0, kappa = 1, log = FALSE) {
+
+  # ensure kappa > 0
+  if (any(kappa <= 0)) stop("kappa must be strictly positive.")
+
   logdens <- -log(2 * pi) -
     log(besselI(kappa, 0)) +
     kappa * cos(x - mu)

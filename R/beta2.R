@@ -28,6 +28,11 @@ NULL
 #' @export
 #' @importFrom RTMB dbeta
 dbeta2 <- function(x, mu, phi, log = FALSE) {
+  # ensure mu in [0,1]
+  if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
+  # ensure phi > 0
+  if (any(phi <= 0)) stop("phi must be strictly positive.")
+
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
   dbeta(x, shape1 = shape1, shape2 = shape2, log = log)
@@ -36,6 +41,11 @@ dbeta2 <- function(x, mu, phi, log = FALSE) {
 #' @export
 #' @importFrom RTMB pbeta
 pbeta2 <- function(q, mu, phi) {
+  # ensure mu in [0,1]
+  if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
+  # ensure phi > 0
+  if (any(phi <= 0)) stop("phi must be strictly positive.")
+
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
   pbeta(q, shape1 = shape1, shape2 = shape2)
@@ -44,6 +54,11 @@ pbeta2 <- function(q, mu, phi) {
 #' @export
 #' @importFrom stats qbeta
 qbeta2 <- function(p, mu, phi, lower.tail = TRUE, log.p = FALSE) {
+  # ensure mu in [0,1]
+  if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
+  # ensure phi > 0
+  if (any(phi <= 0)) stop("phi must be strictly positive.")
+
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
   qbeta(p, shape1 = shape1, shape2 = shape2, lower.tail = lower.tail, log.p = log.p)
@@ -52,6 +67,11 @@ qbeta2 <- function(p, mu, phi, lower.tail = TRUE, log.p = FALSE) {
 #' @export
 #' @importFrom stats rbeta
 rbeta2 <- function(n, mu, phi) {
+  # ensure mu in [0,1]
+  if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
+  # ensure phi > 0
+  if (any(phi <= 0)) stop("phi must be strictly positive.")
+
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
   rbeta(n, shape1 = shape1, shape2 = shape2)

@@ -29,6 +29,10 @@ NULL
 #' @export
 #' @importFrom RTMB dgamma
 dgamma2 = function(x, mean = 1, sd = 1, log = FALSE) {
+  # ensure mean, sd > 0
+  if (any(mean <= 0)) stop("mean must be strictly positive.")
+  if (any(sd <= 0)) stop("sd must be strictly positive.")
+
   shape = mean^2 / sd^2
   scale = sd^2 / mean
   dgamma(x = x, shape = shape, scale = scale, log = log)
@@ -38,6 +42,10 @@ dgamma2 = function(x, mean = 1, sd = 1, log = FALSE) {
 #' @export
 #' @importFrom RTMB pgamma
 pgamma2 = function(q, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
+  # ensure mean, sd > 0
+  if (any(mean <= 0)) stop("mean must be strictly positive.")
+  if (any(sd <= 0)) stop("sd must be strictly positive.")
+
   shape = mean^2 / sd^2
   scale = sd^2 / mean
   pgamma(q = q, shape = shape, scale = scale, lower.tail = lower.tail, log.p = log.p)
@@ -47,6 +55,10 @@ pgamma2 = function(q, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
 #' @export
 #' @importFrom RTMB qgamma
 qgamma2 = function(p, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
+  # ensure mean, sd > 0
+  if (any(mean <= 0)) stop("mean must be strictly positive.")
+  if (any(sd <= 0)) stop("sd must be strictly positive.")
+
   shape = mean^2 / sd^2
   scale = sd^2 / mean
   qgamma(p = p, shape = shape, scale = scale, lower.tail = lower.tail, log.p = log.p)
@@ -56,6 +68,10 @@ qgamma2 = function(p, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
 #' @export
 #' @importFrom stats rgamma
 rgamma2 = function(n, mean = 1, sd = 1) {
+  # ensure mean, sd > 0
+  if (any(mean <= 0)) stop("mean must be strictly positive.")
+  if (any(sd <= 0)) stop("sd must be strictly positive.")
+
   shape = mean^2 / sd^2
   scale = sd^2 / mean
   rgamma(n = n, shape = shape, scale = scale)

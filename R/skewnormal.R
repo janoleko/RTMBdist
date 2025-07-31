@@ -32,6 +32,10 @@ NULL
 #' @importFrom RTMB dnorm
 #' @importFrom RTMB pnorm
 dskewnorm <- function(x, xi = 0, omega = 1, alpha = 0, log = FALSE) {
+
+  # ensure omega > 0
+  if (any(omega <= 0)) stop("omega must be strictly positive.")
+
   z = (x - xi) / omega # standardised observation
 
   log_normal_density <- RTMB::dnorm(z, log = TRUE)
@@ -50,7 +54,7 @@ dskewnorm <- function(x, xi = 0, omega = 1, alpha = 0, log = FALSE) {
 #' @export
 #' @importFrom sn psn
 pskewnorm <- function(q, xi = 0, omega = 1, alpha = 0, ...) {
-  sn::psn(x = q, xi = xi, omega = omega, alpha = alpha, ...)
+  psn(x = q, xi = xi, omega = omega, alpha = alpha, ...)
 }
 
 #' @rdname skewnorm
