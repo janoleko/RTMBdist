@@ -9,8 +9,8 @@
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
 #' @param n number of observations. If \code{length(n) > 1}, the length is taken to be the number required.
-#' @param mean mean parameter, must be positive scalar.
-#' @param sd standard deviation parameter, must be positive scalar.
+#' @param mean mean parameter, must be positive.
+#' @param sd standard deviation parameter, must be positive.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
 #' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
 #'

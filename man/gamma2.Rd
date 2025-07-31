@@ -19,9 +19,9 @@ rgamma2(n, mean = 1, sd = 1)
 \arguments{
 \item{x, q}{vector of quantiles}
 
-\item{mean}{mean parameter, must be positive scalar.}
+\item{mean}{mean parameter, must be positive.}
 
-\item{sd}{standard deviation parameter, must be positive scalar.}
+\item{sd}{standard deviation parameter, must be positive.}
 
 \item{log, log.p}{logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.}
 
