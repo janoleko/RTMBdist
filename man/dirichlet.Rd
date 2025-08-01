@@ -17,6 +17,8 @@ If \code{x} is a matrix, each row should sum to one.}
 \item{alpha}{vector or matrix of positive shape parameters}
 
 \item{log}{logical; if \code{TRUE}, densities \eqn{p} are returned as \eqn{\log(p)}.}
+
+\item{n}{number of random values to return.}
 }
 \value{
 \code{ddirichlet} gives the density.

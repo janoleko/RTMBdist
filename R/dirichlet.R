@@ -7,6 +7,7 @@
 #'
 #' @param x vector or matrix of quantiles. If \code{x} is a vector, it needs to sum to one.
 #' If \code{x} is a matrix, each row should sum to one.
+#' @param n number of random values to return.
 #' @param alpha vector or matrix of positive shape parameters
 #' @param log logical; if \code{TRUE}, densities \eqn{p} are returned as \eqn{\log(p)}.
 #'
