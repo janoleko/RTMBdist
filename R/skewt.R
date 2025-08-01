@@ -75,7 +75,7 @@ pt_ad <- function(q, df) {
 #' @export
 #' @usage
 #' pskewt(q, mu = 0, sigma = 1, skew = 0, df = 1000,
-#' method = 0, lower.tail = TRUE, log.p = FALSE)
+#'        method = 0, lower.tail = TRUE, log.p = FALSE)
 #' @importFrom sn pst
 pskewt <- function(q, mu = 0, sigma = 1, skew = 0, df = 1e3, method = 0, lower.tail = TRUE, log.p = FALSE) {
   # ensure sigma, df > 0
@@ -89,7 +89,7 @@ pskewt <- function(q, mu = 0, sigma = 1, skew = 0, df = 1e3, method = 0, lower.t
 #' @export
 #' @usage
 #' qskewt(p, mu = 0, sigma = 1, skew = 0, df = 1000,
-#' tol = 1e-8, method = 0)
+#'        tol = 1e-8, method = 0)
 #' @importFrom sn qst
 qskewt <- function(p, mu = 0, sigma = 1, skew = 0, df = 1e3, tol = 1e-8, method = 0) {
   # ensure sigma, df > 0
