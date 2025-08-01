@@ -18,8 +18,27 @@ knitr::opts_chunk$set(
 library(RTMBdist)
 ```
 
-# Continuous distributions
+## Continuous distributions
 
-# Discrete distributions
+* `beta2(mu, phi)`: Beta distribution parameterised by mean `mu` and precision `phi`
 
-# Multivariate distributions
+* `gamma2(mean, sd)`: Gamma distribution parameterised by mean and standard deviation
+
+* `skewnormal(xi, omega, alpha)`: Skew normal distribution parameterised by location `xi`, scale `omega` and skewness `alpha`
+
+* `vm(mu, kappa)`: Von Mises distribution parameterised by mean direction `mu` and concentration `kappa`
+
+* `wrpcauchy(mu, rho)`: Wrapped Cauchy distribution parameterised by mean direction `mu` and concentration `rho`
+
+* `zigamma(shape, scale, zeroprob)`: Zero-inflated gamma distribution parameterised by shape and scale, with a zero-probability `zeroprob`
+
+* `zigamma2(mean, sd, zeroprob)`: Zero-inflated gamma distribution parameterised by mean, standard deviation and zero-probability `zeroprob`
+
+
+## Discrete distributions
+
+* `zipois(lambda, zeroprob)`: Zero-inflated Poisson distribution parameterised by rate `lambda` and zero-probability `zeroprob`
+
+## Multivariate distributions
+
+* `dirichlet(alpha)`: Dirichlet distribution parameterised by concentration parameter vector `alpha`
