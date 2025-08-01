@@ -14,10 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(RTMBdist)
-```
-
 ## Continuous distributions
 
 * `beta2(mu, phi)`: Beta distribution parameterised by mean `mu` and precision `phi`
@@ -44,6 +40,8 @@ library(RTMBdist)
 ## Discrete distributions
 
 * `nbinom2(mu, size)`: Negative binomial distribution parameterised by mean `mu` and size `size`
+
+* `zinbinom(size, prob, zeroprob)`: Zero-inflated negative binomial distribution parameterised by size `size`, success probability `prob` and zero-probability `zeroprob`
 
 * `zipois(lambda, zeroprob)`: Zero-inflated Poisson distribution parameterised by rate `lambda` and zero-probability `zeroprob`
 
