@@ -10,7 +10,8 @@
 #' @param n number of random values to return.
 #' @param lambda vector of (non-negative) means
 #' @param zeroprob zero-inflation probability between 0 and 1
-#' @param log logical; return log-density if TRUE
+#' @param log,log.p logical; return log-density if TRUE
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dzipois} gives the probability mass function, \code{pzipois} gives the distribution function, and \code{rzipois} generates random deviates.
@@ -39,7 +40,7 @@ dzipois <- function(x, lambda, zeroprob = 0, log = FALSE) {
 
   # Zero inflation part
   logdens[zero_idx] <- logspace_add(log(zeroprob), log(1-zeroprob) - lambda)
-  logdens[!zero_idx] <- log(1 - zeroprob) + dpois(x[!zero_idx], lambda, log = TRUE)
+  logdens[!zero_idx] <- log(1 - zeroprob) + RTMB::dpois(x[!zero_idx], lambda, log = TRUE)
 
   if (log) return(logdens)
   return(exp(logdens))
@@ -58,7 +59,7 @@ rzipois <- function(n, lambda, zeroprob = 0) {
 #' @rdname zipois
 #' @importFrom RTMB ppois
 #' @export
-pzipois <- function(q, lambda, zeroprob = 0) {
+pzipois <- function(q, lambda, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
   # ensure lambda >= 0, zeroprob in [0,1]
   if (any(lambda < 0)) stop("lambda must be >= 0")
   if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
@@ -74,5 +75,7 @@ pzipois <- function(q, lambda, zeroprob = 0) {
   cdf[is_zero] <- zeroprob + (1 - zeroprob) * ppois(0, lambda)
   cdf[positive] <- zeroprob + (1 - zeroprob) * ppois(q[positive], lambda)
 
+  if (!lower.tail) cdf <- 1 - cdf
+  if (log.p) cdf <- log(cdf)
   return(cdf)
 }

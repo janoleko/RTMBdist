@@ -11,7 +11,7 @@ dzipois(x, lambda, zeroprob = 0, log = FALSE)
 
 rzipois(n, lambda, zeroprob = 0)
 
-pzipois(q, lambda, zeroprob = 0)
+pzipois(q, lambda, zeroprob = 0, lower.tail = TRUE, log.p = FALSE)
 }
 \arguments{
 \item{x, q}{integer vector of counts}
@@ -20,9 +20,11 @@ pzipois(q, lambda, zeroprob = 0)
 
 \item{zeroprob}{zero-inflation probability between 0 and 1}
 
-\item{log}{logical; return log-density if TRUE}
+\item{log, log.p}{logical; return log-density if TRUE}
 
 \item{n}{number of random values to return.}
+
+\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.}
 }
 \value{
 \code{dzipois} gives the probability mass function, \code{pzipois} gives the distribution function, and \code{rzipois} generates random deviates.
