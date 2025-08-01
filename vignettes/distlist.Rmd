@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 
 * `beta2(mu, phi)`: Beta distribution parameterised by mean `mu` and precision `phi`
 
+* `foldnorm(mu, sigma)`: Folded normal distribution parameterised by location `mu` and scale `sigma`
+
 * `gamma2(mean, sd)`: Gamma distribution parameterised by mean and standard deviation
 
 * `skewnormal(xi, omega, alpha)`: Skew normal distribution parameterised by location `xi`, scale `omega` and skewness `alpha`
