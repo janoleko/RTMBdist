@@ -108,7 +108,3 @@ rskewt <- function(n, mu = 0, sigma = 1, skew = 0, df = 1e3) {
 
   as.numeric(rst(n, xi=mu, omega=sigma, alpha=skew, nu=df))
 }
-
-f <- function(par){
-  sum(dskewt(c(1,2,3), par[1], par[2], par[3], par[4], log = TRUE))
-}
