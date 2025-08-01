@@ -37,6 +37,7 @@ knitr::opts_chunk$set(
 * `zigamma2(mean, sd, zeroprob)`: Zero-inflated gamma distribution parameterised by mean, standard deviation and zero-probability `zeroprob`
 
 
+
 ## Discrete distributions
 
 * `nbinom2(mu, size)`: Negative binomial distribution parameterised by mean `mu` and size `size`
@@ -48,6 +49,8 @@ knitr::opts_chunk$set(
 * `zinbinom2(mu, size, zeroprob)`: Zero-inflated negative binomial distribution parameterised by mean `mu`, size `size` and zero-probability `zeroprob`
 
 * `zipois(lambda, zeroprob)`: Zero-inflated Poisson distribution parameterised by rate `lambda` and zero-probability `zeroprob`
+
+
 
 ## Multivariate distributions
 
