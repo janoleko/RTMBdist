@@ -28,6 +28,15 @@ NULL
 #' @export
 #' @importFrom RTMB dt
 dt2 = function(x, mu, sigma, df, log = FALSE){
+
+  # potentially escape to RNG or CDF
+  if(inherits(x, "simref")) {
+    return(dGenericSim("dt2", x=x, mu=mu, sigma=sigma, df=df, log=log))
+  }
+  if(inherits(x, "osa")) {
+    return(dGenericOSA("dt2", x=x, mu=mu, sigma=sigma, df=df, log=log))
+  }
+
   z <- (x - mu) / sigma
   logdens <- RTMB::dt(z, df, log = TRUE) - log(sigma)
 

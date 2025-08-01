@@ -26,6 +26,7 @@ NULL
 #' @importFrom RTMB logspace_add dpois
 dzipois <- function(x, lambda, zeroprob = 0, log = FALSE) {
 
+  # potentially escape to RNG or CDF
   if(inherits(x, "simref")){
     return(dGenericSim("dzipois", x = x, lambda = lambda, zeroprob = zeroprob, log=log))
   }

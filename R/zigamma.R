@@ -28,6 +28,7 @@ NULL
 #' @importFrom RTMB dgamma logspace_add
 dzigamma = function(x, shape, scale, zeroprob = 0, log = FALSE) {
 
+  # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dzigamma", x=x, shape = shape, scale = scale, zeroprob = zeroprob, log=log))
   }

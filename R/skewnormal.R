@@ -33,8 +33,13 @@ NULL
 #' @importFrom RTMB pnorm
 dskewnorm <- function(x, xi = 0, omega = 1, alpha = 0, log = FALSE) {
 
-  # ensure omega > 0
-  # if (any(omega <= 0)) stop("omega must be strictly positive.")
+  # potentially escape to RNG or CDF
+  if(inherits(x, "simref")) {
+    return(dGenericSim("dskewnorm", x=x, xi=xi, omega=omega, alpha=alpha, log=log))
+  }
+  if(inherits(x, "osa")) {
+    return(dGenericOSA("dskewnorm", x=x, xi=xi, omega=omega, alpha=alpha, log=log))
+  }
 
   z = (x - xi) / omega # standardised observation
 

@@ -29,6 +29,8 @@ NULL
 #' @export
 #' @importFrom RTMB dgamma
 dgamma2 = function(x, mean = 1, sd = 1, log = FALSE) {
+
+  # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dgamma2", x=x, mean = mean, sd = sd, log=log))
   }

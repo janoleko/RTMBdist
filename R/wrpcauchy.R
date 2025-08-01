@@ -25,9 +25,8 @@ NULL
 #' @rdname wrpcauchy
 #' @export
 dwrpcauchy <- function(x, mu = 0, rho, log = FALSE) {
-  # ensure rho in [0,1]
-  # if (any(rho < 0 | rho > 1)) stop("rho must be in the interval [0, 1].")
 
+  # potentially escape to RNG or CDF
   if(inherits(x, "simref")){
     return(dGenericSim("dwrpcauchy", x = x, mu = mu, rho = rho, log=log))
   }
