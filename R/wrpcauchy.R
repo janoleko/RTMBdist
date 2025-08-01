@@ -10,15 +10,15 @@
 #' @param mu mean direction of the distribution measured in radians.
 #' @param rho concentration parameter of the distribution, must be in the interval from 0 to 1.
 #' @param log logical; if \code{TRUE}, densities are returned on the log scale.
-#' @param n number of observations. If \code{length(n) > 1}, the length is taken to be the number required.
+#' @param n number of random values to return.
 #' @param wrap logical; if \code{TRUE}, generated angles are wrapped to the interval from -pi to pi.
 #'
 #' @return \code{dwrpcauchy} gives the density and \code{rwrpcauchy} generates random deviates.
 #'
 #' @examples
 #' set.seed(1)
-#' x = rwrpcauchy(10, 0, 1)
-#' d = dwrpcauchy(x, 0, 1)
+#' x <- rwrpcauchy(10, 0, 1)
+#' d <- dwrpcauchy(x, 0, 1)
 #' @name wrpcauchy
 NULL
 

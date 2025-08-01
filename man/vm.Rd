@@ -26,7 +26,7 @@ rvm(n, mu = 0, kappa = 1, wrap = TRUE)
 
 \item{tol}{the precision in evaluating the distribution function}
 
-\item{n}{number of observations. If \code{length(n) > 1}, the length is taken to be the number required.}
+\item{n}{number of random values to return.}
 
 \item{wrap}{logical; if \code{TRUE}, generated angles are wrapped to the interval from -pi to pi.}
 }
@@ -42,7 +42,7 @@ This implementation of \code{dvm} allows for automatic differentiation with \cod
 }
 \examples{
 set.seed(1)
-x = rvm(10, 0, 1)
-d = dvm(x, 0, 1)
-p = pvm(x, 0, 1)
+x <- rvm(10, 0, 1)
+d <- dvm(x, 0, 1)
+p <- pvm(x, 0, 1)
 }

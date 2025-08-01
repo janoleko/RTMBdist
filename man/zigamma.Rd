@@ -37,7 +37,7 @@ the zero-inflated gamma distribution.
 This implementation allows for automatic differentiation with \code{RTMB}.
 }
 \examples{
-x = rzigamma(1, 1, 1, 0.5)
-d = dzigamma(x, 1, 1, 0.5)
-p = pzigamma(x, 1, 1, 0.5)
+x <- rzigamma(1, 1, 1, 0.5)
+d <- dzigamma(x, 1, 1, 0.5)
+p <- pzigamma(x, 1, 1, 0.5)
 }

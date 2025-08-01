@@ -10,7 +10,7 @@
 #' @param mu mean direction of the distribution measured in radians.
 #' @param kappa non-negative numeric value for the concentration parameter of the distribution.
 #' @param log logical; if \code{TRUE}, densities are returned on the log scale.
-#' @param n number of observations. If \code{length(n) > 1}, the length is taken to be the number required.
+#' @param n number of random values to return.
 #' @param tol the precision in evaluating the distribution function
 #' @param from value from which the integration for CDF starts. If \code{NULL}, is set to \code{mu - pi}.
 #' @param wrap logical; if \code{TRUE}, generated angles are wrapped to the interval from -pi to pi.
@@ -19,9 +19,9 @@
 #'
 #' @examples
 #' set.seed(1)
-#' x = rvm(10, 0, 1)
-#' d = dvm(x, 0, 1)
-#' p = pvm(x, 0, 1)
+#' x <- rvm(10, 0, 1)
+#' d <- dvm(x, 0, 1)
+#' p <- pvm(x, 0, 1)
 #' @name vm
 NULL
 

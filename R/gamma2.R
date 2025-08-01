@@ -18,10 +18,10 @@
 #' \code{dgamma2} gives the density, \code{pgamma2} gives the distribution function, \code{qgamma2} gives the quantile function, and \code{rgamma2} generates random deviates.
 #'
 #' @examples
-#' x = rgamma2(1)
-#' d = dgamma2(x)
-#' p = pgamma2(x)
-#' q = qgamma2(p)
+#' x <- rgamma2(1)
+#' d <- dgamma2(x)
+#' p <- pgamma2(x)
+#' q <- qgamma2(p)
 #' @name gamma2
 NULL
 

@@ -8,7 +8,7 @@
 #'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
-#' @param n number of observations. If \code{length(n) > 1}, the length is taken to be the number required.
+#' @param n number of random values to return
 #' @param xi location parameter
 #' @param omega scale parameter, must be positive.
 #' @param alpha skewness parameter, +/- \code{Inf} is allowed.
@@ -20,10 +20,10 @@
 #'
 #' @examples
 #' # alpha is skew parameter
-#' x = rskewnorm(1, alpha = 1)
-#' d = dskewnorm(x, alpha = 1)
-#' p = pskewnorm(x, alpha = 1)
-#' q = qskewnorm(p, alpha = 1)
+#' x <- rskewnorm(1, alpha = 1)
+#' d <- dskewnorm(x, alpha = 1)
+#' p <- pskewnorm(x, alpha = 1)
+#' q <- qskewnorm(p, alpha = 1)
 #' @name skewnorm
 NULL
 

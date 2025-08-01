@@ -36,6 +36,6 @@ This implementation allows for automatic differentiation with \code{RTMB}.
 }
 \examples{
 set.seed(123)
-x = rzipois(1, 0.5, 1)
-d = dzipois(x, 0.5, 1)
+x <- rzipois(1, 0.5, 1)
+d <- dzipois(x, 0.5, 1)
 }

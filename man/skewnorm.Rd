@@ -31,7 +31,7 @@ rskewnorm(n, xi = 0, omega = 1, alpha = 0)
 
 \item{p}{vector of probabilities}
 
-\item{n}{number of observations. If \code{length(n) > 1}, the length is taken to be the number required.}
+\item{n}{number of random values to return}
 }
 \value{
 \code{dskewnorm} gives the density, \code{pskewnorm} gives the distribution function, \code{qskewnorm} gives the quantile function, and \code{rskewnorm} generates random deviates.
@@ -45,8 +45,8 @@ This implementation of \code{dskewnorm} allows for automatic differentiation wit
 }
 \examples{
 # alpha is skew parameter
-x = rskewnorm(1, alpha = 1)
-d = dskewnorm(x, alpha = 1)
-p = pskewnorm(x, alpha = 1)
-q = qskewnorm(p, alpha = 1)
+x <- rskewnorm(1, alpha = 1)
+d <- dskewnorm(x, alpha = 1)
+p <- pskewnorm(x, alpha = 1)
+q <- qskewnorm(p, alpha = 1)
 }

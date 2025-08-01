@@ -17,9 +17,9 @@
 #' \code{dzigamma} gives the density, \code{pzigamma} gives the distribution function, and \code{rzigamma} generates random deviates.
 #'
 #' @examples
-#' x = rzigamma(1, 1, 1, 0.5)
-#' d = dzigamma(x, 1, 1, 0.5)
-#' p = pzigamma(x, 1, 1, 0.5)
+#' x <- rzigamma(1, 1, 1, 0.5)
+#' d <- dzigamma(x, 1, 1, 0.5)
+#' p <- pzigamma(x, 1, 1, 0.5)
 #' @name zigamma
 NULL
 

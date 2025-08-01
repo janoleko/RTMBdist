@@ -27,7 +27,7 @@ rbeta2(n, mu, phi)
 
 \item{p}{vector of probabilities}
 
-\item{n}{number of observations. If \code{length(n) > 1}, the length is taken to be the number required.}
+\item{n}{number of random values to return.}
 }
 \value{
 \code{dbeta2} gives the density, \code{pbeta2} gives the distribution function, \code{qbeta2} gives the quantile function, and \code{rbeta2} generates random deviates.
@@ -41,8 +41,8 @@ This implementation allows for automatic differentiation with \code{RTMB}.
 }
 \examples{
 set.seed(123)
-x = rbeta2(1, 0.5, 1)
-d = dbeta2(x, 0.5, 1)
-p = pbeta2(x, 0.5, 1)
-q = qbeta2(p, 0.5, 1)
+x <- rbeta2(1, 0.5, 1)
+d <- dbeta2(x, 0.5, 1)
+p <- pbeta2(x, 0.5, 1)
+q <- qbeta2(p, 0.5, 1)
 }

@@ -42,8 +42,8 @@ the gamma distribution reparameterised in terms of mean and standard deviation.
 This implementation allows for automatic differentiation with \code{RTMB}.
 }
 \examples{
-x = rgamma2(1)
-d = dgamma2(x)
-p = pgamma2(x)
-q = qgamma2(p)
+x <- rgamma2(1)
+d <- dgamma2(x)
+p <- pgamma2(x)
+q <- qgamma2(p)
 }

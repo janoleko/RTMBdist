@@ -19,7 +19,7 @@ rwrpcauchy(n, mu = 0, rho, wrap = TRUE)
 
 \item{log}{logical; if \code{TRUE}, densities are returned on the log scale.}
 
-\item{n}{number of observations. If \code{length(n) > 1}, the length is taken to be the number required.}
+\item{n}{number of random values to return.}
 
 \item{wrap}{logical; if \code{TRUE}, generated angles are wrapped to the interval from -pi to pi.}
 }
@@ -35,6 +35,6 @@ This implementation of \code{dwrpcauchy} allows for automatic differentiation wi
 }
 \examples{
 set.seed(1)
-x = rwrpcauchy(10, 0, 1)
-d = dwrpcauchy(x, 0, 1)
+x <- rwrpcauchy(10, 0, 1)
+d <- dwrpcauchy(x, 0, 1)
 }
