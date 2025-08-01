@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Continuous distributions
 
-* [`beta2(mu, phi)`](https://janoleko.github.io/RTMBdist/reference/beta2.html): Beta distribution parameterised by mean `mu` and precision `phi`
+* [`beta2(mu, phi)`](../reference/beta2.html): Beta distribution parameterised by mean `mu` and precision `phi`
 
 * `foldnorm(mu, sigma)`: Folded normal distribution parameterised by location `mu` and scale `sigma`
 
