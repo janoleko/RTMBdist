@@ -3,15 +3,15 @@
 \name{zinbinom}
 \alias{zinbinom}
 \alias{dzinbinom}
-\alias{rzinbinom}
 \alias{pzinbinom}
+\alias{rzinbinom}
 \title{Zero-inflated negative binomial distribution}
 \usage{
 dzinbinom(x, size, prob, zeroprob = 0, log = FALSE)
 
-rzinbinom(n, size, prob, zeroprob = 0)
-
 pzinbinom(q, size, prob, zeroprob = 0, lower.tail = TRUE, log.p = FALSE)
+
+rzinbinom(n, size, prob, zeroprob = 0)
 }
 \arguments{
 \item{x, q}{vector of (non-negative integer) quantiles}
@@ -24,9 +24,9 @@ pzinbinom(q, size, prob, zeroprob = 0, lower.tail = TRUE, log.p = FALSE)
 
 \item{log, log.p}{logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.}
 
-\item{n}{number of random values to return.}
-
 \item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.}
+
+\item{n}{number of random values to return.}
 
 \item{p}{vector of probabilities}
 }
@@ -42,7 +42,7 @@ This implementation allows for automatic differentiation with \code{RTMB}.
 }
 \examples{
 set.seed(123)
-x <- rzinbinom(1, 2, 0.5)
-d <- dzinbinom(x, 2, 0.5)
-p <- pzinbinom(x, 2, 0.5)
+x <- rzinbinom(1, size = 2, prob = 0.5, zeroprob = 0.5)
+d <- dzinbinom(x, size = 2, prob = 0.5, zeroprob = 0.5)
+p <- pzinbinom(x, size = 2, prob = 0.5, zeroprob = 0.5)
 }

@@ -20,9 +20,9 @@
 #'
 #' @examples
 #' set.seed(123)
-#' x <- rzinbinom(1, 2, 0.5)
-#' d <- dzinbinom(x, 2, 0.5)
-#' p <- pzinbinom(x, 2, 0.5)
+#' x <- rzinbinom(1, size = 2, prob = 0.5, zeroprob = 0.5)
+#' d <- dzinbinom(x, size = 2, prob = 0.5, zeroprob = 0.5)
+#' p <- pzinbinom(x, size = 2, prob = 0.5, zeroprob = 0.5)
 #' @name zinbinom
 NULL
 #' @rdname zinbinom
@@ -50,18 +50,6 @@ dzinbinom <- function(x, size, prob, zeroprob = 0, log = FALSE) {
   return(exp(logdens))
 }
 #' @rdname zinbinom
-#' @importFrom stats runif rnbinom
-#' @export
-rzinbinom <- function(n, size, prob, zeroprob = 0) {
-  # ensure size >= 0, prob in (0,1], zeroprob in [0,1]
-  if (any(size <= 0)) stop("size must be > 0")
-  if (any(prob <= 0 | prob > 1)) stop("prob must be in (0,1]")
-  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
-  u <- runif(n)
-  res <- ifelse(u < zeroprob, 0, rnbinom(n, size=size, prob=prob))
-  return(res)
-}
-#' @rdname zinbinom
 #' @importFrom stats pnbinom
 #' @export
 pzinbinom <- function(q, size, prob, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
@@ -80,5 +68,17 @@ pzinbinom <- function(q, size, prob, zeroprob = 0, lower.tail = TRUE, log.p = FA
   if (!lower.tail) cdf <- 1 - cdf
   if (log.p) cdf <- log(cdf)
   return(cdf)
+}
+#' @rdname zinbinom
+#' @importFrom stats runif rnbinom
+#' @export
+rzinbinom <- function(n, size, prob, zeroprob = 0) {
+  # ensure size >= 0, prob in (0,1], zeroprob in [0,1]
+  if (any(size <= 0)) stop("size must be > 0")
+  if (any(prob <= 0 | prob > 1)) stop("prob must be in (0,1]")
+  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  u <- runif(n)
+  res <- ifelse(u < zeroprob, 0, rnbinom(n, size=size, prob=prob))
+  return(res)
 }
 

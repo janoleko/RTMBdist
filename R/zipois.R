@@ -20,6 +20,7 @@
 #' set.seed(123)
 #' x <- rzipois(1, 0.5, 1)
 #' d <- dzipois(x, 0.5, 1)
+#' p <- pzipois(x, 0.5, 1)
 #' @name zipois
 NULL
 #' @rdname zipois
@@ -46,17 +47,6 @@ dzipois <- function(x, lambda, zeroprob = 0, log = FALSE) {
   return(exp(logdens))
 }
 #' @rdname zipois
-#' @importFrom stats runif rpois
-#' @export
-rzipois <- function(n, lambda, zeroprob = 0) {
-  # ensure lambda >= 0, zeroprob in [0,1]
-  if (any(lambda < 0)) stop("lambda must be >= 0")
-  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
-  u <- runif(n)
-  res <- ifelse(u < zeroprob, 0, rpois(n, lambda))
-  return(res)
-}
-#' @rdname zipois
 #' @importFrom RTMB ppois
 #' @export
 pzipois <- function(q, lambda, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
@@ -78,4 +68,15 @@ pzipois <- function(q, lambda, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
   if (!lower.tail) cdf <- 1 - cdf
   if (log.p) cdf <- log(cdf)
   return(cdf)
+}
+#' @rdname zipois
+#' @importFrom stats runif rpois
+#' @export
+rzipois <- function(n, lambda, zeroprob = 0) {
+  # ensure lambda >= 0, zeroprob in [0,1]
+  if (any(lambda < 0)) stop("lambda must be >= 0")
+  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  u <- runif(n)
+  res <- ifelse(u < zeroprob, 0, rpois(n, lambda))
+  return(res)
 }

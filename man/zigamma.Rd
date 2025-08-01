@@ -3,15 +3,15 @@
 \name{zigamma}
 \alias{zigamma}
 \alias{dzigamma}
-\alias{rzigamma}
 \alias{pzigamma}
+\alias{rzigamma}
 \title{Zero-inflated gamma distribution}
 \usage{
 dzigamma(x, shape, scale, zeroprob = 0, log = FALSE)
 
-rzigamma(n, shape, scale, zeroprob = 0)
-
 pzigamma(q, shape, scale, zeroprob = 0)
+
+rzigamma(n, shape, scale, zeroprob = 0)
 }
 \arguments{
 \item{x, q}{vector of quantiles}

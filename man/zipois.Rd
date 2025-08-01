@@ -3,15 +3,15 @@
 \name{zipois}
 \alias{zipois}
 \alias{dzipois}
-\alias{rzipois}
 \alias{pzipois}
+\alias{rzipois}
 \title{Zero-inflated Poisson distribution}
 \usage{
 dzipois(x, lambda, zeroprob = 0, log = FALSE)
 
-rzipois(n, lambda, zeroprob = 0)
-
 pzipois(q, lambda, zeroprob = 0, lower.tail = TRUE, log.p = FALSE)
+
+rzipois(n, lambda, zeroprob = 0)
 }
 \arguments{
 \item{x, q}{integer vector of counts}
@@ -22,9 +22,9 @@ pzipois(q, lambda, zeroprob = 0, lower.tail = TRUE, log.p = FALSE)
 
 \item{log, log.p}{logical; return log-density if TRUE}
 
-\item{n}{number of random values to return.}
-
 \item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.}
+
+\item{n}{number of random values to return.}
 }
 \value{
 \code{dzipois} gives the probability mass function, \code{pzipois} gives the distribution function, and \code{rzipois} generates random deviates.
@@ -40,4 +40,5 @@ This implementation allows for automatic differentiation with \code{RTMB}.
 set.seed(123)
 x <- rzipois(1, 0.5, 1)
 d <- dzipois(x, 0.5, 1)
+p <- pzipois(x, 0.5, 1)
 }

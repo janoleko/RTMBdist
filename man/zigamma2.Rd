@@ -3,15 +3,15 @@
 \name{zigamma2}
 \alias{zigamma2}
 \alias{dzigamma2}
-\alias{rzigamma2}
 \alias{pzigamma2}
+\alias{rzigamma2}
 \title{Zero-inflated and reparameterised gamma distribution}
 \usage{
 dzigamma2(x, mean = 1, sd = 1, zeroprob = 0, log = FALSE)
 
-rzigamma2(n, mean = 1, sd = 1, zeroprob = 0)
-
 pzigamma2(q, mean = 1, sd = 1, zeroprob = 0)
+
+rzigamma2(n, mean = 1, sd = 1, zeroprob = 0)
 }
 \arguments{
 \item{x, q}{vector of quantiles}

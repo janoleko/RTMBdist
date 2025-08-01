@@ -34,23 +34,6 @@ dzigamma2 = function(x, mean = 1, sd = 1, zeroprob = 0, log = FALSE) {
   dzigamma(x, shape = shape, scale = scale, zeroprob = zeroprob, log = log)
 }
 #' @rdname zigamma2
-#' @importFrom stats runif rgamma
-#' @export
-rzigamma2 <- function(n, mean = 1, sd = 1, zeroprob = 0) {
-  # ensure mean, sd > 0
-  if (any(mean <= 0)) stop("mean must be strictly positive.")
-  if (any(sd <= 0)) stop("sd must be strictly positive.")
-  # ensure zeroprob in [0,1]
-  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
-
-  # parameter transformation
-  shape = mean^2 / sd^2
-  scale = sd^2 / mean
-
-  rzigamma(n, shape = shape, scale = scale, zeroprob = zeroprob)
-}
-#' @rdname zigamma2
-#' @importFrom RTMB pgamma
 #' @export
 pzigamma2 <- function(q, mean = 1, sd = 1, zeroprob = 0) {
   # ensure mean, sd > 0
@@ -64,4 +47,19 @@ pzigamma2 <- function(q, mean = 1, sd = 1, zeroprob = 0) {
   scale = sd^2 / mean
 
   pzigamma(q, shape = shape, scale = scale, zeroprob = zeroprob)
+}
+#' @rdname zigamma2
+#' @export
+rzigamma2 <- function(n, mean = 1, sd = 1, zeroprob = 0) {
+  # ensure mean, sd > 0
+  if (any(mean <= 0)) stop("mean must be strictly positive.")
+  if (any(sd <= 0)) stop("sd must be strictly positive.")
+  # ensure zeroprob in [0,1]
+  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+
+  # parameter transformation
+  shape = mean^2 / sd^2
+  scale = sd^2 / mean
+
+  rzigamma(n, shape = shape, scale = scale, zeroprob = zeroprob)
 }

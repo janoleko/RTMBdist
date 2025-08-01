@@ -48,18 +48,6 @@ dzigamma = function(x, shape, scale, zeroprob = 0, log = FALSE) {
   return(exp(logdens))
 }
 #' @rdname zigamma
-#' @importFrom stats runif rgamma
-#' @export
-rzigamma <- function(n, shape, scale, zeroprob = 0) {
-  # ensure shape >= 0, scale > 0, zeroprob in [0,1]
-  if (any(shape < 0)) stop("shape must be >= 0")
-  if (any(scale <= 0)) stop("scale must be > 0")
-  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
-  u <- runif(n)
-  res <- ifelse(u < zeroprob, 0, rgamma(n, shape = shape, scale = scale))
-  return(res)
-}
-#' @rdname zigamma
 #' @importFrom RTMB pgamma
 #' @export
 pzigamma <- function(q, shape, scale, zeroprob = 0) {
@@ -79,4 +67,16 @@ pzigamma <- function(q, shape, scale, zeroprob = 0) {
   cdf[positive] <- zeroprob + (1 - zeroprob) * pgamma(q[positive], shape, scale)
 
   return(cdf)
+}
+#' @rdname zigamma
+#' @importFrom stats runif rgamma
+#' @export
+rzigamma <- function(n, shape, scale, zeroprob = 0) {
+  # ensure shape >= 0, scale > 0, zeroprob in [0,1]
+  if (any(shape < 0)) stop("shape must be >= 0")
+  if (any(scale <= 0)) stop("scale must be > 0")
+  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  u <- runif(n)
+  res <- ifelse(u < zeroprob, 0, rgamma(n, shape = shape, scale = scale))
+  return(res)
 }
