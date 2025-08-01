@@ -1,6 +1,6 @@
 #' Zero-inflated negative binomial distribution
 #'
-#' Density, distribution function, quantile function and random generation for
+#' Probability mass function, distribution function, quantile function and random generation for
 #' the zero-inflated negative binomial distribution.
 #'
 #' @details

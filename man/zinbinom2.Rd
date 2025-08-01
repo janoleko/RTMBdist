@@ -34,7 +34,7 @@ rzinbinom2(n, mu, size, zeroprob = 0)
 \code{dzinbinom2} gives the density, \code{pzinbinom2} gives the distribution function, and \code{rzinbinom2} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function and random generation for
+Probability mass function, distribution function, quantile function and random generation for
 the zero-inflated negative binomial distribution reparameterised in terms of mean and size.
 }
 \details{
