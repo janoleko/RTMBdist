@@ -66,7 +66,12 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://janoleko.github.io/RTMBdist/">RTMBdist</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: RTMB</span></span></code></pre></div>
+<span><span class="co">#&gt; Loading required package: RTMB</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'RTMBdist'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:RTMB':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     dnbinom2</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="continuous-distributions">Continuous distributions<a class="anchor" aria-label="anchor" href="#continuous-distributions"></a>
 </h2>
@@ -78,6 +83,13 @@ by mean and standard deviation</p></li>
 <li><p><code>skewnormal(xi, omega, alpha)</code>: Skew normal
 distribution parameterised by location <code>xi</code>, scale
 <code>omega</code> and skewness <code>alpha</code></p></li>
+<li><p><code>skewt(mu, sigma, skew, df)</code>: Skew t-distribution
+parameterised by location <code>mu</code>, scale <code>sigma</code>,
+skewness <code>skew</code> and degrees of freedom
+<code>df</code></p></li>
+<li><p><code>t2(mu, sigma, df)</code>: Non-central and scaled
+t-distribution parameterised by location <code>mu</code>, scale
+<code>sigma</code> and degrees of freedom <code>df</code></p></li>
 <li><p><code>vm(mu, kappa)</code>: Von Mises distribution parameterised
 by mean direction <code>mu</code> and concentration
 <code>kappa</code></p></li>
@@ -96,11 +108,12 @@ zero-probability <code>zeroprob</code></p></li>
 <h2 id="discrete-distributions">Discrete distributions<a class="anchor" aria-label="anchor" href="#discrete-distributions"></a>
 </h2>
 <ul>
-<li>
-<code>zipois(lambda, zeroprob)</code>: Zero-inflated Poisson
+<li><p><code>nbinom2(mu, size)</code>: Negative binomial distribution
+parameterised by mean <code>mu</code> and size
+<code>size</code></p></li>
+<li><p><code>zipois(lambda, zeroprob)</code>: Zero-inflated Poisson
 distribution parameterised by rate <code>lambda</code> and
-zero-probability <code>zeroprob</code>
-</li>
+zero-probability <code>zeroprob</code></p></li>
 </ul>
 </div>
 <div class="section level2">
