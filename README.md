@@ -26,7 +26,7 @@ vignette.
 
 ## Installation
 
-You can install the development version of RTMBdist from
+You can install the development version of `RTMBdist` from
 [GitHub](https://github.com/) with:
 
 ``` r

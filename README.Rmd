@@ -26,7 +26,7 @@ The full list of distributions currently available is given in the [List of dist
 
 ## Installation
 
-You can install the development version of RTMBdist from [GitHub](https://github.com/) with:
+You can install the development version of `RTMBdist` from [GitHub](https://github.com/) with:
 
 ```{r install, eval = FALSE}
 devtools::install_github("janoleko/RTMBdist")
