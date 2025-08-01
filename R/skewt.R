@@ -7,6 +7,8 @@
 #' This corresponds to the skew t type 2 distribution in GAMLSS (\code{\link[gamlss.dist]{ST2}}), see pp. 411-412 of Rigby et al. (2019) and the version implemented in the \code{sn} package.
 #' This implementation of \code{dskewt} allows for automatic differentiation with \code{RTMB} while the other functions are imported from the \code{sn} package.
 #'
+#' \strong{Caution:} In a numerial optimisation, the \code{skew} parameter should NEVER be initialised with exactly zero.
+#' This will cause the initial and all subsequent derivatives to be exactly zero and hence the parameter will remain at its initial value.
 #'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
@@ -33,7 +35,16 @@ NULL
 #' @rdname skewt
 #' @export
 #' @importFrom RTMB dt
-dskewt <- function(x, mu = 0, sigma = 1, skew = 0, df = 1e3, log = FALSE){
+dskewt <- function(x, mu = 0, sigma = 1, skew = 0, df = 1e3, log = FALSE) {
+
+  # potentially escape to RNG or CDF
+  if(inherits(x, "simref")) {
+    return(dGenericSim("dskewt", x=x, mu=mu, sigma=sigma, skew=skew, df=df, log=log))
+  }
+  if(inherits(x, "osa")) {
+    return(dGenericOSA("dskewt", x=x, mu=mu, sigma=sigma, skew=skew, df=df, log=log))
+  }
+
   z <- (x - mu) / sigma
   lambda <- (df + 1) / (df + z^2)
   omega <- skew * sqrt(lambda) * z
@@ -49,8 +60,11 @@ dskewt <- function(x, mu = 0, sigma = 1, skew = 0, df = 1e3, log = FALSE){
 
 #' @import RTMB
 pt_ad <- function(q, df) {
+  # AD compatible version of pt - slightly sketchy but works
+
   x <- df / (df + q^2)
   q <- q + 1e-8 # avoid numerical issues with q = 0
+  # if skew is exactly zero, q will be zero and the gradient will be exactly zero
 
   val <- RTMB::pbeta(x, df / 2, 0.5) / 2
   test <- 0.5 * (sign(q) + 1)  # test if q > 0
@@ -95,3 +109,6 @@ rskewt <- function(n, mu = 0, sigma = 1, skew = 0, df = 1e3) {
   as.numeric(rst(n, xi=mu, omega=sigma, alpha=skew, nu=df))
 }
 
+f <- function(par){
+  sum(dskewt(c(1,2,3), par[1], par[2], par[3], par[4], log = TRUE))
+}
