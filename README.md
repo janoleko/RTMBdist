@@ -17,7 +17,7 @@ probability distributions is limited to standard cases. `RTMBdist` fills
 this gap by providing a collection of non-standard, AD-compatible
 distributions, extending the range of models that can be implemented and
 estimated with `RTMB`. All the distributions implemented in `RTMBdist`
-allow for automatic simulation and residuals calculation by `RTMB`.
+allow for automatic simulation and residual calculation by `RTMB`.
 
 The full list of distributions currently available is given in the [List
 of
