@@ -49,7 +49,7 @@ the zero-inflated Poisson distribution.</p>
 <span></span>
 <span><span class="fu">rzipois</span><span class="op">(</span><span class="va">n</span>, <span class="va">lambda</span>, zeroprob <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">pzipois</span><span class="op">(</span><span class="va">q</span>, <span class="va">lambda</span>, zeroprob <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">pzipois</span><span class="op">(</span><span class="va">q</span>, <span class="va">lambda</span>, zeroprob <span class="op">=</span> <span class="fl">0</span>, lower.tail <span class="op">=</span> <span class="cn">TRUE</span>, log.p <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -68,12 +68,16 @@ the zero-inflated Poisson distribution.</p>
 <dd><p>zero-inflation probability between 0 and 1</p></dd>
 
 
-<dt id="arg-log">log<a class="anchor" aria-label="anchor" href="#arg-log"></a></dt>
+<dt id="arg-log-log-p">log, log.p<a class="anchor" aria-label="anchor" href="#arg-log-log-p"></a></dt>
 <dd><p>logical; return log-density if TRUE</p></dd>
 
 
 <dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
 <dd><p>number of random values to return.</p></dd>
+
+
+<dt id="arg-lower-tail">lower.tail<a class="anchor" aria-label="anchor" href="#arg-lower-tail"></a></dt>
+<dd><p>logical; if <code>TRUE</code>, probabilities are \(P[X &lt;= x]\), otherwise, \(P[X &gt; x]\).</p></dd>
 
 </dl></div>
     <div class="section level2">
