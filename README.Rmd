@@ -45,7 +45,7 @@ set.seed(123)
 ```{r example}
 library(RTMBdist)
 
-# draw data
+# simulate data
 x <- rgamma2(100, mean = 5, sd = 2)
 
 # negative log-likelihood function
@@ -64,7 +64,11 @@ opt <- nlminb(obj$par, obj$fn, obj$gr)
 
 # model summary
 summary(sdreport(obj))
+```
 
+Through the magic of `RTMB`, we can also immediately simulate new data from the fitted model and calculate residuals:
+
+```{r sim_residuals}
 # simulate new data
 x_new <- obj$simulate()
 

@@ -43,7 +43,7 @@ and standard deviation, which is available in the `gamma2` family:
 library(RTMBdist)
 #> Loading required package: RTMB
 
-# draw data
+# simulate data
 x <- rgamma2(100, mean = 5, sd = 2)
 
 # negative log-likelihood function
@@ -67,7 +67,12 @@ summary(sdreport(obj))
 #> par   0.5151734 0.07757581
 #> mu    4.8091338 0.16739278
 #> sigma 1.6739287 0.12985637
+```
 
+Through the magic of `RTMB`, we can also immediately simulate new data
+from the fitted model and calculate residuals:
+
+``` r
 # simulate new data
 x_new <- obj$simulate()
 
@@ -76,4 +81,4 @@ osa <- oneStepPredict(obj, method = "cdf", trace = FALSE)
 qqnorm(osa$res); abline(0, 1)
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-sim_residuals-1.png" width="100%" />
