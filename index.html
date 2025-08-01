@@ -73,7 +73,7 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://janoleko.github.io/RTMBdist/">RTMBdist</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: RTMB</span></span>
 <span></span>
-<span><span class="co"># draw data</span></span>
+<span><span class="co"># simulate data</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gamma2.html">rgamma2</a></span><span class="op">(</span><span class="fl">100</span>, mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># negative log-likelihood function</span></span>
@@ -96,15 +96,16 @@
 <span><span class="co">#&gt; par   1.5705170 0.03480726</span></span>
 <span><span class="co">#&gt; par   0.5151734 0.07757581</span></span>
 <span><span class="co">#&gt; mu    4.8091338 0.16739278</span></span>
-<span><span class="co">#&gt; sigma 1.6739287 0.12985637</span></span>
-<span></span>
-<span><span class="co"># simulate new data</span></span>
+<span><span class="co">#&gt; sigma 1.6739287 0.12985637</span></span></code></pre></div>
+<p>Through the magic of <code>RTMB</code>, we can also immediately simulate new data from the fitted model and calculate residuals:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># simulate new data</span></span>
 <span><span class="va">x_new</span> <span class="op">&lt;-</span> <span class="va">obj</span><span class="op">$</span><span class="fu">simulate</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># calculate residuals</span></span>
 <span><span class="va">osa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RTMB/man/OSA-residuals.html" class="external-link">oneStepPredict</a></span><span class="op">(</span><span class="va">obj</span>, method <span class="op">=</span> <span class="st">"cdf"</span>, trace <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></span><span class="op">(</span><span class="va">osa</span><span class="op">$</span><span class="va">res</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-example-1.png" width="100%"></p>
+<p><img src="reference/figures/README-sim_residuals-1.png" width="100%"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
