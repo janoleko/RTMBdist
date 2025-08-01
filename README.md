@@ -10,14 +10,14 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R-CMD-check](https://github.com/janoleko/RTMBdist/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/janoleko/RTMBdist/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The `RTMBdist` package extends the functionality of the
-[`RTMB`](https://kaskr.r-universe.dev/RTMB) framework by providing a
-collection of non-standard probability distributions that are compatible
-with automatic differentiation (AD). While `RTMB` enables flexible and
-efficient modelling - including random effects - its built-in support is
-limited to standard distributions. This package fills that gap by
-offering additional, AD-compatible distributions, broadening the range
-of models that can be implemented and estimated using `RTMB`.
+The [`RTMB`](https://kaskr.r-universe.dev/RTMB) package enables powerful
+and flexible statistical modelling with rich random effect structures
+using automatic differentiation (AD). However, its built-in support for
+probability distributions is limited to standard cases. `RTMBdist` fills
+this gap by providing a collection of non-standard, AD-compatible
+distributions, extending the range of models that can be implemented and
+estimated within `RTMB`. All the distributions implemented in `RTMBdist`
+allow for automatic simulation and residuals calculation by `RTMB`.
 
 The full list of distributions currently available is given in the [List
 of
@@ -42,6 +42,11 @@ and standard deviation, which is available in the `gamma2` family:
 ``` r
 library(RTMBdist)
 #> Loading required package: RTMB
+#> 
+#> Attaching package: 'RTMBdist'
+#> The following object is masked from 'package:RTMB':
+#> 
+#>     dnbinom2
 
 # simulate data
 x <- rgamma2(100, mean = 5, sd = 2)
