@@ -70,14 +70,48 @@
 <div class="section level2">
 <h2 id="continuous-distributions">Continuous distributions<a class="anchor" aria-label="anchor" href="#continuous-distributions"></a>
 </h2>
+<ul>
+<li><p><code>beta2(mu, phi)</code>: Beta distribution parameterised by
+mean <code>mu</code> and precision <code>phi</code></p></li>
+<li><p><code>gamma2(mean, sd)</code>: Gamma distribution parameterised
+by mean and standard deviation</p></li>
+<li><p><code>skewnormal(xi, omega, alpha)</code>: Skew normal
+distribution parameterised by location <code>xi</code>, scale
+<code>omega</code> and skewness <code>alpha</code></p></li>
+<li><p><code>vm(mu, kappa)</code>: Von Mises distribution parameterised
+by mean direction <code>mu</code> and concentration
+<code>kappa</code></p></li>
+<li><p><code>wrpcauchy(mu, rho)</code>: Wrapped Cauchy distribution
+parameterised by mean direction <code>mu</code> and concentration
+<code>rho</code></p></li>
+<li><p><code>zigamma(shape, scale, zeroprob)</code>: Zero-inflated gamma
+distribution parameterised by shape and scale, with a zero-probability
+<code>zeroprob</code></p></li>
+<li><p><code>zigamma2(mean, sd, zeroprob)</code>: Zero-inflated gamma
+distribution parameterised by mean, standard deviation and
+zero-probability <code>zeroprob</code></p></li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="discrete-distributions">Discrete distributions<a class="anchor" aria-label="anchor" href="#discrete-distributions"></a>
 </h2>
+<ul>
+<li>
+<code>zipois(lambda, zeroprob)</code>: Zero-inflated Poisson
+distribution parameterised by rate <code>lambda</code> and
+zero-probability <code>zeroprob</code>
+</li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="multivariate-distributions">Multivariate distributions<a class="anchor" aria-label="anchor" href="#multivariate-distributions"></a>
 </h2>
+<ul>
+<li>
+<code>dirichlet(alpha)</code>: Dirichlet distribution parameterised
+by concentration parameter vector <code>alpha</code>
+</li>
+</ul>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
