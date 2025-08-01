@@ -19,6 +19,11 @@ limited to standard distributions. This package fills that gap by
 offering additional, AD-compatible distributions, broadening the range
 of models that can be implemented and estimated using `RTMB`.
 
+The full list of distributions currently available is given in the [List
+of
+distributions](https://janoleko.github.io/RTMBdist/articles/distlist.html)
+vignette.
+
 ## Installation
 
 You can install the development version of RTMBdist from

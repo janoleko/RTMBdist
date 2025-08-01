@@ -24,6 +24,8 @@ The `RTMBdist` package extends the functionality of the [`RTMB`](https://kaskr.r
 While `RTMB` enables flexible and efficient modelling - including random effects - its built-in support is limited to standard distributions. 
 This package fills that gap by offering additional, AD-compatible distributions, broadening the range of models that can be implemented and estimated using `RTMB`.
 
+The full list of distributions currently available is given in the [List of distributions](https://janoleko.github.io/RTMBdist/articles/distlist.html) vignette.
+
 ## Installation
 
 You can install the development version of RTMBdist from [GitHub](https://github.com/) with:
