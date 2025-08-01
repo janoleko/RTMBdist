@@ -18,42 +18,42 @@ knitr::opts_chunk$set(
 
 * [`beta2(mu, phi)`](../reference/beta2.html): Beta distribution parameterised by mean `mu` and precision `phi`
 
-* `foldnorm(mu, sigma)`: Folded normal distribution parameterised by location `mu` and scale `sigma`
+* [`foldnorm(mu, sigma)`](../reference/foldnorm.html): Folded normal distribution parameterised by location `mu` and scale `sigma`
 
-* `gamma2(mean, sd)`: Gamma distribution parameterised by mean and standard deviation
+* [`gamma2(mean, sd)`](../reference/gamma2.html): Gamma distribution parameterised by mean and standard deviation
 
-* `skewnormal(xi, omega, alpha)`: Skew normal distribution parameterised by location `xi`, scale `omega` and skewness `alpha`
+* [`skewnormal(xi, omega, alpha)`](../reference/skewnormal.html): Skew normal distribution parameterised by location `xi`, scale `omega` and skewness `alpha`
 
-* `skewt(mu, sigma, skew, df)`: Skew t-distribution parameterised by location `mu`, scale `sigma`, skewness `skew` and degrees of freedom `df`
+* [`skewt(mu, sigma, skew, df)`](../reference/skewt.html): Skew t-distribution parameterised by location `mu`, scale `sigma`, skewness `skew` and degrees of freedom `df`
 
-* `truncnorm(mean, sd, min, max)`: Truncated normal distribution parameterised by mean, standard deviation, lower bound `min` and upper bound `max`
+* [`truncnorm(mean, sd, min, max)`](../reference/truncnorm.html): Truncated normal distribution parameterised by mean, standard deviation, lower bound `min` and upper bound `max`
 
-* `t2(mu, sigma, df)`: Non-central and scaled t-distribution parameterised by location `mu`, scale `sigma` and degrees of freedom `df`
+* [`t2(mu, sigma, df)`](../reference/t2.html): Non-central and scaled t-distribution parameterised by location `mu`, scale `sigma` and degrees of freedom `df`
 
-* `vm(mu, kappa)`: Von Mises distribution parameterised by mean direction `mu` and concentration `kappa`
+* [`vm(mu, kappa)`](../reference/vm.html): Von Mises distribution parameterised by mean direction `mu` and concentration `kappa`
 
-* `wrpcauchy(mu, rho)`: Wrapped Cauchy distribution parameterised by mean direction `mu` and concentration `rho`
+* [`wrpcauchy(mu, rho)`](../reference/wrpcauchy.html): Wrapped Cauchy distribution parameterised by mean direction `mu` and concentration `rho`
 
-* `zigamma(shape, scale, zeroprob)`: Zero-inflated gamma distribution parameterised by shape and scale, with a zero-probability `zeroprob`
+* [`zigamma(shape, scale, zeroprob)`](../reference/zigamma.html): Zero-inflated gamma distribution parameterised by shape and scale, with a zero-probability `zeroprob`
 
-* `zigamma2(mean, sd, zeroprob)`: Zero-inflated gamma distribution parameterised by mean, standard deviation and zero-probability `zeroprob`
+* [`zigamma2(mean, sd, zeroprob)`](../reference/zigamma2.html): Zero-inflated gamma distribution parameterised by mean, standard deviation and zero-probability `zeroprob`
 
 
 
 ## Discrete distributions
 
-* `nbinom2(mu, size)`: Negative binomial distribution parameterised by mean `mu` and size `size`
+* [`nbinom2(mu, size)`](../reference/nbinom2.html): Negative binomial distribution parameterised by mean `mu` and size `size`
 
-* `zibinom(size, prob, zeroprob)`: Zero-inflated binomial distribution parameterised by size `size`, success probability `prob` and zero-probability `zeroprob`
+* [`zibinom(size, prob, zeroprob)`](../reference/zibinom.html): Zero-inflated binomial distribution parameterised by size `size`, success probability `prob` and zero-probability `zeroprob`
 
-* `zinbinom(size, prob, zeroprob)`: Zero-inflated negative binomial distribution parameterised by size `size`, success probability `prob` and zero-probability `zeroprob`
+* [`zinbinom(size, prob, zeroprob)`](../reference/zinbinom.html): Zero-inflated negative binomial distribution parameterised by size `size`, success probability `prob` and zero-probability `zeroprob`
 
-* `zinbinom2(mu, size, zeroprob)`: Zero-inflated negative binomial distribution parameterised by mean `mu`, size `size` and zero-probability `zeroprob`
+* [`zinbinom2(mu, size, zeroprob)`](../reference/zinbinom2.html): Zero-inflated negative binomial distribution parameterised by mean `mu`, size `size` and zero-probability `zeroprob`
 
-* `zipois(lambda, zeroprob)`: Zero-inflated Poisson distribution parameterised by rate `lambda` and zero-probability `zeroprob`
+* [`zipois(lambda, zeroprob)`](../reference/zipois.html): Zero-inflated Poisson distribution parameterised by rate `lambda` and zero-probability `zeroprob`
 
 
 
 ## Multivariate distributions
 
-* `dirichlet(alpha)`: Dirichlet distribution parameterised by concentration parameter vector `alpha`
+* [`dirichlet(alpha)`](../reference/dirichlet.html): Dirichlet distribution parameterised by concentration parameter vector `alpha`
