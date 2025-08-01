@@ -52,9 +52,9 @@ dzigamma = function(x, shape, scale, zeroprob = 0, log = FALSE) {
 #' @export
 pzigamma <- function(q, shape, scale, zeroprob = 0) {
   # ensure shape >= 0, scale > 0, zeroprob in [0,1]
-  if (any(shape < 0)) stop("shape must be >= 0")
-  if (any(scale <= 0)) stop("scale must be > 0")
-  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  # if (any(shape < 0)) stop("shape must be >= 0")
+  # if (any(scale <= 0)) stop("scale must be > 0")
+  # if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
 
   cdf <- numeric(length(q))
 

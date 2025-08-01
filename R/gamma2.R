@@ -39,8 +39,8 @@ dgamma2 = function(x, mean = 1, sd = 1, log = FALSE) {
   }
 
   # parameter transformation
-  shape = mean^2 / sd^2
-  scale = sd^2 / mean
+  shape <- mean^2 / sd^2
+  scale <- sd^2 / mean
   dgamma(x = x, shape = shape, scale = scale, log = log)
 }
 
@@ -49,13 +49,18 @@ dgamma2 = function(x, mean = 1, sd = 1, log = FALSE) {
 #' @importFrom RTMB pgamma
 pgamma2 = function(q, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
   # ensure mean, sd > 0
-  if (any(mean <= 0)) stop("mean must be strictly positive.")
-  if (any(sd <= 0)) stop("sd must be strictly positive.")
+  # if (any(mean <= 0)) stop("mean must be strictly positive.")
+  # if (any(sd <= 0)) stop("sd must be strictly positive.")
 
   # parameter transformation
-  shape = mean^2 / sd^2
-  scale = sd^2 / mean
-  pgamma(q = q, shape = shape, scale = scale, lower.tail = lower.tail, log.p = log.p)
+  shape <- mean^2 / sd^2
+  scale <- sd^2 / mean
+  p <- pgamma(q = q, shape = shape, scale = scale)
+
+  if(!lower.tail) p <- 1 - p
+  if(log.p) p <- log(p)
+
+  return(p)
 }
 
 #' @rdname gamma2
@@ -67,8 +72,8 @@ qgamma2 = function(p, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
   if (any(sd <= 0)) stop("sd must be strictly positive.")
 
   # parameter transformation
-  shape = mean^2 / sd^2
-  scale = sd^2 / mean
+  shape <- mean^2 / sd^2
+  scale <- sd^2 / mean
   qgamma(p = p, shape = shape, scale = scale, lower.tail = lower.tail, log.p = log.p)
 }
 

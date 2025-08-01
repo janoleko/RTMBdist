@@ -58,7 +58,7 @@ dfoldnorm <- function(x, mu = 0, sigma = 1, log = FALSE) {
 #' @export
 pfoldnorm <- function(q, mu = 0, sigma = 1, lower.tail = TRUE, log.p = FALSE) {
   # ensure sigma > 0
-  if (sigma <= 0) stop("sigma must be positive")
+  # if (sigma <= 0) stop("sigma must be positive")
 
   below_zero <- q < 0
 

@@ -46,9 +46,9 @@ dzinbinom2 <- function(x, mu, size, zeroprob = 0, log = FALSE) {
 #' @export
 pzinbinom2 <- function(q, mu, size, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
   # ensure mu, size > 0, zeroprob in [0,1]
-  if (any(mu <= 0)) stop("mu must be > 0")
-  if (any(size <= 0)) stop("size must be > 0")
-  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  # if (any(mu <= 0)) stop("mu must be > 0")
+  # if (any(size <= 0)) stop("size must be > 0")
+  # if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
 
   # parameter transformation
   prob <- size / (size + mu)

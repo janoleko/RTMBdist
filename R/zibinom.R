@@ -52,9 +52,9 @@ dzibinom <- function(x, size, prob, zeroprob = 0, log = FALSE) {
 #' @export
 pzibinom <- function(q, size, prob, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
   # ensure size positive integer >= 1, prob in [0,1], zeroprob in [0,1]
-  if (any(size < 1 | floor(size) != size)) stop("size must be a non-negative integer")
-  if (any(prob < 0 | prob > 1)) stop("prob must be in [0,1]")
-  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  # if (any(size < 1 | floor(size) != size)) stop("size must be a non-negative integer")
+  # if (any(prob < 0 | prob > 1)) stop("prob must be in [0,1]")
+  # if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
 
   q <- floor(q)  # make sure it's integer-valued
   cdf <- numeric(length(q))

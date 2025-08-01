@@ -79,8 +79,8 @@ pt_ad <- function(q, df) {
 #' @importFrom sn pst
 pskewt <- function(q, mu = 0, sigma = 1, skew = 0, df = 1e3, method = 0, lower.tail = TRUE, log.p = FALSE) {
   # ensure sigma, df > 0
-  if (sigma <= 0) stop("sigma must be strictly positive.")
-  if (df <= 0) stop("df must be strictly positive.")
+  # if (sigma <= 0) stop("sigma must be strictly positive.")
+  # if (df <= 0) stop("df must be strictly positive.")
 
   pst(q, xi=mu, omega=sigma, alpha=skew, nu=df, method=method, lower.tail=lower.tail, log.p=log.p)
 }

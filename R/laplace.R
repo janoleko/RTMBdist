@@ -47,7 +47,7 @@ dlaplace <- function(x, mu = 0, b = 1, log = FALSE) {
 #' @export
 plaplace <- function(q, mu = 0, b = 1, lower.tail = TRUE, log.p = FALSE) {
   # ensure b > 0
-  if (b <= 0) stop("b must be strictly positive.")
+  # if (b <= 0) stop("b must be strictly positive.")
 
   z <- (q - mu) / b
   p <- ifelse(z < 0, 0.5 * exp(z), 1 - 0.5 * exp(-z))

@@ -71,7 +71,7 @@ dtruncnorm <- function(x, mean, sd, min = -Inf, max = Inf, log = FALSE) {
 #'            lower.tail = TRUE, log.p = FALSE)
 #' @importFrom RTMB pnorm
 ptruncnorm <- function(q, mean = 0, sd = 1, min = -Inf, max = Inf, lower.tail = TRUE, log.p = FALSE) {
-  if (sd <= 0) stop("Standard deviation 'sd' must be positive.")
+  # if (sd <= 0) stop("Standard deviation 'sd' must be positive.")
 
   # CDF for values below the lower bound is 0 (or -Inf if log.p)
   below <- q < min

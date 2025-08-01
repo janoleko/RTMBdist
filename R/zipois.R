@@ -51,8 +51,8 @@ dzipois <- function(x, lambda, zeroprob = 0, log = FALSE) {
 #' @export
 pzipois <- function(q, lambda, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
   # ensure lambda >= 0, zeroprob in [0,1]
-  if (any(lambda < 0)) stop("lambda must be >= 0")
-  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  # if (any(lambda < 0)) stop("lambda must be >= 0")
+  # if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
 
   q <- floor(q)  # make sure it's integer-valued
   cdf <- numeric(length(q))
