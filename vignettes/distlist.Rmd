@@ -41,7 +41,11 @@ knitr::opts_chunk$set(
 
 * `nbinom2(mu, size)`: Negative binomial distribution parameterised by mean `mu` and size `size`
 
+* `zibinom(size, prob, zeroprob)`: Zero-inflated binomial distribution parameterised by size `size`, success probability `prob` and zero-probability `zeroprob`
+
 * `zinbinom(size, prob, zeroprob)`: Zero-inflated negative binomial distribution parameterised by size `size`, success probability `prob` and zero-probability `zeroprob`
+
+* `zinbinom2(mu, size, zeroprob)`: Zero-inflated negative binomial distribution parameterised by mean `mu`, size `size` and zero-probability `zeroprob`
 
 * `zipois(lambda, zeroprob)`: Zero-inflated Poisson distribution parameterised by rate `lambda` and zero-probability `zeroprob`
 
