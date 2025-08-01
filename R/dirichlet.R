@@ -14,7 +14,14 @@
 #' \code{ddirichlet} gives the density.
 #'
 #' @examples
-#' ddirichlet(c(0.2, 0.3, 0.5), c(1, 2, 3))
+#' # single alpha
+#' alpha <- c(1,2,3)
+#' x <- rdirichlet(1, alpha)
+#' d <- ddirichlet(x, alpha)
+#' # vectorised over alpha
+#' alpha <- rbind(alpha, 2*alpha)
+#' x <- rdirichlet(2, alpha)
+#  d <- ddirichlet(x, alpha)
 #' @name dirichlet
 NULL
 
@@ -22,6 +29,15 @@ NULL
 #' @export
 #' @import RTMB
 ddirichlet <- function(x, alpha, log = TRUE) {
+
+  # potentially escape to RNG or produce error for CDF
+  if(inherits(x, "simref")) {
+    return(dGenericSim("ddirichlet", x=x, alpha=alpha, log=log))
+  }
+  if(inherits(x, "osa")) {
+    stop("Dirichlet does not support OSA residuals.")
+  }
+
   # Check if x and alpha are vectors by checking if they have dimensions
   if (is.null(dim(x))) x <- matrix(x, nrow = 1)
   if (is.null(dim(alpha))) alpha <- matrix(alpha, nrow = 1)
@@ -37,10 +53,31 @@ ddirichlet <- function(x, alpha, log = TRUE) {
   # Compute log density for each row
   log_density <- rowSums((alpha - 1) * log(x)) - log_B_alpha
 
+  log_density <- as.numeric(log_density)
+
   # Return result based on the 'log' argument
   if (log) {
     return(log_density)
   } else {
     return(exp(log_density))
   }
+}
+#' @rdname dirichlet
+#' @export
+#' @importFrom stats rgamma
+rdirichlet <- function(n, alpha) {
+
+  if(is.vector(alpha)){
+    longalpha <- rep(alpha, n)
+    k <- length(alpha)
+  } else if(is.matrix(alpha)){
+    if(nrow(alpha) != n) stop("Number of rows in alpha must match n.")
+
+    longalpha <- as.vector(t(alpha))
+    k <- ncol(alpha)
+  }
+
+  x <- rgamma(n * k, shape = longalpha, scale = 1)
+  x <- matrix(x, nrow = n, ncol = k, byrow = TRUE)
+  x / rowSums(x)
 }

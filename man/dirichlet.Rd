@@ -3,9 +3,12 @@
 \name{dirichlet}
 \alias{dirichlet}
 \alias{ddirichlet}
+\alias{rdirichlet}
 \title{Dirichlet distribution}
 \usage{
 ddirichlet(x, alpha, log = TRUE)
+
+rdirichlet(n, alpha)
 }
 \arguments{
 \item{x}{vector or matrix of quantiles. If \code{x} is a vector, it needs to sum to one.
@@ -25,5 +28,11 @@ Density of the Dirichlet distribution.
 This implementation of \code{ddirichlet} allows for automatic differentiation with \code{RTMB}.
 }
 \examples{
-ddirichlet(c(0.2, 0.3, 0.5), c(1, 2, 3))
+# single alpha
+alpha <- c(1,2,3)
+x <- rdirichlet(1, alpha)
+d <- ddirichlet(x, alpha)
+# vectorised over alpha
+alpha <- rbind(alpha, 2*alpha)
+x <- rdirichlet(2, alpha)
 }
