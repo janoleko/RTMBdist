@@ -37,7 +37,7 @@ devtools::install_github("janoleko/RTMBdist")
 
 Let’s pretend we want to do numerical maximum likelihood estimation
 (MLE) for a gamma distribution that is parameterised in terms of mean
-and standard deviation, which is available in the `gamma2` family:
+and standard deviation, which is available with the `gamma2` family:
 
 ``` r
 library(RTMBdist)
