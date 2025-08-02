@@ -48,7 +48,8 @@ dt2 = function(x, mu, sigma, df, log = FALSE){
 #' @importFrom stats pt
 pt2 <- function(q, mu, sigma, df){
   z <- (q - mu) / sigma
-  stats::pt(z, df)
+  # stats::pt(z, df)
+  pt_ad(z, df)
 }
 #' @rdname t2
 #' @export

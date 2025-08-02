@@ -35,7 +35,8 @@ dvm = function(x, mu = 0, kappa = 1, log = FALSE) {
     return(dGenericSim("dvm", x = x, mu = mu, kappa = kappa, log=log))
   }
   if(inherits(x, "osa")) {
-    return(dGenericOSA("dvm", x = x, mu = mu, kappa = kappa, log=log))
+    # return(dGenericOSA("dvm", x = x, mu = mu, kappa = kappa, log=log))
+    stop("von Mises does not support OSA residuals.")
   }
 
   logdens <- -log(2 * pi) -
