@@ -26,6 +26,8 @@ knitr::opts_chunk$set(
 
 * [`skewnorm(xi, omega, alpha)`](../reference/skewnorm.html): Skew normal distribution parameterised by location `xi`, scale `omega` and skewness `alpha`
 
+* [`skewnorm2(mean, sd, alpha)`](../reference/skewnorm2.html): Skew normal distribution parameterised by mean, standard deviation and skewness `alpha`
+
 * [`skewt(mu, sigma, skew, df)`](../reference/skewt.html): Skew t-distribution parameterised by location `mu`, scale `sigma`, skewness `skew` and degrees of freedom `df`
 
 * [`truncnorm(mean, sd, min, max)`](../reference/truncnorm.html): Truncated normal distribution parameterised by mean, standard deviation, lower bound `min` and upper bound `max`
