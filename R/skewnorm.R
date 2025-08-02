@@ -1,3 +1,8 @@
+# vecotorizing sn functions
+psn <- Vectorize(sn::psn)
+qsn <- Vectorize(sn::qsn)
+rsn <- Vectorize(sn::rsn)
+
 #' Skew normal distribution
 #'
 #' Density, distribution function, quantile function and random generation for
@@ -38,7 +43,8 @@ dskewnorm <- function(x, xi = 0, omega = 1, alpha = 0, log = FALSE) {
     return(dGenericSim("dskewnorm", x=x, xi=xi, omega=omega, alpha=alpha, log=log))
   }
   if(inherits(x, "osa")) {
-    return(dGenericOSA("dskewnorm", x=x, xi=xi, omega=omega, alpha=alpha, log=log))
+    # return(dGenericOSA("dskewnorm", x=x, xi=xi, omega=omega, alpha=alpha, log=log))
+    stop("Currently, skew normal does not support OSA residuals.")
   }
 
   z = (x - xi) / omega # standardised observation
