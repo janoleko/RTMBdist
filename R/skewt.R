@@ -42,7 +42,8 @@ dskewt <- function(x, mu = 0, sigma = 1, skew = 0, df = 1e3, log = FALSE) {
     return(dGenericSim("dskewt", x=x, mu=mu, sigma=sigma, skew=skew, df=df, log=log))
   }
   if(inherits(x, "osa")) {
-    return(dGenericOSA("dskewt", x=x, mu=mu, sigma=sigma, skew=skew, df=df, log=log))
+    # return(dGenericOSA("dskewt", x=x, mu=mu, sigma=sigma, skew=skew, df=df, log=log))
+    stop("Currently, skew t does not support OSA residuals.")
   }
 
   z <- (x - mu) / sigma
