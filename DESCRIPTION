@@ -17,7 +17,8 @@ Imports:
     stats,
     circular,
     sn,
-    statmod
+    statmod,
+    movMF
 Depends:
     R (>= 3.5.0),
     RTMB

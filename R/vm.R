@@ -9,6 +9,8 @@
 #' @param x,q vector of angles measured in radians at which to evaluate the density function.
 #' @param mu mean direction of the distribution measured in radians.
 #' @param kappa non-negative numeric value for the concentration parameter of the distribution.
+#'
+#' \strong{Caution}: currently \code{kappa} > 600 can lead to numerical overflow
 #' @param log logical; if \code{TRUE}, densities are returned on the log scale.
 #' @param n number of random values to return.
 #' @param tol the precision in evaluating the distribution function

@@ -65,3 +65,5 @@ knitr::opts_chunk$set(
 ## Multivariate distributions
 
 * [`dirichlet(alpha)`](../reference/dirichlet.html): Dirichlet distribution parameterised by concentration parameter vector `alpha`
+
+* [`vmf(mu, kappa)`](../reference/vmf.html): Multivariate von Mises-Fisher distribution parameterised by unit mean vector `mu` and concentration `kappa`
