@@ -8,9 +8,9 @@ Authors@R: c(
           role = c("aut", "cre"),
           comment = c(ORCID = "0009-0004-1556-9053")))
 Description: 
-  The RTMBdist package extends the functionality of the RTMB framework by providing a collection of non-standard probability distributions that are compatible with automatic differentiation (AD). 
-  While RTMB enables flexible and efficient modelling - including random effects - its built-in support is limited to standard distributions. 
-  This package fills that gap by offering additional, AD-compatible distributions, broadening the range of models that can be implemented and estimated using RTMB.
+  The 'RTMBdist' package extends the functionality of the 'RTMB' package by providing a collection of non-standard probability distributions that are compatible with automatic differentiation (AD). 
+  While 'RTMB' enables flexible and efficient modelling - including random effects - its built-in support is limited to standard distributions. 
+  This package fills that gap by offering additional, AD-compatible distributions, broadening the range of models that can be implemented and estimated using 'RTMB'.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Imports:
