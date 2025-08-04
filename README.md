@@ -25,6 +25,8 @@ of
 distributions](https://janoleko.github.io/RTMBdist/articles/distlist.html)
 vignette.
 
+Feel free to contribute!
+
 ## Installation
 
 You can install the development version of `RTMBdist` from
