@@ -22,6 +22,8 @@ knitr::opts_chunk$set(
 
 * [`gamma2(mean, sd)`](../reference/gamma2.html): Gamma distribution parameterised by mean and standard deviation
 
+* [`invgauss(mean, shape)`](../reference/invgauss.html): Inverse Gaussian distribution parameterised by mean and shape
+
 * [`laplace(mu, b)`](../reference/laplace.html): Laplace distribution parameterised by location `mu` and scale `b`
 
 * [`skewnorm(xi, omega, alpha)`](../reference/skewnorm.html): Skew normal distribution parameterised by location `xi`, scale `omega` and skewness `alpha`
