@@ -2,6 +2,8 @@
 dGenericOSA <- get("dGenericOSA", envir = asNamespace("RTMB"), inherits = FALSE)
 dGenericSim <- get("dGenericSim", envir = asNamespace("RTMB"), inherits = FALSE)
 
+# getting ad_context from RTMB (not exported)
+ad_context <- get("ad_context", envir = asNamespace("RTMB"), inherits = FALSE)
 
 #' AD-compatible error function and complementary error function
 #'
@@ -25,3 +27,8 @@ erf <- function(x) {
 erfc <- function(x) {
   1 - erf(x)
 }
+
+## AD pmin/pmax helpers that work for both ad and numeric:
+pmin.ad <- function(x, y) apply(cbind(x,y), 1, min)
+pmax.ad <- function(x, y) apply(cbind(x,y), 1, max)
+

@@ -29,6 +29,11 @@ NULL
 #' @export
 #' @import RTMB
 dlaplace <- function(x, mu = 0, b = 1, log = FALSE) {
+  # ensure b > 0 when not in AD context
+  if (!RTMB:::ad_context()) {
+    if (b <= 0) stop("b must be strictly positive.")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dlaplace", x=x, mu=mu, b=b, log=log))
@@ -46,28 +51,37 @@ dlaplace <- function(x, mu = 0, b = 1, log = FALSE) {
 #' @rdname laplace
 #' @export
 plaplace <- function(q, mu = 0, b = 1, lower.tail = TRUE, log.p = FALSE) {
-  # ensure b > 0
-  # if (b <= 0) stop("b must be strictly positive.")
+  # ensure b > 0 when not in AD context
+  if (!RTMB:::ad_context()) {
+    if (b <= 0) stop("b must be strictly positive.")
+  }
 
   z <- (q - mu) / b
-  p <- ifelse(z < 0, 0.5 * exp(z), 1 - 0.5 * exp(-z))
+  # p <- ifelse(z < 0, 0.5 * exp(z), 1 - 0.5 * exp(-z))
+  # AD compatible version of above ifelse
+  s <- sign(z)
+  p <- 0.5 * exp(-abs(z))
+  p <- 0.5 * (s + 1) - s * p
 
   if (!lower.tail) p <- 1 - p
-
   if (log.p) return(log(p))
   return(p)
 }
 #' @rdname laplace
 #' @export
 qlaplace <- function(p, mu = 0, b = 1, lower.tail = TRUE, log.p = FALSE) {
-  # ensure b > 0
-  if (b <= 0) stop("b must be strictly positive.")
+
+  # ensure b > 0 when not in AD context
+  if (!ad_context()) {
+    if (b <= 0) stop("b must be strictly positive.")
+  }
 
   if (log.p) p <- exp(p)
-
   if (!lower.tail) p <- 1 - p
 
-  z <- ifelse(p < 0.5, log(2 * p), -log(2 * (1 - p)))
+  # z <- ifelse(p < 0.5, log(2 * p), -log(2 * (1 - p)))
+  z <- sign(0.5 - p) * log(2 * pmin.ad(p, 1-p))
+
   return(mu + b * z)
 }
 #' @rdname laplace
