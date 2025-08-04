@@ -6,7 +6,7 @@
 \alias{rdirichlet}
 \title{Dirichlet distribution}
 \usage{
-ddirichlet(x, alpha, log = TRUE)
+ddirichlet(x, alpha, log = FALSE)
 
 rdirichlet(n, alpha)
 }

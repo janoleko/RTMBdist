@@ -29,7 +29,7 @@ NULL
 #' @rdname dirichlet
 #' @export
 #' @import RTMB
-ddirichlet <- function(x, alpha, log = TRUE) {
+ddirichlet <- function(x, alpha, log = FALSE) {
 
   # potentially escape to RNG or produce error for CDF
   if(inherits(x, "simref")) {
