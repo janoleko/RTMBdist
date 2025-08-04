@@ -44,6 +44,8 @@ knitr::opts_chunk$set(
 
 * [`zigamma2(mean, sd, zeroprob)`](../reference/zigamma2.html): Zero-inflated gamma distribution parameterised by mean, standard deviation and zero-probability `zeroprob`
 
+* [`ziinvgauss(mean, shape, zeroprob)`](../reference/ziinvgauss.html): Zero-inflated inverse Gaussian distribution parameterised by mean, shape and zero-probability `zeroprob`
+
 
 
 ## Discrete distributions

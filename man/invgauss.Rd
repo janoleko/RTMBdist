@@ -4,17 +4,17 @@
 \alias{invgauss}
 \alias{dinvgauss}
 \alias{pinvgauss}
-\alias{rinvgauss}
 \alias{qinvgauss}
+\alias{rinvgauss}
 \title{Inverse Gaussian distribution}
 \usage{
 dinvgauss(x, mean = 1, shape = 1, log = FALSE)
 
 pinvgauss(q, mean = 1, shape = 1, lower.tail = TRUE, log.p = FALSE)
 
-rinvgauss(n, mean = 1, shape = 1)
-
 qinvgauss(p, mean = 1, shape = 1, lower.tail = TRUE, log.p = FALSE, ...)
+
+rinvgauss(n, mean = 1, shape = 1)
 }
 \arguments{
 \item{x, q}{vector of quantiles}
@@ -27,11 +27,11 @@ qinvgauss(p, mean = 1, shape = 1, lower.tail = TRUE, log.p = FALSE, ...)
 
 \item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.}
 
-\item{n}{number of random values to return}
-
 \item{p}{vector of probabilities}
 
 \item{...}{additional parameter passed to \code{statmod::qinvgauss} for numerical evaluation of the quantile function.}
+
+\item{n}{number of random values to return}
 }
 \value{
 \code{dinvgauss} gives the density, \code{pinvgauss} gives the distribution function, \code{qinvgauss} gives the quantile function, and \code{rinvgauss} generates random deviates.

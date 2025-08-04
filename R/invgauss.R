@@ -61,13 +61,13 @@ pinvgauss <- function(q, mean = 1, shape = 1, lower.tail = TRUE, log.p = FALSE) 
 }
 #' @rdname invgauss
 #' @export
-#' @importFrom statmod rinvgauss
-rinvgauss <- function(n, mean = 1, shape = 1) {
-  statmod::rinvgauss(n, mean = mean, shape = shape)
-}
-#' @rdname invgauss
-#' @export
 #' @importFrom statmod qinvgauss
 qinvgauss <- function(p, mean = 1, shape = 1, lower.tail=TRUE, log.p = FALSE, ...) {
   statmod::qinvgauss(p, mean = mean, shape = shape, lower.tail = lower.tail, log.p = log.p, ...)
+}
+#' @rdname invgauss
+#' @export
+#' @importFrom statmod rinvgauss
+rinvgauss <- function(n, mean = 1, shape = 1) {
+  statmod::rinvgauss(n, mean = mean, shape = shape)
 }
