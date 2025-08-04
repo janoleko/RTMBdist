@@ -42,6 +42,8 @@ knitr::opts_chunk$set(
 
 * [`wrpcauchy(mu, rho)`](../reference/wrpcauchy.html): Wrapped Cauchy distribution parameterised by mean direction `mu` and concentration `rho`
 
+* [`zibeta(shape1, shape2, zeroprob)`](../reference/zibeta.html): Zero-inflated beta distribution parameterised by shape parameters `shape1`, `shape2` and zero-probability `zeroprob`
+
 * [`zigamma(shape, scale, zeroprob)`](../reference/zigamma.html): Zero-inflated gamma distribution parameterised by shape and scale, with a zero-probability `zeroprob`
 
 * [`zigamma2(mean, sd, zeroprob)`](../reference/zigamma2.html): Zero-inflated gamma distribution parameterised by mean, standard deviation and zero-probability `zeroprob`
