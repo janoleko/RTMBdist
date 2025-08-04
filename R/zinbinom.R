@@ -30,6 +30,13 @@ NULL
 #' @importFrom RTMB dnbinom
 dzinbinom <- function(x, size, prob, zeroprob = 0, log = FALSE) {
 
+  if(!ad_context()) {
+    # ensure size >= 0, prob in (0,1], zeroprob in [0,1]
+    if (any(size <= 0)) stop("size must be > 0")
+    if (any(prob <= 0 | prob > 1)) stop("prob must be in (0,1]")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")){
     return(dGenericSim("dzinbinom", x = x, size=size, prob=prob, zeroprob=zeroprob, log=log))
@@ -50,24 +57,23 @@ dzinbinom <- function(x, size, prob, zeroprob = 0, log = FALSE) {
   return(exp(logdens))
 }
 #' @rdname zinbinom
-#' @importFrom stats pnbinom
 #' @export
 pzinbinom <- function(q, size, prob, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
-  # [validation code...]
-  q <- floor(q)
-  cdf <- numeric(length(q))
 
-  below_zero <- q < 0
-  is_zero <- q == 0
-  positive <- q > 0
+  if(!ad_context()) {
+    # ensure size >= 0, prob in (0,1], zeroprob in [0,1]
+    if (any(size <= 0)) stop("size must be > 0")
+    if (any(prob <= 0 | prob > 1)) stop("prob must be in (0,1]")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+    q <- floor(q)  # make sure it's integer-valued
+  }
 
-  cdf[below_zero] <- 0
-  cdf[is_zero] <- zeroprob + (1 - zeroprob) * pnbinom(0, size=size, prob=prob)
-  cdf[positive] <- zeroprob + (1 - zeroprob) * pnbinom(q[positive], size=size, prob=prob)
+  # pnbinom gives 0 for q < 0, so no handling of that case necessary
+  p <- zeroprob + (1 - zeroprob) * pnbinom(q, size=size, prob=prob)
 
-  if (!lower.tail) cdf <- 1 - cdf
-  if (log.p) cdf <- log(cdf)
-  return(cdf)
+  if (!lower.tail) p <- 1 - p
+  if (log.p) p <- log(p)
+  return(p)
 }
 #' @rdname zinbinom
 #' @importFrom stats runif rnbinom
@@ -81,4 +87,6 @@ rzinbinom <- function(n, size, prob, zeroprob = 0) {
   res <- ifelse(u < zeroprob, 0, rnbinom(n, size=size, prob=prob))
   return(res)
 }
+
+
 

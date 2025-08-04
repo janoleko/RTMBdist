@@ -33,6 +33,11 @@ NULL
 #' @importFrom RTMB dnorm pnorm
 dtruncnorm <- function(x, mean, sd, min = -Inf, max = Inf, log = FALSE) {
 
+  if (!ad_context()) {
+    # ensure sd > 0
+    if (sd <= 0) stop("sd must be strictly positive.")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dtruncnorm", x=x, mean=mean, sd=sd, min=min, max=max, log=log))
@@ -48,20 +53,18 @@ dtruncnorm <- function(x, mean, sd, min = -Inf, max = Inf, log = FALSE) {
   logdens <- rep(NaN, length(x))
 
   # logical vector for values inside the truncation bounds
-  inside <- (x >= min) & (x <= max)
+  # inside <- (x >= min) & (x <= max)
+  inside <- 0.5 * (1 + sign(x - min) * sign(max - x))
+
+  logdens <- log(inside) + RTMB::dnorm(x, mean, sd, log = TRUE) - log(denom)
 
   # compute density only for values inside the bounds
-  logdens[inside] <- RTMB::dnorm(x[inside], mean, sd, log = TRUE) - log(denom)
+  # logdens[inside] <- RTMB::dnorm(x[inside], mean, sd, log = TRUE) - log(denom)
 
   # return log-density if requested
-  if(log) {
-    logdens[!inside] <- -Inf
-    return(logdens)
-  } else {
-    dens <- exp(logdens)
-    dens[!inside] <- 0
-    return(dens)
-  }
+  if(log) return(logdens)
+
+  return(exp(logdens))
 }
 
 #' @rdname truncnorm
@@ -71,21 +74,23 @@ dtruncnorm <- function(x, mean, sd, min = -Inf, max = Inf, log = FALSE) {
 #'            lower.tail = TRUE, log.p = FALSE)
 #' @importFrom RTMB pnorm
 ptruncnorm <- function(q, mean = 0, sd = 1, min = -Inf, max = Inf, lower.tail = TRUE, log.p = FALSE) {
-  # if (sd <= 0) stop("Standard deviation 'sd' must be positive.")
 
-  # CDF for values below the lower bound is 0 (or -Inf if log.p)
-  below <- q < min
-  above <- q > max
-  inside <- !below & !above
+  if (!ad_context()) {
+    # ensure sd > 0
+    if (sd <= 0) stop("sd must be strictly positive.")
+    # ensure min < max
+    if (min >= max) stop("min must be less than max.")
+  }
 
   # normalisation constant: probability of being within [min, max]
   denom <- RTMB::pnorm(max, mean, sd) - RTMB::pnorm(min, mean, sd)
 
   # Compute standardized CDF
-  p <- numeric(length(q))
-  p[below] <- 0
-  p[above] <- 1
-  p[inside] <- (RTMB::pnorm(q[inside], mean, sd) - RTMB::pnorm(min, mean, sd)) / denom
+  s1 <- sign(q - min) # for constructing AD-compatible "indicator"
+  val <- (RTMB::pnorm(q, mean, sd) - RTMB::pnorm(min, mean, sd)) / denom
+  s2 <- sign(1 - val) # for constructing AD-compatible "indicator"
+
+  p <- 0.5 * (1 + s1 * s2) * val + 0.5 * (1 - s2)
 
   if (!lower.tail) p <- 1 - p
   if (log.p) p <- log(p)
@@ -106,10 +111,16 @@ qtruncnorm <- function(p, mean = 0, sd = 1, min = -Inf, max = Inf, lower.tail = 
   if (log.p) p <- exp(p)
   if (!lower.tail) p <- 1 - p
 
-  # Check that probabilities are in [0, 1]
-  if (any(p < 0 | p > 1)) stop("Probabilities must be between 0 and 1.")
+  if (!ad_context()) {
+    # ensure sd > 0
+    if (sd <= 0) stop("sd must be strictly positive.")
+    # Check that probabilities are in [0, 1]
+    if (any(p < 0 | p > 1)) stop("Probabilities must be between 0 and 1.")
+    # ensure min < max
+    if (min >= max) stop("min must be less than max.")
+  }
 
-  # Normalization constant
+  # normalisation constant
   denom <- RTMB::pnorm(max, mean, sd) - RTMB::pnorm(min, mean, sd)
 
   # Transform p into quantiles of untruncated normal
@@ -126,6 +137,14 @@ qtruncnorm <- function(p, mean = 0, sd = 1, min = -Inf, max = Inf, lower.tail = 
 #' @importFrom RTMB pnorm qnorm
 #' @importFrom stats rnorm runif
 rtruncnorm <- function(n, mean = 0, sd = 1, min = -Inf, max = Inf) {
+
+  if (!ad_context()) {
+    # ensure sd > 0
+    if (sd <= 0) stop("sd must be strictly positive.")
+    # ensure min < max
+    if (min >= max) stop("min must be less than max.")
+  }
+
   u <- runif(n)
   left <- pnorm((min - mean) / sd)
   right <- pnorm((max - mean) / sd) - pnorm((min - mean) / sd)

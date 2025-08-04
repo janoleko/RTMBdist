@@ -29,6 +29,13 @@ NULL
 #' @importFrom RTMB logspace_add dbinom
 dzibinom <- function(x, size, prob, zeroprob = 0, log = FALSE) {
 
+  if (!ad_context()) {
+    # ensure size positive integer >= 1, prob in [0,1], zeroprob in [0,1]
+    if (any(size < 1 | floor(size) != size)) stop("size must be a non-negative integer")
+    if (any(prob < 0 | prob > 1)) stop("prob must be in [0,1]")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")){
     return(dGenericSim("dzibinom", x = x, size = size, prob=prob, zeroprob = zeroprob, log=log))
@@ -51,21 +58,17 @@ dzibinom <- function(x, size, prob, zeroprob = 0, log = FALSE) {
 #' @importFrom RTMB pbinom
 #' @export
 pzibinom <- function(q, size, prob, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
-  # ensure size positive integer >= 1, prob in [0,1], zeroprob in [0,1]
-  # if (any(size < 1 | floor(size) != size)) stop("size must be a non-negative integer")
-  # if (any(prob < 0 | prob > 1)) stop("prob must be in [0,1]")
-  # if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
 
-  q <- floor(q)  # make sure it's integer-valued
-  cdf <- numeric(length(q))
+  if (!ad_context()) {
+    # ensure size positive integer >= 1, prob in [0,1], zeroprob in [0,1]
+    if (any(size < 1 | floor(size) != size)) stop("size must be a non-negative integer")
+    if (any(prob < 0 | prob > 1)) stop("prob must be in [0,1]")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+    q <- floor(q)  # make sure it's integer-valued
+  }
 
-  below_zero <- q < 0
-  is_zero <- q == 0
-  positive <- q > 0
-
-  cdf[below_zero] <- 0
-  cdf[is_zero] <- zeroprob + (1 - zeroprob) * pbinom(0, size=size, prob=prob)
-  cdf[positive] <- zeroprob + (1 - zeroprob) * pbinom(q[positive], size=size, prob=prob)
+  # RTMB::pbinom gives 0 for q < 0, so no handling of that case necessary
+  cdf <- zeroprob + (1 - zeroprob) * pbinom(q, size=size, prob=prob)
 
   if (!lower.tail) cdf <- 1 - cdf
   if (log.p) cdf <- log(cdf)

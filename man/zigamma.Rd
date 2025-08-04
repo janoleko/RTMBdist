@@ -9,7 +9,7 @@
 \usage{
 dzigamma(x, shape, scale, zeroprob = 0, log = FALSE)
 
-pzigamma(q, shape, scale, zeroprob = 0)
+pzigamma(q, shape, scale, zeroprob = 0, lower.tail = TRUE, log.p = FALSE)
 
 rzigamma(n, shape, scale, zeroprob = 0)
 }
@@ -22,7 +22,9 @@ rzigamma(n, shape, scale, zeroprob = 0)
 
 \item{zeroprob}{zero-inflation probability between 0 and 1.}
 
-\item{log}{logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.}
+\item{log, log.p}{logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.}
+
+\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.}
 
 \item{n}{number of random values to return}
 }

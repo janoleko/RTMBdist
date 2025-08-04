@@ -6,6 +6,7 @@
 \alias{pnbinom2}
 \alias{qnbinom2}
 \alias{rnbinom2}
+\alias{pnbinom}
 \title{Reparameterised negative binomial distribution}
 \usage{
 dnbinom2(x, mu, size, log = FALSE)
@@ -15,6 +16,8 @@ pnbinom2(q, mu, size, lower.tail = TRUE, log.p = FALSE)
 qnbinom2(p, mu, size, lower.tail = TRUE, log.p = FALSE)
 
 rnbinom2(n, mu, size)
+
+pnbinom(q, size, prob, lower.tail = TRUE, log.p = FALSE)
 }
 \arguments{
 \item{x, q}{vector of quantiles}
@@ -30,6 +33,8 @@ rnbinom2(n, mu, size)
 \item{p}{vector of probabilities}
 
 \item{n}{number of random values to return.}
+
+\item{prob}{probability of success in each trial. 0 < prob <= 1.}
 }
 \value{
 \code{dnbinom2} gives the density, \code{pnbinom2} gives the distribution function, \code{qnbinom2} gives the quantile function, and \code{rnbinom2} generates random deviates.
@@ -40,6 +45,8 @@ the negative binomial distribution reparameterised in terms of mean and size.
 }
 \details{
 This implementation allows for automatic differentiation with \code{RTMB}.
+
+\code{pnbinom} is an AD-compatible implementation of the standard parameterisation of the CDF, missing from \code{RTMB}.
 }
 \examples{
 set.seed(123)

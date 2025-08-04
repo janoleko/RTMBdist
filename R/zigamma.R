@@ -11,7 +11,8 @@
 #' @param shape positive shape parameter
 #' @param scale positive scale parameter
 #' @param zeroprob zero-inflation probability between 0 and 1.
-#' @param log logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
+#' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dzigamma} gives the density, \code{pzigamma} gives the distribution function, and \code{rzigamma} generates random deviates.
@@ -27,6 +28,13 @@ NULL
 #' @export
 #' @importFrom RTMB dgamma logspace_add
 dzigamma = function(x, shape, scale, zeroprob = 0, log = FALSE) {
+
+  if(!ad_context()) {
+    # ensure shape >= 0, scale > 0, zeroprob in [0,1]
+    if (any(shape < 0)) stop("shape must be >= 0")
+    if (any(scale <= 0)) stop("scale must be > 0")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  }
 
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
@@ -50,21 +58,24 @@ dzigamma = function(x, shape, scale, zeroprob = 0, log = FALSE) {
 #' @rdname zigamma
 #' @importFrom RTMB pgamma
 #' @export
-pzigamma <- function(q, shape, scale, zeroprob = 0) {
-  # ensure shape >= 0, scale > 0, zeroprob in [0,1]
-  # if (any(shape < 0)) stop("shape must be >= 0")
-  # if (any(scale <= 0)) stop("scale must be > 0")
-  # if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+pzigamma <- function(q, shape, scale, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
 
-  cdf <- numeric(length(q))
+  if(!ad_context()) {
+    # ensure shape >= 0, scale > 0, zeroprob in [0,1]
+    if (any(shape < 0)) stop("shape must be >= 0")
+    if (any(scale <= 0)) stop("scale must be > 0")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  }
 
-  below_zero <- q < 0
-  is_zero <- q == 0
-  positive <- q > 0
+  s1 <- 2 * sign(q) - 1 # gives -3 for q < 0, -1 for q == 0, and 1 for q > 0
+  s2 <- sign(3 + s1) # only zero or 1
 
-  cdf[below_zero] <- 0
-  cdf[is_zero] <- zeroprob
-  cdf[positive] <- zeroprob + (1 - zeroprob) * pgamma(q[positive], shape, scale)
+  cdf <- 0.5 * (1 - s1) * zeroprob +
+    0.5 * (1 + s1) * (zeroprob + (1 - zeroprob) * pgamma(q, shape, scale))
+  cdf <- cdf * s2 # set negative values to 0
+
+  if(!lower.tail) cdf <- 1 - cdf
+  if(log.p) cdf <- log(cdf)
 
   return(cdf)
 }

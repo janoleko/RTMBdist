@@ -29,6 +29,13 @@ NULL
 #' @export
 dzinbinom2 <- function(x, mu, size, zeroprob = 0, log = FALSE) {
 
+  if(!ad_context()) {
+    # ensure size, mu > 0, zeroprob in [0,1]
+    if (any(mu <= 0)) stop("mu must be > 0")
+    if (any(size <= 0)) stop("size must be > 0")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")){
     return(dGenericSim("dzinbinom2", x = x, mu=mu, size=size, zeroprob=zeroprob, log=log))
@@ -45,10 +52,13 @@ dzinbinom2 <- function(x, mu, size, zeroprob = 0, log = FALSE) {
 #' @rdname zinbinom2
 #' @export
 pzinbinom2 <- function(q, mu, size, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
-  # ensure mu, size > 0, zeroprob in [0,1]
-  # if (any(mu <= 0)) stop("mu must be > 0")
-  # if (any(size <= 0)) stop("size must be > 0")
-  # if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  if(!ad_context()) {
+    # ensure size, mu > 0, zeroprob in [0,1]
+    if (any(mu <= 0)) stop("mu must be > 0")
+    if (any(size <= 0)) stop("size must be > 0")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+    q <- floor(q)  # make sure it's integer-valued
+  }
 
   # parameter transformation
   prob <- size / (size + mu)

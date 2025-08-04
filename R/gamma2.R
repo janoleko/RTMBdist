@@ -48,9 +48,12 @@ dgamma2 = function(x, mean = 1, sd = 1, log = FALSE) {
 #' @export
 #' @importFrom RTMB pgamma
 pgamma2 = function(q, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
-  # ensure mean, sd > 0
-  # if (any(mean <= 0)) stop("mean must be strictly positive.")
-  # if (any(sd <= 0)) stop("sd must be strictly positive.")
+
+  if(!ad_context()) {
+    # ensure mean, sd > 0
+    if (any(mean <= 0)) stop("mean must be strictly positive.")
+    if (any(sd <= 0)) stop("sd must be strictly positive.")
+  }
 
   # parameter transformation
   shape <- mean^2 / sd^2
@@ -67,9 +70,12 @@ pgamma2 = function(q, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
 #' @export
 #' @importFrom RTMB qgamma
 qgamma2 = function(p, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
-  # ensure mean, sd > 0
-  if (any(mean <= 0)) stop("mean must be strictly positive.")
-  if (any(sd <= 0)) stop("sd must be strictly positive.")
+
+  if(!ad_context()) {
+    # ensure mean, sd > 0
+    if (any(mean <= 0)) stop("mean must be strictly positive.")
+    if (any(sd <= 0)) stop("sd must be strictly positive.")
+  }
 
   # parameter transformation
   shape <- mean^2 / sd^2
@@ -81,9 +87,11 @@ qgamma2 = function(p, mean = 1, sd = 1, lower.tail = TRUE, log.p = FALSE) {
 #' @export
 #' @importFrom stats rgamma
 rgamma2 = function(n, mean = 1, sd = 1) {
-  # ensure mean, sd > 0
-  if (any(mean <= 0)) stop("mean must be strictly positive.")
-  if (any(sd <= 0)) stop("sd must be strictly positive.")
+  if(!ad_context()) {
+    # ensure mean, sd > 0
+    if (any(mean <= 0)) stop("mean must be strictly positive.")
+    if (any(sd <= 0)) stop("sd must be strictly positive.")
+  }
 
   # parameter transformation
   shape = mean^2 / sd^2

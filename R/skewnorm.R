@@ -38,6 +38,11 @@ NULL
 #' @importFrom RTMB pnorm
 dskewnorm <- function(x, xi = 0, omega = 1, alpha = 0, log = FALSE) {
 
+  if(!ad_context()) {
+    # ensure omega > 0
+    if (any(omega <= 0)) stop("omega must be strictly positive.")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dskewnorm", x=x, xi=xi, omega=omega, alpha=alpha, log=log))
@@ -65,6 +70,12 @@ dskewnorm <- function(x, xi = 0, omega = 1, alpha = 0, log = FALSE) {
 #' @export
 #' @importFrom sn psn
 pskewnorm <- function(q, xi = 0, omega = 1, alpha = 0, ...) {
+
+  if(!ad_context()) {
+    # ensure omega > 0
+    if (any(omega <= 0)) stop("omega must be strictly positive.")
+  }
+
   psn(x = q, xi = xi, omega = omega, alpha = alpha, ...)
 }
 
@@ -72,6 +83,12 @@ pskewnorm <- function(q, xi = 0, omega = 1, alpha = 0, ...) {
 #' @export
 #' @importFrom sn qsn
 qskewnorm <- function(p, xi = 0, omega = 1, alpha = 0, ...) {
+
+  if(!ad_context()) {
+    # ensure omega > 0
+    if (any(omega <= 0)) stop("omega must be strictly positive.")
+  }
+
   qsn(p = p, xi = xi, omega = omega, alpha = alpha, ...)
 }
 
@@ -79,5 +96,11 @@ qskewnorm <- function(p, xi = 0, omega = 1, alpha = 0, ...) {
 #' @export
 #' @importFrom sn rsn
 rskewnorm <- function(n, xi = 0, omega = 1, alpha = 0) {
+
+  if(!ad_context()) {
+    # ensure omega > 0
+    if (any(omega <= 0)) stop("omega must be strictly positive.")
+  }
+
   rsn(n = n, xi = xi, omega = omega, alpha = alpha)
 }

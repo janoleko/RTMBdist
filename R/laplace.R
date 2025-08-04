@@ -29,8 +29,8 @@ NULL
 #' @export
 #' @import RTMB
 dlaplace <- function(x, mu = 0, b = 1, log = FALSE) {
-  # ensure b > 0 when not in AD context
-  if (!RTMB:::ad_context()) {
+  if (!ad_context()) {
+    # ensure b > 0
     if (b <= 0) stop("b must be strictly positive.")
   }
 
@@ -51,8 +51,8 @@ dlaplace <- function(x, mu = 0, b = 1, log = FALSE) {
 #' @rdname laplace
 #' @export
 plaplace <- function(q, mu = 0, b = 1, lower.tail = TRUE, log.p = FALSE) {
-  # ensure b > 0 when not in AD context
-  if (!RTMB:::ad_context()) {
+  if (!ad_context()) {
+    # ensure b > 0
     if (b <= 0) stop("b must be strictly positive.")
   }
 
@@ -71,8 +71,8 @@ plaplace <- function(q, mu = 0, b = 1, lower.tail = TRUE, log.p = FALSE) {
 #' @export
 qlaplace <- function(p, mu = 0, b = 1, lower.tail = TRUE, log.p = FALSE) {
 
-  # ensure b > 0 when not in AD context
   if (!ad_context()) {
+    # ensure b > 0
     if (b <= 0) stop("b must be strictly positive.")
   }
 

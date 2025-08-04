@@ -28,6 +28,12 @@ NULL
 #' @importFrom RTMB logspace_add dpois
 dzipois <- function(x, lambda, zeroprob = 0, log = FALSE) {
 
+  if(!ad_context()) {
+    # ensure lambda >= 0, zeroprob in [0,1]
+    if (any(lambda < 0)) stop("lambda must be >= 0")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")){
     return(dGenericSim("dzipois", x = x, lambda = lambda, zeroprob = zeroprob, log=log))
@@ -50,24 +56,19 @@ dzipois <- function(x, lambda, zeroprob = 0, log = FALSE) {
 #' @importFrom RTMB ppois
 #' @export
 pzipois <- function(q, lambda, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
-  # ensure lambda >= 0, zeroprob in [0,1]
-  # if (any(lambda < 0)) stop("lambda must be >= 0")
-  # if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
 
-  q <- floor(q)  # make sure it's integer-valued
-  cdf <- numeric(length(q))
+  if(!ad_context()) {
+    # ensure lambda >= 0, zeroprob in [0,1]
+    if (any(lambda < 0)) stop("lambda must be >= 0")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+    q <- floor(q)  # make sure it's integer-valued
+  }
 
-  below_zero <- q < 0
-  is_zero <- q == 0
-  positive <- q > 0
+  p <- zeroprob + (1 - zeroprob) * ppois(q, lambda)
 
-  cdf[below_zero] <- 0
-  cdf[is_zero] <- zeroprob + (1 - zeroprob) * ppois(0, lambda)
-  cdf[positive] <- zeroprob + (1 - zeroprob) * ppois(q[positive], lambda)
-
-  if (!lower.tail) cdf <- 1 - cdf
-  if (log.p) cdf <- log(cdf)
-  return(cdf)
+  if (!lower.tail) p <- 1 - p
+  if (log.p) p <- log(p)
+  return(p)
 }
 #' @rdname zipois
 #' @importFrom stats runif rpois

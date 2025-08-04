@@ -29,6 +29,13 @@ NULL
 #' @importFrom RTMB dbeta
 dbeta2 <- function(x, mu, phi, log = FALSE) {
 
+  if(!ad_context()) {
+    # ensure mu in [0,1]
+    if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
+    # ensure phi > 0
+    if (any(phi <= 0)) stop("phi must be strictly positive.")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dbeta2", x=x, mu=mu, phi=phi, log=log))
@@ -45,10 +52,12 @@ dbeta2 <- function(x, mu, phi, log = FALSE) {
 #' @export
 #' @importFrom RTMB pbeta
 pbeta2 <- function(q, mu, phi) {
-  # ensure mu in [0,1]
-  # if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
-  # ensure phi > 0
-  # if (any(phi <= 0)) stop("phi must be strictly positive.")
+  if(!ad_context()) {
+    # ensure mu in [0,1]
+    if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
+    # ensure phi > 0
+    if (any(phi <= 0)) stop("phi must be strictly positive.")
+  }
 
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
@@ -58,10 +67,12 @@ pbeta2 <- function(q, mu, phi) {
 #' @export
 #' @importFrom RTMB qbeta
 qbeta2 <- function(p, mu, phi) {
-  # ensure mu in [0,1]
-  if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
-  # ensure phi > 0
-  if (any(phi <= 0)) stop("phi must be strictly positive.")
+  if(!ad_context()) {
+    # ensure mu in [0,1]
+    if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
+    # ensure phi > 0
+    if (any(phi <= 0)) stop("phi must be strictly positive.")
+  }
 
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
@@ -71,10 +82,12 @@ qbeta2 <- function(p, mu, phi) {
 #' @export
 #' @importFrom stats rbeta
 rbeta2 <- function(n, mu, phi) {
-  # ensure mu in [0,1]
-  if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
-  # ensure phi > 0
-  if (any(phi <= 0)) stop("phi must be strictly positive.")
+  if(!ad_context()) {
+    # ensure mu in [0,1]
+    if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
+    # ensure phi > 0
+    if (any(phi <= 0)) stop("phi must be strictly positive.")
+  }
 
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi

@@ -27,6 +27,14 @@ NULL
 #' @export
 #' @importFrom RTMB dgamma logspace_add
 dzigamma2 = function(x, mean = 1, sd = 1, zeroprob = 0, log = FALSE) {
+
+  if(!ad_context()) {
+    # ensure shape > 0, scale > 0, zeroprob in [0,1]
+    if (any(mean <= 0)) stop("mean must be > 0")
+    if (any(sd <= 0)) stop("sd must be > 0")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  }
+
   # parameter transformation
   shape = mean^2 / sd^2
   scale = sd^2 / mean
@@ -36,11 +44,12 @@ dzigamma2 = function(x, mean = 1, sd = 1, zeroprob = 0, log = FALSE) {
 #' @rdname zigamma2
 #' @export
 pzigamma2 <- function(q, mean = 1, sd = 1, zeroprob = 0) {
-  # ensure mean, sd > 0
-  if (any(mean <= 0)) stop("mean must be strictly positive.")
-  if (any(sd <= 0)) stop("sd must be strictly positive.")
-  # ensure zeroprob in [0,1]
-  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  if(!ad_context()) {
+    # ensure shape > 0, scale > 0, zeroprob in [0,1]
+    if (any(mean <= 0)) stop("mean must be > 0")
+    if (any(sd <= 0)) stop("sd must be > 0")
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+  }
 
   # parameter transformation
   shape = mean^2 / sd^2

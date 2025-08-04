@@ -52,15 +52,21 @@ dziinvgauss <- function(x, mean = 1, shape = 1, zeroprob = 0, log = FALSE) {
 #' @usage pziinvgauss(q, mean = 1, shape = 1, zeroprob = 0, lower.tail = TRUE, log.p = FALSE)
 pziinvgauss <- function(q, mean = 1, shape = 1, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
 
-  p <- numeric(length(q))
+  # p <- numeric(length(q))
+  #
+  # below_zero <- q < 0
+  # is_zero <- q == 0
+  # positive <- q > 0
+  #
+  # p[below_zero] <- 0
+  # p[is_zero] <- zeroprob
+  # p[positive] <- zeroprob + (1 - zeroprob) * pinvgauss(q[positive], mean=mean, shape=shape)
 
-  below_zero <- q < 0
-  is_zero <- q == 0
-  positive <- q > 0
+  s1 <- 2 * sign(q) - 1 # gives -3 for q < 0, -1 for q == 0, and 1 for q > 0
+  s2 <- sign(3 + s1) # only zero or 1
 
-  p[below_zero] <- 0
-  p[is_zero] <- zeroprob
-  p[positive] <- zeroprob + (1 - zeroprob) * pinvgauss(q[positive], mean=mean, shape=shape)
+  p <- 0.5 * (1 - s1) * s2 * zeroprob +
+    0.5 * (1 + s1) * s2 * (zeroprob + (1 - zeroprob) * pinvgauss(q, mean, shape))
 
   if (!lower.tail) p <- 1 - p
   if (log.p) return(log(p))

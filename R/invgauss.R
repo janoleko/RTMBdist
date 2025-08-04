@@ -32,6 +32,12 @@ NULL
 #' @export
 dinvgauss <- function(x, mean = 1, shape = 1, log = FALSE) {
 
+  if(!ad_context()) {
+    # ensure mean, shape > 0
+    if (any(mean <= 0)) stop("mean must be strictly positive.")
+    if (any(shape <= 0)) stop("shape must be strictly positive.")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dinvgauss", x=x, mean=mean, shape=shape, log=log))
@@ -52,8 +58,18 @@ dinvgauss <- function(x, mean = 1, shape = 1, log = FALSE) {
 #' @importFrom RTMB pnorm
 pinvgauss <- function(q, mean = 1, shape = 1, lower.tail = TRUE, log.p = FALSE) {
 
-  p <- RTMB::pnorm(sqrt(shape / q) * (q / mean - 1)) +
-    exp(2 * shape / mean) * RTMB::pnorm(-sqrt(shape / q) * (q / mean + 1))
+  if(!ad_context()) {
+    # ensure mean, shape > 0
+    if (any(mean <= 0)) stop("mean must be strictly positive.")
+    if (any(shape <= 0)) stop("shape must be strictly positive.")
+  }
+
+  s <- sign(q)
+
+  p <- RTMB::pnorm(sqrt(shape / abs(q)) * (q / mean - 1)) +
+    exp(2 * shape / mean) * RTMB::pnorm(-sqrt(shape / abs(q)) * (q / mean + 1))
+
+  p <- 0.5 * (1 + s) * s * p
 
   if (!lower.tail) p <- 1 - p
   if (log.p) return(log(p))
@@ -63,6 +79,12 @@ pinvgauss <- function(q, mean = 1, shape = 1, lower.tail = TRUE, log.p = FALSE) 
 #' @export
 #' @importFrom statmod qinvgauss
 qinvgauss <- function(p, mean = 1, shape = 1, lower.tail=TRUE, log.p = FALSE, ...) {
+  if(!ad_context()) {
+    # ensure mean, shape > 0
+    if (any(mean <= 0)) stop("mean must be strictly positive.")
+    if (any(shape <= 0)) stop("shape must be strictly positive.")
+  }
+
   statmod::qinvgauss(p, mean = mean, shape = shape, lower.tail = lower.tail, log.p = log.p, ...)
 }
 #' @rdname invgauss

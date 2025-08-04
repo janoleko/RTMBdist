@@ -6,9 +6,12 @@
 #' @details
 #' This implementation allows for automatic differentiation with \code{RTMB}.
 #'
+#' \code{pnbinom} is an AD-compatible implementation of the standard parameterisation of the CDF, missing from \code{RTMB}.
+#'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
 #' @param n number of random values to return.
+#' @param prob probability of success in each trial. 0 < prob <= 1.
 #' @param mu mean parameter, must be positive.
 #' @param size size parameter, must be positive.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
@@ -30,6 +33,12 @@ NULL
 #' @importFrom RTMB dnbinom
 dnbinom2 <- function(x, mu, size, log = FALSE) {
 
+  if(!ad_context()) {
+    # ensure mu, size > 0
+    if (any(mu <= 0)) stop("mu must be strictly positive.")
+    if (any(size <= 0)) stop("size must be strictly positive.")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dnbinom2", x=x, mu=mu, size=size, log=log))
@@ -45,19 +54,62 @@ dnbinom2 <- function(x, mu, size, log = FALSE) {
 }
 #' @rdname nbinom2
 #' @export
-#' @importFrom stats pnbinom
+#' @importFrom RTMB pbeta
 pnbinom2 <- function(q, mu, size, lower.tail = TRUE, log.p = FALSE) {
-  stats::pnbinom(q, mu = mu, size = size, lower.tail = lower.tail, log.p = log.p)
+  if(!ad_context()) {
+    # ensure mu, size > 0
+    if (any(mu <= 0)) stop("mu must be strictly positive.")
+    if (any(size <= 0)) stop("size must be strictly positive.")
+  }
+
+  prob <- size / (size + mu)
+  p <- RTMB::pbeta(prob, size, q+1) # doesn't look correct but is
+  # RTMB doesn't have AD version of pbinom
+
+  if(!lower.tail) p <- 1 - p
+  if(log.p) p <- log(p)
+
+  return(p)
 }
 #' @rdname nbinom2
 #' @export
 #' @importFrom stats qnbinom
 qnbinom2 <- function(p, mu, size, lower.tail = TRUE, log.p = FALSE) {
+  if(!ad_context()) {
+    # ensure mu, size > 0
+    if (any(mu <= 0)) stop("mu must be strictly positive.")
+    if (any(size <= 0)) stop("size must be strictly positive.")
+  }
+
   stats::qnbinom(p, mu = mu, size = size, lower.tail = lower.tail, log.p = log.p)
 }
 #' @rdname nbinom2
 #' @export
 #' @importFrom stats rnbinom
 rnbinom2 <- function(n, mu, size) {
+  if(!ad_context()) {
+    # ensure mu, size > 0
+    if (any(mu <= 0)) stop("mu must be strictly positive.")
+    if (any(size <= 0)) stop("size must be strictly positive.")
+  }
+
   stats::rnbinom(n, mu = mu, size = size)
+}
+#' @rdname nbinom2
+#' @export
+#' @importFrom RTMB pbeta
+pnbinom <- function(q, size, prob, lower.tail = TRUE, log.p = FALSE) {
+  if(!ad_context()) {
+    # ensure mu, size > 0
+    if (any(prob < 0 | prob > 1)) stop("prob must be in [0,1]")
+    if (any(size <= 0)) stop("size must be strictly positive.")
+  }
+
+  p <- RTMB::pbeta(prob, size, q+1) # doesn't look correct but is
+  # RTMB doesn't have AD version of pbinom
+
+  if(!lower.tail) p <- 1 - p
+  if(log.p) p <- log(p)
+
+  return(p)
 }
