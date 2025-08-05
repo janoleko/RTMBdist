@@ -36,41 +36,47 @@ devtools::install_github("janoleko/RTMBdist")
 
 ## Example
 
-Let's pretend we want to do numerical maximum likelihood estimation (MLE) for a gamma distribution that is parameterised in terms of mean and standard deviation, which is available with the `gamma2` family:
+```{r library, message=FALSE}
+library(RTMBdist)
+```
+
+Let's do numerical maximum likelihood estimation (MLE) with a `gumbel` distribution:
 
 ```{r seed, include=FALSE}
 set.seed(123)
 ```
 
 ```{r example}
-library(RTMBdist)
-
 # simulate data
-x <- rgamma2(100, mean = 5, sd = 2)
+x <- rgumbel(100, location = 5, scale = 2)
 
 # negative log-likelihood function
 nll <- function(par) {
   x <- OBS(x) # mark x as the response
-  mu <- exp(par[1]); ADREPORT(mu)
-  sigma <- exp(par[2]); ADREPORT(sigma)
-  -sum(dgamma2(x, mu, sigma, log = TRUE))
+  loc <- par[1]; ADREPORT(loc)
+  scale <- exp(par[2]); ADREPORT(scale)
+  -sum(dgumbel(x, loc, scale, log = TRUE))
 }
 
 # automatically differentiable objective function object
-obj <- MakeADFun(nll, c(log(5), log(2)), silent = TRUE)
+obj <- MakeADFun(nll, c(5, log(2)), silent = TRUE)
 
 # model fitting
 opt <- nlminb(obj$par, obj$fn, obj$gr)
 
 # model summary
 summary(sdreport(obj))
+
+# plot the estimated density
+hist(x, prob = TRUE)
+curve(dgumbel(x, opt$par[1], exp(opt$par[2])), add = TRUE, lwd = 3)
 ```
 
 Through the magic of `RTMB`, we can also immediately simulate new data from the fitted model and calculate residuals:
 
 ```{r sim_residuals}
 # simulate new data
-x_new <- obj$simulate()
+x_new <- obj$simulate()$x
 
 # calculate residuals
 osa <- oneStepPredict(obj, method = "cdf", trace = FALSE)

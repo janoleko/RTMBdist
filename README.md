@@ -38,32 +38,27 @@ devtools::install_github("janoleko/RTMBdist")
 
 ## Example
 
-Let’s pretend we want to do numerical maximum likelihood estimation
-(MLE) for a gamma distribution that is parameterised in terms of mean
-and standard deviation, which is available with the `gamma2` family:
-
 ``` r
 library(RTMBdist)
-#> Loading required package: RTMB
-#> 
-#> Attaching package: 'RTMBdist'
-#> The following object is masked from 'package:RTMB':
-#> 
-#>     dnbinom2
+```
 
+Let’s do numerical maximum likelihood estimation (MLE) with a `gumbel`
+distribution:
+
+``` r
 # simulate data
-x <- rgamma2(100, mean = 5, sd = 2)
+x <- rgumbel(100, location = 5, scale = 2)
 
 # negative log-likelihood function
 nll <- function(par) {
   x <- OBS(x) # mark x as the response
-  mu <- exp(par[1]); ADREPORT(mu)
-  sigma <- exp(par[2]); ADREPORT(sigma)
-  -sum(dgamma2(x, mu, sigma, log = TRUE))
+  loc <- par[1]; ADREPORT(loc)
+  scale <- exp(par[2]); ADREPORT(scale)
+  -sum(dgumbel(x, loc, scale, log = TRUE))
 }
 
 # automatically differentiable objective function object
-obj <- MakeADFun(nll, c(log(5), log(2)), silent = TRUE)
+obj <- MakeADFun(nll, c(5, log(2)), silent = TRUE)
 
 # model fitting
 opt <- nlminb(obj$par, obj$fn, obj$gr)
@@ -71,18 +66,24 @@ opt <- nlminb(obj$par, obj$fn, obj$gr)
 # model summary
 summary(sdreport(obj))
 #>        Estimate Std. Error
-#> par   1.5705170 0.03480726
-#> par   0.5151734 0.07757581
-#> mu    4.8091338 0.16739278
-#> sigma 1.6739287 0.12985637
+#> par   5.0015427 0.20659355
+#> par   0.6732893 0.07663174
+#> loc   5.0015427 0.20659355
+#> scale 1.9606760 0.15025002
+
+# plot the estimated density
+hist(x, prob = TRUE)
+curve(dgumbel(x, opt$par[1], exp(opt$par[2])), add = TRUE, lwd = 3)
 ```
+
+<img src="man/figures/README-example-1.png" width="100%" />
 
 Through the magic of `RTMB`, we can also immediately simulate new data
 from the fitted model and calculate residuals:
 
 ``` r
 # simulate new data
-x_new <- obj$simulate()
+x_new <- obj$simulate()$x
 
 # calculate residuals
 osa <- oneStepPredict(obj, method = "cdf", trace = FALSE)
