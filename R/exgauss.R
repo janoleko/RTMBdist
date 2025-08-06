@@ -1,6 +1,6 @@
 #' Exponentially modified Gaussian distribution
 #'
-#' Density, distribution function, and random generation for
+#' Density, distribution function, quantile function and random generation for
 #' the exponentially modified Gaussian distribution.
 #'
 #' @details
@@ -20,7 +20,7 @@
 #' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
-#' \code{dexgauss} gives the density, \code{pexgauss} gives the distribution function, and \code{rexgauss} generates random deviates.
+#' \code{dexgauss} gives the density, \code{pexgauss} gives the distribution function, \code{qexgauss} gives the quantile function, and \code{rexgauss} generates random deviates.
 #'
 #' @examples
 #' x <- rexgauss(1, 1, 2, 2)

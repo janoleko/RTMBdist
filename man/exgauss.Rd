@@ -34,10 +34,10 @@ rexgauss(n, mu = 0, sigma = 1, lambda = 1)
 \item{n}{number of random values to return}
 }
 \value{
-\code{dexgauss} gives the density, \code{pexgauss} gives the distribution function, and \code{rexgauss} generates random deviates.
+\code{dexgauss} gives the density, \code{pexgauss} gives the distribution function, \code{qexgauss} gives the quantile function, and \code{rexgauss} generates random deviates.
 }
 \description{
-Density, distribution function, and random generation for
+Density, distribution function, quantile function and random generation for
 the exponentially modified Gaussian distribution.
 }
 \details{
