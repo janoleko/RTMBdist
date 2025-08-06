@@ -8,8 +8,6 @@
 #' @param x unit vector or matrix (with each row being a unit vector) of evaluation points
 #' @param mu unit mean vector
 #' @param kappa non-negative numeric value for the concentration parameter of the distribution.
-#'
-#' \strong{Caution}: currently \code{kappa} > 600 can lead to numerical overflow
 #' @param log logical; if \code{TRUE}, densities are returned on the log scale.
 #' @param n number of random values to return.
 #'
@@ -58,8 +56,10 @@ dvmf <- function(x, mu, kappa, log = FALSE) {
 
   cprod <- rowSums(mu * x) # t(mu) %*% x for each row fast
 
-  logC <- (p / 2 - 1) * log(kappa) - p / 2 * log(2 * pi) -
-    log(besselI(kappa, p/2 - 1)) # currently unstable for large kappa
+  # stable calculation of log(besselI(kappa, p/2-1))
+  logI <- log(RTMB::besselI(kappa, p / 2 - 1, expon.scaled = TRUE)) + kappa
+
+  logC <- (p / 2 - 1) * log(kappa) - p / 2 * log(2 * pi) - logI
 
   logdens <- logC + kappa * cprod
 

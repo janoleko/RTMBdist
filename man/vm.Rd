@@ -18,9 +18,7 @@ rvm(n, mu = 0, kappa = 1, wrap = TRUE)
 
 \item{mu}{mean direction of the distribution measured in radians.}
 
-\item{kappa}{non-negative numeric value for the concentration parameter of the distribution.
-
-\strong{Caution}: currently \code{kappa} > 600 can lead to numerical overflow}
+\item{kappa}{non-negative numeric value for the concentration parameter of the distribution.}
 
 \item{log}{logical; if \code{TRUE}, densities are returned on the log scale.}
 

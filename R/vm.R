@@ -9,8 +9,6 @@
 #' @param x,q vector of angles measured in radians at which to evaluate the density function.
 #' @param mu mean direction of the distribution measured in radians.
 #' @param kappa non-negative numeric value for the concentration parameter of the distribution.
-#'
-#' \strong{Caution}: currently \code{kappa} > 600 can lead to numerical overflow
 #' @param log logical; if \code{TRUE}, densities are returned on the log scale.
 #' @param n number of random values to return.
 #' @param tol the precision in evaluating the distribution function
@@ -41,9 +39,10 @@ dvm = function(x, mu = 0, kappa = 1, log = FALSE) {
     stop("von Mises does not support OSA residuals.")
   }
 
-  logdens <- -log(2 * pi) -
-    log(besselI(kappa, 0)) +
-    kappa * cos(x - mu)
+  # stable calculation of log(besselI(kappa, 0))
+  logI0 <- log(RTMB::besselI(kappa, 0, expon.scaled = TRUE)) + kappa
+
+  logdens <- -log(2 * pi) - logI0 + kappa * cos(x - mu)
 
   if(log){
     return(logdens)

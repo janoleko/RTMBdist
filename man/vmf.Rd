@@ -15,9 +15,7 @@ rvmf(n, mu, kappa)
 
 \item{mu}{unit mean vector}
 
-\item{kappa}{non-negative numeric value for the concentration parameter of the distribution.
-
-\strong{Caution}: currently \code{kappa} > 600 can lead to numerical overflow}
+\item{kappa}{non-negative numeric value for the concentration parameter of the distribution.}
 
 \item{log}{logical; if \code{TRUE}, densities are returned on the log scale.}
 
