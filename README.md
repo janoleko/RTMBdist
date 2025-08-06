@@ -33,7 +33,7 @@ You can install the development version of `RTMBdist` from
 [GitHub](https://github.com/) with:
 
 ``` r
-devtools::install_github("janoleko/RTMBdist")
+remotes::install_github("janoleko/RTMBdist")
 ```
 
 ## Example
@@ -42,7 +42,7 @@ devtools::install_github("janoleko/RTMBdist")
 library(RTMBdist)
 ```
 
-Let’s do numerical maximum likelihood estimation (MLE) with a `gumbel`
+Let’s do numerical maximum likelihood estimation with a `gumbel`
 distribution:
 
 ``` r
@@ -57,10 +57,10 @@ nll <- function(par) {
   -sum(dgumbel(x, loc, scale, log = TRUE))
 }
 
-# automatically differentiable objective function object
+# RTMB AD object
 obj <- MakeADFun(nll, c(5, log(2)), silent = TRUE)
 
-# model fitting
+# model fitting using AD gradient
 opt <- nlminb(obj$par, obj$fn, obj$gr)
 
 # model summary
@@ -70,13 +70,7 @@ summary(sdreport(obj))
 #> par   0.6732893 0.07663174
 #> loc   5.0015427 0.20659355
 #> scale 1.9606760 0.15025002
-
-# plot the estimated density
-hist(x, prob = TRUE)
-curve(dgumbel(x, opt$par[1], exp(opt$par[2])), add = TRUE, lwd = 3)
 ```
-
-<img src="man/figures/README-example-1.png" width="100%" />
 
 Through the magic of `RTMB`, we can also immediately simulate new data
 from the fitted model and calculate residuals:
