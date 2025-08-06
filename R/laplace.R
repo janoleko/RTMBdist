@@ -1,6 +1,6 @@
 #' Laplace distribution
 #'
-#' Density, distribution function, quantile function and random generation for
+#' Density, distribution function, quantile function, and random generation for
 #' the Laplace distribution.
 #'
 #' @details

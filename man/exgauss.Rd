@@ -37,12 +37,12 @@ rexgauss(n, mu = 0, sigma = 1, lambda = 1)
 \code{dexgauss} gives the density, \code{pexgauss} gives the distribution function, \code{qexgauss} gives the quantile function, and \code{rexgauss} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function and random generation for
+Density, distribution function, quantile function, and random generation for
 the exponentially modified Gaussian distribution.
 }
 \details{
 This implementation of \code{dexgauss} and \code{pexgauss} allows for automatic differentiation with \code{RTMB}.
-\code{qexgauss} is only a wrapper for \code{gamlss.dist::qexGAUS}.
+\code{qexgauss} is a reparameterised import from \code{gamlss.dist::qexGAUS}.
 
 If \eqn{X \sim N(\mu, \sigma^2)} and \eqn{Y \sim \text{Exp}(\lambda)}, then
 \eqn{Z = X + Y} follows the exponentially modified Gaussian distribution with parameters \eqn{\mu}, \eqn{\sigma}, and \eqn{\lambda}.

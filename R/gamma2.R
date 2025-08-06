@@ -1,6 +1,6 @@
 #' Reparameterised gamma distribution
 #'
-#' Density, distribution function, quantile function and random generation for
+#' Density, distribution function, quantile function, and random generation for
 #' the gamma distribution reparameterised in terms of mean and standard deviation.
 #'
 #' @details

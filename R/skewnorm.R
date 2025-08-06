@@ -5,7 +5,7 @@ rsn <- Vectorize(sn::rsn)
 
 #' Skew normal distribution
 #'
-#' Density, distribution function, quantile function and random generation for
+#' Density, distribution function, quantile function, and random generation for
 #' the skew normal distribution.
 #'
 #' @details

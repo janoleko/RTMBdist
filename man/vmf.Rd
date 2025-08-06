@@ -25,7 +25,7 @@ rvmf(n, mu, kappa)
 \code{dvmf} gives the density and \code{rvm} generates random deviates.
 }
 \description{
-Density, distribution function and random generation for the von Mises-Fisher distribution.
+Density, distribution function, and random generation for the von Mises-Fisher distribution.
 }
 \details{
 This implementation of \code{dvmf} allows for automatic differentiation with \code{RTMB}. \code{rvmf} is a reparameterised import from \code{movMF::rmovMF}.

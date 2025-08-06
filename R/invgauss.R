@@ -8,7 +8,7 @@
 #' \code{qinvgauss} and \code{rinvgauss} are imported from the \code{statmod} package.
 #'
 #'
-#' @param x,q vector of quantiles
+#' @param x,q vector of quantiles, must be positive.
 #' @param p vector of probabilities
 #' @param n number of random values to return
 #' @param mean location parameter
@@ -93,3 +93,4 @@ qinvgauss <- function(p, mean = 1, shape = 1, lower.tail=TRUE, log.p = FALSE, ..
 rinvgauss <- function(n, mean = 1, shape = 1) {
   statmod::rinvgauss(n, mean = mean, shape = shape)
 }
+

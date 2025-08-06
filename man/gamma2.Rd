@@ -35,7 +35,7 @@ rgamma2(n, mean = 1, sd = 1)
 \code{dgamma2} gives the density, \code{pgamma2} gives the distribution function, \code{qgamma2} gives the quantile function, and \code{rgamma2} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function and random generation for
+Density, distribution function, quantile function, and random generation for
 the gamma distribution reparameterised in terms of mean and standard deviation.
 }
 \details{

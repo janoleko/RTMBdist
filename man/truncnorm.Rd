@@ -39,7 +39,7 @@ rtruncnorm(n, mean = 0, sd = 1, min = -Inf, max = Inf)
 \code{dtruncnorm} gives the density, \code{ptruncnorm} gives the distribution function, \code{qtruncnorm} gives the quantile function, and \code{rtruncnorm} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function and random generation for
+Density, distribution function, quantile function, and random generation for
 the truncated normal distribution.
 }
 \details{

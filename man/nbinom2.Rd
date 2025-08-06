@@ -40,7 +40,7 @@ pnbinom(q, size, prob, lower.tail = TRUE, log.p = FALSE)
 \code{dnbinom2} gives the density, \code{pnbinom2} gives the distribution function, \code{qnbinom2} gives the quantile function, and \code{rnbinom2} generates random deviates.
 }
 \description{
-Probability mass function, distribution function, quantile function and random generation for
+Probability mass function, distribution function, quantile function, and random generation for
 the negative binomial distribution reparameterised in terms of mean and size.
 }
 \details{

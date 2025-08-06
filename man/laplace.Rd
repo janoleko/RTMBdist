@@ -35,7 +35,7 @@ rlaplace(n, mu = 0, b = 1)
 \code{dlaplace} gives the density, \code{plaplace} gives the distribution function, \code{qlaplace} gives the quantile function, and \code{rlaplace} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function and random generation for
+Density, distribution function, quantile function, and random generation for
 the Laplace distribution.
 }
 \details{

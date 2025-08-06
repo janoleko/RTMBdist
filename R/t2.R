@@ -1,6 +1,6 @@
 #' Non-central and scaled students t distribution
 #'
-#' Density, distribution function, quantile function and random generation for
+#' Density, distribution function, quantile function, and random generation for
 #' the t distribution with non-centrality and scale parameters.
 #'
 #' @details

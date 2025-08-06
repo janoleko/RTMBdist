@@ -1,6 +1,6 @@
 #' von Mises distribution
 #'
-#' Density, distribution function and random generation for the von Mises distribution.
+#' Density, distribution function, and random generation for the von Mises distribution.
 #'
 #' @details
 #' This implementation of \code{dvm} allows for automatic differentiation with \code{RTMB}.

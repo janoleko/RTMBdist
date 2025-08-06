@@ -34,7 +34,7 @@ rzinbinom(n, size, prob, zeroprob = 0)
 \code{dzinbinom} gives the density, \code{pzinbinom} gives the distribution function, and \code{rzinbinom} generates random deviates.
 }
 \description{
-Probability mass function, distribution function, quantile function and random generation for
+Probability mass function, distribution function, quantile function, and random generation for
 the zero-inflated negative binomial distribution.
 }
 \details{

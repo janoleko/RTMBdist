@@ -1,6 +1,6 @@
 #' Skewed students t distribution
 #'
-#' Density, distribution function, quantile function and random generation for
+#' Density, distribution function, quantile function, and random generation for
 #' the skew t distribution (type 2).
 #'
 #' @details

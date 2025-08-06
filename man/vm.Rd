@@ -34,7 +34,7 @@ rvm(n, mu = 0, kappa = 1, wrap = TRUE)
 \code{dvm} gives the density, \code{pvm} gives the distribution function, and \code{rvm} generates random deviates.
 }
 \description{
-Density, distribution function and random generation for the von Mises distribution.
+Density, distribution function, and random generation for the von Mises distribution.
 }
 \details{
 This implementation of \code{dvm} allows for automatic differentiation with \code{RTMB}.

@@ -33,7 +33,7 @@ rbeta2(n, mu, phi)
 \code{dbeta2} gives the density, \code{pbeta2} gives the distribution function, \code{qbeta2} gives the quantile function, and \code{rbeta2} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function and random generation for
+Density, distribution function, quantile function, and random generation for
 the beta distribution reparameterised in terms of mean and concentration.
 }
 \details{

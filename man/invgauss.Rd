@@ -17,7 +17,7 @@ qinvgauss(p, mean = 1, shape = 1, lower.tail = TRUE, log.p = FALSE, ...)
 rinvgauss(n, mean = 1, shape = 1)
 }
 \arguments{
-\item{x, q}{vector of quantiles}
+\item{x, q}{vector of quantiles, must be positive.}
 
 \item{mean}{location parameter}
 

@@ -45,7 +45,7 @@ rskewt(n, mu = 0, sigma = 1, skew = 0, df = 1000)
 \code{dskewt} gives the density, \code{pskewt} gives the distribution function, \code{qskewt} gives the quantile function, and \code{rskewt} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function and random generation for
+Density, distribution function, quantile function, and random generation for
 the skew t distribution (type 2).
 }
 \details{

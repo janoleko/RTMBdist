@@ -24,7 +24,7 @@ If \code{x} is a matrix, each row should sum to one.}
 \code{ddirichlet} gives the density.
 }
 \description{
-Density of the Dirichlet distribution.
+Density and and random generation for the Dirichlet distribution.
 }
 \details{
 This implementation of \code{ddirichlet} allows for automatic differentiation with \code{RTMB}.

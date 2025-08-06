@@ -1,6 +1,6 @@
 #' Reparameterised beta distribution
 #'
-#' Density, distribution function, quantile function and random generation for
+#' Density, distribution function, quantile function, and random generation for
 #' the beta distribution reparameterised in terms of mean and concentration.
 #'
 #' @details

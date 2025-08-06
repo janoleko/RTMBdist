@@ -35,7 +35,7 @@ qt2(p, mu, sigma, df)
 \code{dt2} gives the density, \code{pt2} gives the distribution function, \code{qt2} gives the quantile function, and \code{rt2} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function and random generation for
+Density, distribution function, quantile function, and random generation for
 the t distribution with non-centrality and scale parameters.
 }
 \details{

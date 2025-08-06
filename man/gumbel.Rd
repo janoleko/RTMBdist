@@ -35,7 +35,7 @@ rgumbel(n, location = 0, scale = 1)
 \code{dgumbel} gives the density, \code{pgumbel} gives the distribution function, \code{qgumbel} gives the quantile function, and \code{rgumbel} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function and random generation for
+Density, distribution function, quantile function, and random generation for
 the Gumbel distribution.
 }
 \details{

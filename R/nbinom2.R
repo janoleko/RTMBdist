@@ -1,6 +1,6 @@
 #' Reparameterised negative binomial distribution
 #'
-#' Probability mass function, distribution function, quantile function and random generation for
+#' Probability mass function, distribution function, quantile function, and random generation for
 #' the negative binomial distribution reparameterised in terms of mean and size.
 #'
 #' @details

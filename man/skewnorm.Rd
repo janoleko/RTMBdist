@@ -37,7 +37,7 @@ rskewnorm(n, xi = 0, omega = 1, alpha = 0)
 \code{dskewnorm} gives the density, \code{pskewnorm} gives the distribution function, \code{qskewnorm} gives the quantile function, and \code{rskewnorm} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function and random generation for
+Density, distribution function, quantile function, and random generation for
 the skew normal distribution.
 }
 \details{
