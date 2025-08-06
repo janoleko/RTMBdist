@@ -45,13 +45,8 @@ dzinbinom <- function(x, size, prob, zeroprob = 0, log = FALSE) {
     return(dGenericOSA("dzinbinom", x = x, size=size, prob=prob, zeroprob=zeroprob, log=log))
   }
 
-  logdens <- numeric(length(x))
-  zero_idx <- (x == 0)
-
-  # Zero inflation part
-  logdens[zero_idx] <- logspace_add(log(zeroprob),
-                                    log(1-zeroprob) + RTMB::dnbinom(0, size=size, prob=prob, log = TRUE))
-  logdens[!zero_idx] <- log(1 - zeroprob) + RTMB::dnbinom(x[!zero_idx], size=size, prob=prob, log = TRUE)
+  logdens <- RTMB::dnbinom(x, size = size, prob = prob, log = TRUE)
+  logdens <- logspace_add(log(zeroprob) + log(iszero(x)), logdens + log1p(-zeroprob))
 
   if (log) return(logdens)
   return(exp(logdens))

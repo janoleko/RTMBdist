@@ -31,7 +31,7 @@ dzibinom <- function(x, size, prob, zeroprob = 0, log = FALSE) {
 
   if (!ad_context()) {
     # ensure size positive integer >= 1, prob in [0,1], zeroprob in [0,1]
-    if (any(size < 1 | floor(size) != size)) stop("size must be a non-negative integer")
+    if (any(size < 0 | floor(size) != size)) stop("size must be a non-negative integer")
     if (any(prob < 0 | prob > 1)) stop("prob must be in [0,1]")
     if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
   }
@@ -44,12 +44,8 @@ dzibinom <- function(x, size, prob, zeroprob = 0, log = FALSE) {
     return(dGenericOSA("dzibinom", x = x, size = size, prob=prob, zeroprob = zeroprob, log=log))
   }
 
-  logdens <- numeric(length(x))
-  zero_idx <- (x == 0)
-
-  # Zero inflation part
-  logdens[zero_idx] <- logspace_add(log(zeroprob), log(1-zeroprob) + RTMB::dnbinom(0, size=size, prob=prob, log = TRUE))
-  logdens[!zero_idx] <- log(1 - zeroprob) + RTMB::dnbinom(x[!zero_idx], size=size, prob=prob, log = TRUE)
+  logdens <- RTMB::dbinom(x, size = size, prob = prob, log = TRUE)
+  logdens <- logspace_add(log(zeroprob) + log(iszero(x)), logdens + log1p(-zeroprob))
 
   if (log) return(logdens)
   return(exp(logdens))
@@ -61,25 +57,25 @@ pzibinom <- function(q, size, prob, zeroprob = 0, lower.tail = TRUE, log.p = FAL
 
   if (!ad_context()) {
     # ensure size positive integer >= 1, prob in [0,1], zeroprob in [0,1]
-    if (any(size < 1 | floor(size) != size)) stop("size must be a non-negative integer")
+    if (any(size < 0 | floor(size) != size)) stop("size must be a non-negative integer")
     if (any(prob < 0 | prob > 1)) stop("prob must be in [0,1]")
     if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
     q <- floor(q)  # make sure it's integer-valued
   }
 
-  # RTMB::pbinom gives 0 for q < 0, so no handling of that case necessary
-  cdf <- zeroprob + (1 - zeroprob) * pbinom(q, size=size, prob=prob)
+  p <- iszero(q) * zeroprob +
+    ispos(q) * (zeroprob + (1 - zeroprob) * RTMB::pbinom(q, size=size, prob=prob))
 
-  if (!lower.tail) cdf <- 1 - cdf
-  if (log.p) cdf <- log(cdf)
-  return(cdf)
+  if (!lower.tail) p <- 1 - p
+  if (log.p) p <- log(p)
+  return(p)
 }
 #' @rdname zibinom
 #' @importFrom stats runif rbinom
 #' @export
 rzibinom <- function(n, size, prob, zeroprob = 0) {
   # ensure size positive integer >= 1, prob in [0,1], zeroprob in [0,1]
-  if (any(size < 1 | floor(size) != size)) stop("size must be a non-negative integer")
+  if (any(size < 0 | floor(size) != size)) stop("size must be a non-negative integer")
   if (any(prob < 0 | prob > 1)) stop("prob must be in [0,1]")
   if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
   u <- runif(n)

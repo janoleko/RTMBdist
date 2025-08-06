@@ -42,12 +42,8 @@ dzipois <- function(x, lambda, zeroprob = 0, log = FALSE) {
     return(dGenericOSA("dzipois", x = x, lambda = lambda, zeroprob = zeroprob, log=log))
   }
 
-  logdens <- numeric(length(x))
-  zero_idx <- (x == 0)
-
-  # Zero inflation part
-  logdens[zero_idx] <- logspace_add(log(zeroprob), log(1-zeroprob) - lambda)
-  logdens[!zero_idx] <- log(1 - zeroprob) + RTMB::dpois(x[!zero_idx], lambda, log = TRUE)
+  logdens <- RTMB::dpois(x, lambda = lambda, log = TRUE)
+  logdens <- logspace_add(log(zeroprob) + log(iszero(x)), logdens + log1p(-zeroprob))
 
   if (log) return(logdens)
   return(exp(logdens))
