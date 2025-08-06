@@ -52,3 +52,22 @@ greater <- function(x, val) {
   1 - smaller(x, val)
 }
 
+## Logarithm of zero-inflated density/ pmf
+# x = 0: p0
+# x > 0: (1-p0) * pdf(x)
+log_zi <- function(x, logdens, zeroprob) {
+  logdens <- logdens * sign(1e10 - logdens)
+  logspace_add(
+    log(iszero(x)) + log(zeroprob),
+    log(ispos(x)) + log1p(-zeroprob) + logdens
+  )
+}
+# x = 0: p0 + pmf(0)
+# x > 0: (1-p0) * pmf(x)
+log_zi_discrete <- function(x, logdens, zeroprob) {
+  logspace_add(
+    log(zeroprob) + log(iszero(x)),
+    log1p(-zeroprob) + logdens
+    )
+}
+
