@@ -1,4 +1,4 @@
-# vecotorizing sn functions
+# Vecotorizing sn package functions
 psn <- Vectorize(sn::psn)
 qsn <- Vectorize(sn::qsn)
 rsn <- Vectorize(sn::rsn)

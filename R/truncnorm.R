@@ -31,7 +31,7 @@ NULL
 #' @rdname truncnorm
 #' @export
 #' @importFrom RTMB dnorm pnorm
-dtruncnorm <- function(x, mean, sd, min = -Inf, max = Inf, log = FALSE) {
+dtruncnorm <- function(x, mean = 0, sd = 1, min = -Inf, max = Inf, log = FALSE) {
 
   if (!ad_context()) {
     # ensure sd > 0
