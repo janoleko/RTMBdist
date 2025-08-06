@@ -64,14 +64,14 @@
 </h2>
 <p>You can install the development version of <code>RTMBdist</code> from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"janoleko/RTMBdist"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"janoleko/RTMBdist"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://janoleko.github.io/RTMBdist/">RTMBdist</a></span><span class="op">)</span></span></code></pre></div>
-<p>Let’s do numerical maximum likelihood estimation (MLE) with a <code>gumbel</code> distribution:</p>
+<p>Let’s do numerical maximum likelihood estimation with a <code>gumbel</code> distribution:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># simulate data</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gumbel.html">rgumbel</a></span><span class="op">(</span><span class="fl">100</span>, location <span class="op">=</span> <span class="fl">5</span>, scale <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
@@ -84,10 +84,10 @@
 <span>  <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="reference/gumbel.html">dgumbel</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">loc</span>, <span class="va">scale</span>, log <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="co"># automatically differentiable objective function object</span></span>
+<span><span class="co"># RTMB AD object</span></span>
 <span><span class="va">obj</span> <span class="op">&lt;-</span> <span class="fu">MakeADFun</span><span class="op">(</span><span class="va">nll</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>, silent <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># model fitting</span></span>
+<span><span class="co"># model fitting using AD gradient</span></span>
 <span><span class="va">opt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/nlminb.html" class="external-link">nlminb</a></span><span class="op">(</span><span class="va">obj</span><span class="op">$</span><span class="va">par</span>, <span class="va">obj</span><span class="op">$</span><span class="va">fn</span>, <span class="va">obj</span><span class="op">$</span><span class="va">gr</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># model summary</span></span>
@@ -96,12 +96,7 @@
 <span><span class="co">#&gt; par   5.0015427 0.20659355</span></span>
 <span><span class="co">#&gt; par   0.6732893 0.07663174</span></span>
 <span><span class="co">#&gt; loc   5.0015427 0.20659355</span></span>
-<span><span class="co">#&gt; scale 1.9606760 0.15025002</span></span>
-<span></span>
-<span><span class="co"># plot the estimated density</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">x</span>, prob <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="fu"><a href="reference/gumbel.html">dgumbel</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">opt</span><span class="op">$</span><span class="va">par</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">opt</span><span class="op">$</span><span class="va">par</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, lwd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-example-1.png" width="100%"></p>
+<span><span class="co">#&gt; scale 1.9606760 0.15025002</span></span></code></pre></div>
 <p>Through the magic of <code>RTMB</code>, we can also immediately simulate new data from the fitted model and calculate residuals:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># simulate new data</span></span>
