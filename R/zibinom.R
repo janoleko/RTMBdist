@@ -45,7 +45,7 @@ dzibinom <- function(x, size, prob, zeroprob = 0, log = FALSE) {
   }
 
   logdens <- RTMB::dbinom(x, size = size, prob = prob, log = TRUE)
-  logdens <- logspace_add(log(zeroprob) + log(iszero(x)), logdens + log1p(-zeroprob))
+  logdens <- log_zi_discrete(x, logdens, zeroprob)
 
   if (log) return(logdens)
   return(exp(logdens))
