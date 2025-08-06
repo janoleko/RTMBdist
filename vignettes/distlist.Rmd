@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 
 * [`beta2(mu, phi)`](../reference/beta2.html): Beta distribution parameterised by mean `mu` and precision `phi`
 
+* [`exgaus(mu, sigma, lambda)`](../reference/exgaus.html): Exponentially modified Gaussian distribution parameterised by location `mu`, scale `sigma` and rate `lambda`
+
 * [`foldnorm(mu, sigma)`](../reference/foldnorm.html): Folded normal distribution parameterised by location `mu` and scale `sigma`
 
 * [`gamma2(mean, sd)`](../reference/gamma2.html): Gamma distribution parameterised by mean and standard deviation

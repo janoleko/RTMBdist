@@ -15,6 +15,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Imports:
     stats,
+    gamlss.dist,
     circular,
     sn,
     statmod,
