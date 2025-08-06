@@ -8,7 +8,7 @@
 \alias{rtruncnorm}
 \title{Truncated normal distribution}
 \usage{
-dtruncnorm(x, mean, sd, min = -Inf, max = Inf, log = FALSE)
+dtruncnorm(x, mean = 0, sd = 1, min = -Inf, max = Inf, log = FALSE)
 
 ptruncnorm(q, mean = 0, sd = 1, min = -Inf, max = Inf,
            lower.tail = TRUE, log.p = FALSE)
