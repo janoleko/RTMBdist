@@ -32,7 +32,7 @@ knitr::opts_chunk$set(
 
 * [`oibeta(shape1, shape2, oneprob)`](../reference/oibeta.html): One-inflated beta distribution parameterised by shape parameters `shape1`, `shape2` and one-probability `oneprob`
 
-* [`oibeta2(mu, phi, oneprob)`](../reference/oibeta2.html): One-inflated beta distribution reparameterised reparameterised by mean `mu`, precision `phi`, and one-probability `oneprob`
+* [`oibeta2(mu, phi, oneprob)`](../reference/oibeta2.html): One-inflated beta distribution reparameterised by mean `mu`, precision `phi`, and one-probability `oneprob`
 
 * [`skewnorm(xi, omega, alpha)`](../reference/skewnorm.html): Skew normal distribution parameterised by location `xi`, scale `omega` and skewness `alpha`
 
