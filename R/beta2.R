@@ -102,5 +102,3 @@ rbeta2 <- function(n, mu, phi) {
   shape2 <- (1 - mu) * phi
   stats::rbeta(n, shape1 = shape1, shape2 = shape2)
 }
-
-

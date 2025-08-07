@@ -1,4 +1,4 @@
-# getting one step ahead resiudals and simulation functions from RTMB (not exported)
+# getting OSA residual and simulation functions from RTMB (not exported)
 dGenericOSA <- get("dGenericOSA", envir = asNamespace("RTMB"), inherits = FALSE)
 dGenericSim <- get("dGenericSim", envir = asNamespace("RTMB"), inherits = FALSE)
 
@@ -34,22 +34,24 @@ pmax.ad <- function(x, y) apply(cbind(x,y), 1, max)
 
 ## AD-indicator constructors
 # 1 if x == 0, 0 otherwise
-iszero <- function(x) {
-  # 1 - sign(x)^2
-  (1-smaller(x, 0)) * (1-greater(x,0))
-}
+iszero <- RTMB::ADjoint(f = function(x) as.numeric(x==0),
+                        df = function(x,y,dy) 0,
+                        name = "iszero")
+# 1 if x != 0, 0 otherwise
 isnonzero <- function(x) {
   1 - iszero(x)
 }
-# 1 if x > 0, 0 otherwise
+# 1 if x => 0, 0 otherwise
 ispos <- function(x) {
   s <- sign(x)
   0.5 * (s + abs(s))
 }
+# 1 if x < 0, 0 otherwise
 isneg <- function(x) {
   s <- sign(x)
   - 0.5 * (s - abs(s))
 }
+# 1 if x > 0, 0 otherwise
 ispos_strict <- function(x) {
   ispos(x) * isnonzero(x)
 }
@@ -60,17 +62,17 @@ smaller <- function(x, val) {
 }
 # 1 if x > val, 0 otherwise
 greater <- function(x, val) {
-  # 1 - smaller(x, val)
   s <- sign(val - x)
   0.5 * (abs(s) - s)
 }
+# turns +Inf into largest finite value
 as.finite <- function(x) {
   pmin.ad(x, .Machine$double.xmax)
 }
 
 
 ## Logarithm of zero-inflated density/ pmf
-# x = 0: p0
+# x == 0: p0
 # x > 0: (1-p0) * pdf(x)
 log_zi <- function(x, logdens, zeroprob) {
   logdens <- as.finite(logdens) # turn + Inf into finite
@@ -80,12 +82,11 @@ log_zi <- function(x, logdens, zeroprob) {
     log(isnonzero(x)) + log1p(-zeroprob) + logdens
   )
 }
-# x = 0: p0 + pmf(0)
+# x == 0: p0 + pmf(0)
 # x > 0: (1-p0) * pmf(x)
 log_zi_discrete <- function(x, logdens, zeroprob) {
   RTMB::logspace_add(
-    log(zeroprob) + log(iszero(x)),
+    log(iszero(x)) + log(zeroprob),
     log1p(-zeroprob) + logdens
     )
 }
-
