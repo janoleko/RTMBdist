@@ -76,7 +76,7 @@ dzoibeta <- function(x, shape1, shape2, zeroprob = 0, oneprob = 0, log = FALSE) 
 #' @rdname zoibeta
 #' @export
 #' @usage pzoibeta(q, shape1, shape2, zeroprob = 0, oneprob = 0,
-#'          lower.tail = TRUE, log.p = FALSE )
+#'          lower.tail = TRUE, log.p = FALSE)
 #' @importFrom RTMB pbeta
 pzoibeta <- function(q, shape1, shape2, zeroprob = 0, oneprob = 0, lower.tail = TRUE, log.p = FALSE) {
 

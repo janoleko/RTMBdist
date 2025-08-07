@@ -10,7 +10,7 @@
 dzoibeta(x, shape1, shape2, zeroprob = 0, oneprob = 0, log = FALSE)
 
 pzoibeta(q, shape1, shape2, zeroprob = 0, oneprob = 0,
-         lower.tail = TRUE, log.p = FALSE )
+         lower.tail = TRUE, log.p = FALSE)
 
 rzoibeta(n, shape1, shape2, zeroprob = 0, oneprob = 0)
 }

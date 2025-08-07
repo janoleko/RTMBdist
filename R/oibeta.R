@@ -43,7 +43,7 @@ doibeta <- function(x, shape1, shape2, oneprob = 0, log = FALSE) {
     return(dGenericSim("doibeta", x=x, shape1=shape1, shape2=shape2, oneprob=oneprob, log=log))
   }
   if(inherits(x, "osa")) {
-    return(dGenericOSA("doibeta", x=x, shape1=shape1, shape2=shape2, oneprob=oneprob,, log=log))
+    return(dGenericOSA("doibeta", x=x, shape1=shape1, shape2=shape2, oneprob=oneprob, log=log))
   }
 
   logdens <- RTMB::dbeta(x, shape1 = shape1, shape2 = shape2, log = TRUE)
