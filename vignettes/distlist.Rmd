@@ -56,6 +56,8 @@ knitr::opts_chunk$set(
 
 * [`ziinvgauss(mean, shape, zeroprob)`](../reference/ziinvgauss.html): Zero-inflated inverse Gaussian distribution parameterised by mean, shape and zero-probability `zeroprob`
 
+* [`zoibeta(shape1, shape2, zeroprob, oneprob)`](../reference/zoibeta.html): Zero- and one-inflated beta distribution parameterised by shape parameters `shape1`, `shape2`, zero-probability `zeroprob` and one-probability `oneprob`
+
 
 
 ## Discrete distributions

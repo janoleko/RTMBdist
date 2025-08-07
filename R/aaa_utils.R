@@ -46,6 +46,10 @@ ispos <- function(x) {
   s <- sign(x)
   0.5 * (s + abs(s))
 }
+isneg <- function(x) {
+  s <- sign(x)
+  - 0.5 * (s - abs(s))
+}
 ispos_strict <- function(x) {
   ispos(x) * isnonzero(x)
 }
