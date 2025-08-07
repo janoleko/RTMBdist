@@ -67,12 +67,12 @@ pinvgauss <- function(q, mean = 1, shape = 1, lower.tail = TRUE, log.p = FALSE) 
     if (any(shape <= 0)) stop("shape must be strictly positive.")
   }
 
-  s <- sign(q)
-
   p <- RTMB::pnorm(sqrt(shape / abs(q)) * (q / mean - 1)) +
     exp(2 * shape / mean) * RTMB::pnorm(-sqrt(shape / abs(q)) * (q / mean + 1))
 
-  p <- 0.5 * (1 + s) * s * p
+  # s <- sign(q)
+  # p <- 0.5 * (1 + s) * s * p
+  p <- ispos(q) * p
 
   if (!lower.tail) p <- 1 - p
   if (log.p) return(log(p))
