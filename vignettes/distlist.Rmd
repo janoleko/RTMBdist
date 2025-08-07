@@ -32,6 +32,8 @@ knitr::opts_chunk$set(
 
 * [`oibeta(shape1, shape2, oneprob)`](../reference/oibeta.html): One-inflated beta distribution parameterised by shape parameters `shape1`, `shape2` and one-probability `oneprob`
 
+* [`oibeta2(mu, phi, oneprob)`](../reference/oibeta2.html): One-inflated beta distribution reparameterised reparameterised by mean `mu`, precision `phi`, and one-probability `oneprob`
+
 * [`skewnorm(xi, omega, alpha)`](../reference/skewnorm.html): Skew normal distribution parameterised by location `xi`, scale `omega` and skewness `alpha`
 
 * [`skewnorm2(mean, sd, alpha)`](../reference/skewnorm2.html): Skew normal distribution reparameterised by mean, standard deviation and skewness `alpha`
@@ -58,6 +60,7 @@ knitr::opts_chunk$set(
 
 * [`zoibeta(shape1, shape2, zeroprob, oneprob)`](../reference/zoibeta.html): Zero- and one-inflated beta distribution parameterised by shape parameters `shape1`, `shape2`, zero-probability `zeroprob` and one-probability `oneprob`
 
+* [`zoibeta2(mu, phi, zeroprob, oneprob)`](../reference/zoibeta2.html): Zero- and one-inflated beta distribution reparameterised by mean `mu`, precision `phi`, zero-probability `zeroprob` and one-probability `oneprob`
 
 
 ## Discrete distributions
