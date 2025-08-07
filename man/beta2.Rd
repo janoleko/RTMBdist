@@ -10,9 +10,9 @@
 \usage{
 dbeta2(x, mu, phi, log = FALSE)
 
-pbeta2(q, mu, phi)
+pbeta2(q, mu, phi, lower.tail = TRUE, log.p = FALSE)
 
-qbeta2(p, mu, phi)
+qbeta2(p, mu, phi, lower.tail = TRUE, log.p = FALSE)
 
 rbeta2(n, mu, phi)
 }
@@ -23,7 +23,9 @@ rbeta2(n, mu, phi)
 
 \item{phi}{concentration parameter, must be positive.}
 
-\item{log}{logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.}
+\item{log, log.p}{logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.}
+
+\item{lower.tail}{logical; if \code{TRUE} (default), probabilities are \eqn{P[X \leq x]}, otherwise \eqn{P[X > x]}.}
 
 \item{p}{vector of probabilities}
 

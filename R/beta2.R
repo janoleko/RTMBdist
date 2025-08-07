@@ -11,7 +11,8 @@
 #' @param n number of random values to return.
 #' @param mu mean parameter, must be in the interval from 0 to 1.
 #' @param phi concentration parameter, must be positive.
-#' @param log logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
+#' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
+#' @param lower.tail logical; if \code{TRUE} (default), probabilities are \eqn{P[X \leq x]}, otherwise \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dbeta2} gives the density, \code{pbeta2} gives the distribution function, \code{qbeta2} gives the quantile function, and \code{rbeta2} generates random deviates.
@@ -51,7 +52,7 @@ dbeta2 <- function(x, mu, phi, log = FALSE) {
 #' @rdname beta2
 #' @export
 #' @importFrom RTMB pbeta
-pbeta2 <- function(q, mu, phi) {
+pbeta2 <- function(q, mu, phi, lower.tail = TRUE, log.p = FALSE) {
   if(!ad_context()) {
     # ensure mu in [0,1]
     if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
@@ -61,18 +62,26 @@ pbeta2 <- function(q, mu, phi) {
 
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
-  RTMB::pbeta(q, shape1 = shape1, shape2 = shape2)
+  p <- RTMB::pbeta(q, shape1 = shape1, shape2 = shape2)
+
+  if(!lower.tail) p <- 1 - p
+  if(log.p) p <- log(p)
+
+  return(p)
 }
 #' @rdname beta2
 #' @export
 #' @importFrom RTMB qbeta
-qbeta2 <- function(p, mu, phi) {
+qbeta2 <- function(p, mu, phi, lower.tail = TRUE, log.p = FALSE) {
   if(!ad_context()) {
     # ensure mu in [0,1]
     if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
     # ensure phi > 0
     if (any(phi <= 0)) stop("phi must be strictly positive.")
   }
+
+  if(log.p) p <- exp(p)
+  if(!lower.tail) p <- 1 - p
 
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
