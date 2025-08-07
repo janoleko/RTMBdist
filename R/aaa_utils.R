@@ -38,7 +38,7 @@ iszero <- function(x) {
   # 1 - sign(x)^2
   (1-smaller(x, 0)) * (1-greater(x,0))
 }
-isnotzero <- function(x) {
+isnonzero <- function(x) {
   1 - iszero(x)
 }
 # 1 if x > 0, 0 otherwise
@@ -47,7 +47,7 @@ ispos <- function(x) {
   0.5 * (s + abs(s))
 }
 ispos_strict <- function(x) {
-  ispos(x) * isnotzero(x)
+  ispos(x) * isnonzero(x)
 }
 # 1 if x < val, 0 otherwise
 smaller <- function(x, val) {
@@ -72,7 +72,8 @@ log_zi <- function(x, logdens, zeroprob) {
   logdens <- as.finite(logdens) # turn + Inf into finite
   logdens <- RTMB::logspace_add(
     log(iszero(x)) + log(zeroprob),
-    log(ispos_strict(x)) + log1p(-zeroprob) + logdens
+    # log(ispos_strict(x)) + log1p(-zeroprob) + logdens
+    log(isnonzero(x)) + log1p(-zeroprob) + logdens
   )
 }
 # x = 0: p0 + pmf(0)

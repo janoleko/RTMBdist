@@ -30,6 +30,8 @@ knitr::opts_chunk$set(
 
 * [`laplace(mu, b)`](../reference/laplace.html): Laplace distribution parameterised by location `mu` and scale `b`
 
+* [`oibeta(shape1, shape2, oneprob)`](../reference/oibeta.html): One-inflated beta distribution parameterised by shape parameters `shape1`, `shape2` and one-probability `oneprob`
+
 * [`skewnorm(xi, omega, alpha)`](../reference/skewnorm.html): Skew normal distribution parameterised by location `xi`, scale `omega` and skewness `alpha`
 
 * [`skewnorm2(mean, sd, alpha)`](../reference/skewnorm2.html): Skew normal distribution reparameterised by mean, standard deviation and skewness `alpha`
