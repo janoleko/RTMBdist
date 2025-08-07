@@ -69,7 +69,7 @@
 </h2>
 <ul>
 <li><p><a href="../reference/beta2.html"><code>beta2(mu, phi)</code></a>: Beta
-distribution parameterised by mean <code>mu</code> and precision
+distribution reparameterised by mean <code>mu</code> and precision
 <code>phi</code></p></li>
 <li><p><a href="../reference/exgauss.html"><code>exgauss(mu, sigma, lambda)</code></a>:
 Exponentially modified Gaussian distribution parameterised by location
@@ -79,7 +79,7 @@ Exponentially modified Gaussian distribution parameterised by location
 Folded normal distribution parameterised by location <code>mu</code> and
 scale <code>sigma</code></p></li>
 <li><p><a href="../reference/gamma2.html"><code>gamma2(mean, sd)</code></a>: Gamma
-distribution parameterised by mean and standard deviation</p></li>
+distribution reparameterised by mean and standard deviation</p></li>
 <li><p><a href="../reference/gumbel.html"><code>gumbel(location, scale)</code></a>:
 Gumbel distribution parameterised by location and scale</p></li>
 <li><p><a href="../reference/invgauss.html"><code>invgauss(mean, shape)</code></a>:
@@ -91,7 +91,7 @@ Laplace distribution parameterised by location <code>mu</code> and scale
 Skew normal distribution parameterised by location <code>xi</code>,
 scale <code>omega</code> and skewness <code>alpha</code></p></li>
 <li><p><a href="../reference/skewnorm2.html"><code>skewnorm2(mean, sd, alpha)</code></a>:
-Skew normal distribution parameterised by mean, standard deviation and
+Skew normal distribution reparameterised by mean, standard deviation and
 skewness <code>alpha</code></p></li>
 <li><p><a href="../reference/skewt.html"><code>skewt(mu, sigma, skew, df)</code></a>:
 Skew t-distribution parameterised by location <code>mu</code>, scale
@@ -114,11 +114,15 @@ Wrapped Cauchy distribution parameterised by mean direction
 Zero-inflated beta distribution parameterised by shape parameters
 <code>shape1</code>, <code>shape2</code> and zero-probability
 <code>zeroprob</code></p></li>
+<li><p><a href="../reference/zibeta2.html"><code>zibeta2(mu, phi, zeroprob)</code></a>:
+Zero-inflated beta distribution reparameterised by mean <code>mu</code>,
+precision <code>phi</code>, and zero-probability
+<code>zeroprob</code></p></li>
 <li><p><a href="../reference/zigamma.html"><code>zigamma(shape, scale, zeroprob)</code></a>:
 Zero-inflated gamma distribution parameterised by shape and scale, with
 a zero-probability <code>zeroprob</code></p></li>
 <li><p><a href="../reference/zigamma2.html"><code>zigamma2(mean, sd, zeroprob)</code></a>:
-Zero-inflated gamma distribution parameterised by mean, standard
+Zero-inflated gamma distribution reparameterised by mean, standard
 deviation and zero-probability <code>zeroprob</code></p></li>
 <li><p><a href="../reference/ziinvgauss.html"><code>ziinvgauss(mean, shape, zeroprob)</code></a>:
 Zero-inflated inverse Gaussian distribution parameterised by mean, shape
@@ -130,8 +134,8 @@ and zero-probability <code>zeroprob</code></p></li>
 </h2>
 <ul>
 <li><p><a href="../reference/nbinom2.html"><code>nbinom2(mu, size)</code></a>:
-Negative binomial distribution parameterised by mean <code>mu</code> and
-size <code>size</code></p></li>
+Negative binomial distribution reparameterised by mean <code>mu</code>
+and size <code>size</code></p></li>
 <li><p><a href="../reference/zibinom.html"><code>zibinom(size, prob, zeroprob)</code></a>:
 Zero-inflated binomial distribution parameterised by size
 <code>size</code>, success probability <code>prob</code> and
@@ -141,7 +145,7 @@ Zero-inflated negative binomial distribution parameterised by size
 <code>size</code>, success probability <code>prob</code> and
 zero-probability <code>zeroprob</code></p></li>
 <li><p><a href="../reference/zinbinom2.html"><code>zinbinom2(mu, size, zeroprob)</code></a>:
-Zero-inflated negative binomial distribution parameterised by mean
+Zero-inflated negative binomial distribution reparameterised by mean
 <code>mu</code>, size <code>size</code> and zero-probability
 <code>zeroprob</code></p></li>
 <li><p><a href="../reference/zipois.html"><code>zipois(lambda, zeroprob)</code></a>:
