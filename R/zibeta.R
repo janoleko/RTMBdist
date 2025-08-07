@@ -1,6 +1,6 @@
 #' Zero-inflated beta distribution
 #'
-#' Density, distribution function, quantile function and random generation for
+#' Density, distribution function, quantile function, and random generation for
 #' the zero-inflated beta distribution.
 #'
 #' @details
@@ -42,14 +42,17 @@ dzibeta <- function(x, shape1, shape2, zeroprob = 0, log = FALSE) {
     return(dGenericOSA("dzibeta", x=x, shape1=shape1, shape2=shape2, log=log))
   }
 
-  # not differentiable in x
-  logdens <- numeric(length(x))
-  zero_idx <- (x == 0)
+  # # not differentiable in x
+  # logdens <- numeric(length(x))
+  # zero_idx <- (x == 0)
+  #
+  # # Zero inflation part
+  # logdens[zero_idx] <- log(zeroprob)
+  # logdens[!zero_idx] <- log(1 - zeroprob) +
+  #   RTMB::dbeta(x[!zero_idx], shape1 = shape1, shape2 = shape2, log = TRUE)
 
-  # Zero inflation part
-  logdens[zero_idx] <- log(zeroprob)
-  logdens[!zero_idx] <- log(1 - zeroprob) +
-    RTMB::dbeta(x[!zero_idx], shape1 = shape1, shape2 = shape2, log = TRUE)
+  logdens <- RTMB::dbeta(x, shape1 = shape1, shape2 = shape2, log = TRUE)
+  logdens <- log_zi(x, logdens, zeroprob)
 
   if (log) return(logdens)
   return(exp(logdens))
@@ -66,14 +69,13 @@ pzibeta <- function(q, shape1, shape2, zeroprob = 0, lower.tail = TRUE, log.p = 
     if (any(shape2 < 0)) stop("shape2 must be non-negative.")
   }
 
-  s1 <- 2 * sign(q) - 1 # gives -3 for q < 0, -1 for q == 0, and 1 for q > 0
-  s2 <- sign(3 + s1) # only zero or 1
+  # s1 <- 2 * sign(q) - 1 # gives -3 for q < 0, -1 for q == 0, and 1 for q > 0
+  # s2 <- sign(3 + s1) # only zero or 1
+  # iszero <- 0.5 * (1-s1) * s2
+  # ispos <- 0.5 * (1+s1) * s2
 
-  iszero <- 0.5 * (1-s1) * s2
-  ispos <- 0.5 * (1+s1) * s2
-
-  p <- iszero * zeroprob +
-    ispos * (zeroprob + (1 - zeroprob) * RTMB::pbeta(q, shape1, shape2))
+  p <- iszero(q) * zeroprob +
+    ispos_strict(q) * (zeroprob + (1 - zeroprob) * RTMB::pbeta(q, shape1, shape2))
 
   if(!lower.tail) p <- 1 - p
   if(log.p) p <- log(p)
@@ -93,4 +95,3 @@ rzibeta <- function(n, shape1, shape2, zeroprob = 0) {
   res <- ifelse(u < zeroprob, 0, rbeta(n, shape1, shape2))
   return(res)
 }
-

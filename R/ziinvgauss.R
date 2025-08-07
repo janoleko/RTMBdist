@@ -36,13 +36,16 @@ dziinvgauss <- function(x, mean = 1, shape = 1, zeroprob = 0, log = FALSE) {
     return(dGenericOSA("dziinvgauss", x=x, mean=mean, shape=shape, zeroprob=zeroprob, log=log))
   }
 
-  logdens <- numeric(length(x))
-  zero_idx <- (x == 0)
+  # logdens <- numeric(length(x))
+  # zero_idx <- (x == 0)
+  #
+  # # Zero inflation part
+  # logdens[zero_idx] <- log(zeroprob)
+  # logdens[!zero_idx] <- log(1 - zeroprob) +
+  #   dinvgauss(x[!zero_idx], mean = mean, shape = shape, log = TRUE)
 
-  # Zero inflation part
-  logdens[zero_idx] <- log(zeroprob)
-  logdens[!zero_idx] <- log(1 - zeroprob) +
-    dinvgauss(x[!zero_idx], mean = mean, shape = shape, log = TRUE)
+  logdens <- dinvgauss(x, mean = mean, shape = shape, log = TRUE)
+  logdens <- log_zi(x, logdens, zeroprob)
 
   if (log) return(logdens)
   return(exp(logdens))
@@ -62,11 +65,14 @@ pziinvgauss <- function(q, mean = 1, shape = 1, zeroprob = 0, lower.tail = TRUE,
   # p[is_zero] <- zeroprob
   # p[positive] <- zeroprob + (1 - zeroprob) * pinvgauss(q[positive], mean=mean, shape=shape)
 
-  s1 <- 2 * sign(q) - 1 # gives -3 for q < 0, -1 for q == 0, and 1 for q > 0
-  s2 <- sign(3 + s1) # only zero or 1
+  # s1 <- 2 * sign(q) - 1 # gives -3 for q < 0, -1 for q == 0, and 1 for q > 0
+  # s2 <- sign(3 + s1) # only zero or 1
 
-  p <- 0.5 * (1 - s1) * s2 * zeroprob +
-    0.5 * (1 + s1) * s2 * (zeroprob + (1 - zeroprob) * pinvgauss(q, mean, shape))
+  # p <- 0.5 * (1 - s1) * s2 * zeroprob +
+  #   0.5 * (1 + s1) * s2 * (zeroprob + (1 - zeroprob) * pinvgauss(q, mean, shape))
+
+  p <- iszero(q) * zeroprob +
+    ispos_strict(q) * (zeroprob + (1 - zeroprob) * pinvgauss(q, mean, shape))
 
   if (!lower.tail) p <- 1 - p
   if (log.p) return(log(p))

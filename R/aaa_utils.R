@@ -35,12 +35,19 @@ pmax.ad <- function(x, y) apply(cbind(x,y), 1, max)
 ## AD-indicator constructors
 # 1 if x == 0, 0 otherwise
 iszero <- function(x) {
-  1 - sign(x)^2
+  # 1 - sign(x)^2
+  (1-smaller(x, 0)) * (1-greater(x,0))
+}
+isnotzero <- function(x) {
+  1 - iszero(x)
 }
 # 1 if x > 0, 0 otherwise
 ispos <- function(x) {
   s <- sign(x)
   0.5 * (s + abs(s))
+}
+ispos_strict <- function(x) {
+  ispos(x) * isnotzero(x)
 }
 # 1 if x < val, 0 otherwise
 smaller <- function(x, val) {
@@ -49,17 +56,23 @@ smaller <- function(x, val) {
 }
 # 1 if x > val, 0 otherwise
 greater <- function(x, val) {
-  1 - smaller(x, val)
+  # 1 - smaller(x, val)
+  s <- sign(val - x)
+  0.5 * (abs(s) - s)
 }
+as.finite <- function(x) {
+  pmin.ad(x, .Machine$double.xmax)
+}
+
 
 ## Logarithm of zero-inflated density/ pmf
 # x = 0: p0
 # x > 0: (1-p0) * pdf(x)
 log_zi <- function(x, logdens, zeroprob) {
-  logdens <- logdens * sign(1e10 - logdens)
-  RTMB::logspace_add(
+  logdens <- as.finite(logdens) # turn + Inf into finite
+  logdens <- RTMB::logspace_add(
     log(iszero(x)) + log(zeroprob),
-    log(ispos(x)) + log1p(-zeroprob) + logdens
+    log(ispos_strict(x)) + log1p(-zeroprob) + logdens
   )
 }
 # x = 0: p0 + pmf(0)

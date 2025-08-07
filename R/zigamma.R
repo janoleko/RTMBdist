@@ -44,13 +44,8 @@ dzigamma = function(x, shape, scale, zeroprob = 0, log = FALSE) {
     return(dGenericOSA("dzigamma", x=x, shape = shape, scale = scale, zeroprob = zeroprob, log=log))
   }
 
-  logdens <- numeric(length(x))
-  zero_idx <- (x == 0)
-
-  # Zero inflation part
-  logdens[zero_idx] <- log(zeroprob)
-  logdens[!zero_idx] <- log(1 - zeroprob) +
-    dgamma(x[!zero_idx], shape = shape, scale = scale, log = TRUE)
+  logdens <- RTMB::dgamma(x, shape = shape, scale = scale, log = TRUE)
+  logdens <- log_zi(x, logdens, zeroprob)
 
   if (log) return(logdens)
   return(exp(logdens))
@@ -67,17 +62,20 @@ pzigamma <- function(q, shape, scale, zeroprob = 0, lower.tail = TRUE, log.p = F
     if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
   }
 
-  s1 <- 2 * sign(q) - 1 # gives -3 for q < 0, -1 for q == 0, and 1 for q > 0
-  s2 <- sign(3 + s1) # only zero or 1
+  # s1 <- 2 * sign(q) - 1 # gives -3 for q < 0, -1 for q == 0, and 1 for q > 0
+  # s2 <- sign(3 + s1) # only zero or 1
 
-  cdf <- 0.5 * (1 - s1) * zeroprob +
-    0.5 * (1 + s1) * (zeroprob + (1 - zeroprob) * pgamma(q, shape, scale))
-  cdf <- cdf * s2 # set negative values to 0
+  # cdf <- 0.5 * (1 - s1) * zeroprob +
+  #   0.5 * (1 + s1) * (zeroprob + (1 - zeroprob) * pgamma(q, shape, scale))
+  # cdf <- cdf * s2 # set negative values to 0
 
-  if(!lower.tail) cdf <- 1 - cdf
-  if(log.p) cdf <- log(cdf)
+  p <- iszero(q) * zeroprob +
+    ispos_strict(q) * (zeroprob + (1 - zeroprob) * pgamma(q, shape, scale))
 
-  return(cdf)
+  if(!lower.tail) p <- 1 - p
+  if(log.p) p <- log(p)
+
+  return(p)
 }
 #' @rdname zigamma
 #' @importFrom stats runif rgamma

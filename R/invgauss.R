@@ -46,6 +46,9 @@ dinvgauss <- function(x, mean = 1, shape = 1, log = FALSE) {
     return(dGenericOSA("dinvgauss", x=x, mean=mean, shape=shape, log=log))
   }
 
+  # avoid issues with zero -> if x == 0, returns +/- Inf
+  x <- x + .Machine$double.xmin / 10
+
   logdens <- 0.5 * log(shape) - 0.5 * log(2 * pi) - 1.5 * log(x) -
     (shape * (x - mean)^2) / (2 * mean^2 * x)
 
