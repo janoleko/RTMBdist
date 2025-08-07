@@ -30,7 +30,7 @@ rzibeta(n, shape1, shape2, zeroprob = 0)
 \code{dzibeta} gives the density, \code{pzibeta} gives the distribution function, and \code{rzibeta} generates random deviates.
 }
 \description{
-Density, distribution function, quantile function, and random generation for
+Density, distribution function, and random generation for
 the zero-inflated beta distribution.
 }
 \details{

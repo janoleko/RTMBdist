@@ -1,6 +1,6 @@
 #' Zero-inflated beta distribution
 #'
-#' Density, distribution function, quantile function, and random generation for
+#' Density, distribution function, and random generation for
 #' the zero-inflated beta distribution.
 #'
 #' @details
@@ -29,17 +29,21 @@ NULL
 dzibeta <- function(x, shape1, shape2, zeroprob = 0, log = FALSE) {
 
   if(!ad_context()) {
-    # shapes non-negative
-    if (any(shape1 < 0)) stop("shape1 must be non-negative.")
-    if (any(shape2 < 0)) stop("shape2 must be non-negative.")
+    # shapes positive
+    if (any(shape1 <= 0)) stop("shape1 must be positive.")
+    if (any(shape2 <= 0)) stop("shape2 must be positive.")
+    # ensure zeroprob in [0,1]
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+    # ensure x in [0,1)
+    # if (any(x < 0 | x >= 1)) stop("x must be in the interval [0, 1).")
   }
 
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
-    return(dGenericSim("dzibeta", x=x, shape1=shape1, shape2=shape2, log=log))
+    return(dGenericSim("dzibeta", x=x, shape1=shape1, shape2=shape2, zeroprob=zeroprob, log=log))
   }
   if(inherits(x, "osa")) {
-    return(dGenericOSA("dzibeta", x=x, shape1=shape1, shape2=shape2, log=log))
+    return(dGenericOSA("dzibeta", x=x, shape1=shape1, shape2=shape2, zeroprob=zeroprob, log=log))
   }
 
   # # not differentiable in x
@@ -54,6 +58,9 @@ dzibeta <- function(x, shape1, shape2, zeroprob = 0, log = FALSE) {
   logdens <- RTMB::dbeta(x, shape1 = shape1, shape2 = shape2, log = TRUE)
   logdens <- log_zi(x, logdens, zeroprob)
 
+  # making sure x == 1 evaluates to -Inf
+  logdens <- logdens + log(1-iszero(x-1))
+
   if (log) return(logdens)
   return(exp(logdens))
 }
@@ -64,10 +71,15 @@ dzibeta <- function(x, shape1, shape2, zeroprob = 0, log = FALSE) {
 pzibeta <- function(q, shape1, shape2, zeroprob = 0, lower.tail = TRUE, log.p = FALSE) {
 
   if(!ad_context()) {
-    # shapes non-negative
-    if (any(shape1 < 0)) stop("shape1 must be non-negative.")
-    if (any(shape2 < 0)) stop("shape2 must be non-negative.")
+    # shapes positive
+    if (any(shape1 <= 0)) stop("shape1 must be positive.")
+    if (any(shape2 <= 0)) stop("shape2 must be positive.")
+    # ensure zeroprob in [0,1]
+    if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+    # ensure x in [0,1)
+    # if (any(x < 0 | x >= 1)) stop("x must be in the interval [0, 1).")
   }
+
 
   # s1 <- 2 * sign(q) - 1 # gives -3 for q < 0, -1 for q == 0, and 1 for q > 0
   # s2 <- sign(3 + s1) # only zero or 1
@@ -86,12 +98,17 @@ pzibeta <- function(q, shape1, shape2, zeroprob = 0, lower.tail = TRUE, log.p = 
 #' @export
 #' @importFrom stats rbeta
 rzibeta <- function(n, shape1, shape2, zeroprob = 0) {
-  if(!ad_context()) {
-    # shapes non-negative
-    if (any(shape1 < 0)) stop("shape1 must be non-negative.")
-    if (any(shape2 < 0)) stop("shape2 must be non-negative.")
-  }
+
+  # shapes positive
+  if (any(shape1 <= 0)) stop("shape1 must be positive.")
+  if (any(shape2 <= 0)) stop("shape2 must be positive.")
+  # ensure zeroprob in [0,1]
+  if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+
   u <- runif(n)
-  res <- ifelse(u < zeroprob, 0, rbeta(n, shape1, shape2))
+  res <- rep(1, n)
+  is_zero <- u < zeroprob
+  res[!is_zero] <- rbeta(sum(!is_zero), shape1, shape2)
+
   return(res)
 }

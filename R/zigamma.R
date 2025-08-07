@@ -85,7 +85,11 @@ rzigamma <- function(n, shape, scale, zeroprob = 0) {
   if (any(shape < 0)) stop("shape must be >= 0")
   if (any(scale <= 0)) stop("scale must be > 0")
   if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+
   u <- runif(n)
-  res <- ifelse(u < zeroprob, 0, rgamma(n, shape = shape, scale = scale))
+  res <- rep(1, n)
+  is_zero <- u < zeroprob
+  res[!is_zero] <- rgamma(sum(!is_zero), shape = shape, scale = scale)
+
   return(res)
 }

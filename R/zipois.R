@@ -73,7 +73,11 @@ rzipois <- function(n, lambda, zeroprob = 0) {
   # ensure lambda >= 0, zeroprob in [0,1]
   if (any(lambda < 0)) stop("lambda must be >= 0")
   if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+
   u <- runif(n)
-  res <- ifelse(u < zeroprob, 0, rpois(n, lambda))
+  res <- rep(1, n)
+  is_zero <- u < zeroprob
+  res[!is_zero] <- rpois(sum(!is_zero), lambda)
+
   return(res)
 }

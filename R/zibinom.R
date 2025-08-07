@@ -78,7 +78,11 @@ rzibinom <- function(n, size, prob, zeroprob = 0) {
   if (any(size < 0 | floor(size) != size)) stop("size must be a non-negative integer")
   if (any(prob < 0 | prob > 1)) stop("prob must be in [0,1]")
   if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+
   u <- runif(n)
-  res <- ifelse(u < zeroprob, 0, rbinom(n, size=size, prob=prob))
+  res <- rep(1, n)
+  is_zero <- u < zeroprob
+  res[!is_zero] <- rbinom(sum(!is_zero), size=size, prob=prob)
+
   return(res)
 }

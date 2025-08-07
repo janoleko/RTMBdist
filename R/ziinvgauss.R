@@ -86,6 +86,12 @@ rziinvgauss <- function(n, mean = 1, shape = 1, zeroprob = 0) {
   if (any(mean <= 0)) stop("mean must be > 0")
   if (any(shape <= 0)) stop("shape must be > 0")
   if (any(zeroprob < 0 | zeroprob > 1)) stop("zeroprob must be in [0,1]")
+
+  u <- runif(n)
+  res <- rep(1, n)
+  is_zero <- u < zeroprob
+  res[!is_zero] <- rinvgauss(sum(!is_zero), mean = mean, shape = shape)
+
   u <- runif(n)
   res <- ifelse(u < zeroprob, 0, rinvgauss(n, mean = mean, shape = shape))
   return(res)
