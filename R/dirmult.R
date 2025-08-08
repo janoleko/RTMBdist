@@ -41,7 +41,6 @@ ddirmult <- function(x, size, alpha, log = FALSE) {
     stop("Dirichlet-multinomial does not support OSA residuals.")
   }
 
-
   # Check if x and alpha are vectors by checking if they have dimensions
   if (is.null(dim(x))) x <- matrix(x, nrow = 1)
   if (is.null(dim(alpha))) alpha <- matrix(alpha, nrow = 1)
