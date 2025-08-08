@@ -34,9 +34,6 @@ This implementation of \code{dbetabinom} allows for automatic differentiation wi
 }
 \examples{
 set.seed(123)
-shape1 <- 2
-shape2 <- 5
-size <- 10
-x <- rbetabinom(1, size, shape1, shape2)
-d <- dbetabinom(x, size, shape1, shape2)
+x <- rbetabinom(1, 10, 2, 5)
+d <- dbetabinom(x, 10, 2, 5)
 }
