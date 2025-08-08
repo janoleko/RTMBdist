@@ -12,14 +12,8 @@ dgenpois(x, lambda = 1, phi = 1, log = FALSE)
 
 pgenpois(q, lambda = 1, phi = 1, lower.tail = TRUE, log.p = FALSE)
 
-qgenpois(
-  p,
-  lambda = 1,
-  phi = 1,
-  lower.tail = TRUE,
-  log.p = FALSE,
-  max.value = 10000
-)
+qgenpois(lambda = 1, phi = 1,
+         lower.tail = TRUE, log.p = FALSE, max.value = 1e4)
 
 rgenpois(n, lambda = 1, phi = 1, max.value = 10000)
 }

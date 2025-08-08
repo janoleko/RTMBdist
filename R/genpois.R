@@ -87,6 +87,8 @@ pgenpois <- function(q, lambda = 1, phi = 1, lower.tail = TRUE, log.p = FALSE) {
 }
 #' @rdname genpois
 #' @export
+#' @usage qgenpois(lambda = 1, phi = 1,
+#'          lower.tail = TRUE, log.p = FALSE, max.value = 1e4)
 #' @importFrom gamlss.dist qGPO
 qgenpois <- function(p, lambda = 1, phi = 1, lower.tail = TRUE, log.p = FALSE, max.value = 1e4) {
 
