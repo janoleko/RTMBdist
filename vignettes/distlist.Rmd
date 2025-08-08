@@ -65,6 +65,8 @@ knitr::opts_chunk$set(
 
 ## Discrete distributions
 
+* [`betabinom(size, shape1, shape2)`](../reference/betabinom.html): Beta-binomial distribution parameterised by size `size`, shape parameters `shape1` and `shape2`
+
 * [`nbinom2(mu, size)`](../reference/nbinom2.html): Negative binomial distribution reparameterised by mean `mu` and size `size`
 
 * [`zibinom(size, prob, zeroprob)`](../reference/zibinom.html): Zero-inflated binomial distribution parameterised by size `size`, success probability `prob` and zero-probability `zeroprob`
