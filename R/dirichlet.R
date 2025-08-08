@@ -47,6 +47,12 @@ ddirichlet <- function(x, alpha, log = FALSE) {
   if (ncol(x) != ncol(alpha)) {
     stop("x and alpha must have the same number of columns (categories).")
   }
+  # If x is a matrix, check that alpha either has the same number of rows or one
+  if(nrow(x) > 1) {
+    if(nrow(alpha) != 1 && nrow(alpha) != nrow(x)) {
+      stop("If x is a matrix, alpha must have either one row or the same number of rows as x.")
+    }
+  }
 
   # Compute log of the multivariate beta function B(alpha) for each row
   log_B_alpha <- rowSums(lgamma(alpha)) - lgamma(rowSums(alpha))
