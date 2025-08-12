@@ -36,7 +36,7 @@ ddirichlet <- function(x, alpha, log = FALSE) {
     return(dGenericSim("ddirichlet", x=x, alpha=alpha, log=log))
   }
   if(inherits(x, "osa")) {
-    stop("Dirichlet does not support OSA residuals.")
+    return(ddirichlet_osa(x=x, alpha=alpha, log=log))
   }
 
   # Check if x and alpha are vectors by checking if they have dimensions
@@ -87,4 +87,54 @@ rdirichlet <- function(n, alpha) {
   x <- rgamma(n * k, shape = longalpha, scale = 1)
   x <- matrix(x, nrow = n, ncol = k, byrow = TRUE)
   x / rowSums(x)
+}
+
+ddirichlet_osa <- function(x, alpha, log = FALSE) {
+  ## log only
+  stopifnot(isTRUE(log))
+  ## Matrix case
+  if (is.matrix(x)) {
+    if (is.matrix(alpha))
+      stopifnot(identical(dim(x), dim(alpha)))
+    else
+      alpha <- matrix(alpha, nrow(x), ncol(x), byrow=TRUE)
+    ans <- AD(numeric(nrow(x)))
+    for (i in seq_len(nrow(x))) {
+      ans[[i]] <- ddirichlet_osa(x[i,], alpha[i,], log=log)
+    }
+    return(ans)
+  }
+  ## Vector case
+  alpha <- rep(alpha, length.out=length(x))
+  ## Permute
+  perm <- order(attr(x@keep, "ord")) ## FIXME: Make extractor in osa.R ?
+  x <- x[perm]
+  alpha <- alpha[perm]
+  ## Factorize in successive betas
+  sx <- sum(x@x)
+  sa <- sum(alpha)
+  ## retun value
+  ans <- 0
+  if (length(x) >= 2) {
+    ## Draw first
+    sa <- sa - alpha[1]
+    ans <- ans + dbeta(x[1], alpha[1], sa, log=TRUE)
+    ## Draw the rest, but not the last
+    for (i in seq_along(x)[-c(1, length(x))]) {
+      sx <- sx - x@x[i-1]
+      sa <- sa - alpha[i]
+      ## x[i] ~ Scaled Beta, but 'dbeta' doesn't have a scale argument
+      xi <- x[i]
+      xi@x <- xi@x / sx
+      ans <- ans <- ans + dbeta(xi, alpha[i], sa, log=TRUE)
+      ans <- ans - xi@keep[,1] * log(sx)
+    }
+  }
+  ## Draw last: Always a one-point measure
+  if (length(x) >= 1) {
+    xi <- x[length(x)]
+    xi@x <- 0
+    ans <- ans - dbinom(xi, 1, 0, log=TRUE)
+  }
+  ans
 }
