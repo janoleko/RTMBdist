@@ -33,7 +33,9 @@ ddirichlet <- function(x, alpha, log = FALSE) {
 
   # potentially escape to RNG or produce error for CDF
   if(inherits(x, "simref")) {
-    return(dGenericSim("ddirichlet", x=x, alpha=alpha, log=log))
+    n <- if (is.matrix(x)) nrow(x) else 1
+    x[] <- rdirichlet(n, alpha=alpha)
+    return(0)
   }
   if(inherits(x, "osa")) {
     return(ddirichlet_osa(x=x, alpha=alpha, log=log))
