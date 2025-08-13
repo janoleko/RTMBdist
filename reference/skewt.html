@@ -111,7 +111,8 @@ the skew t distribution (type 2).</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This corresponds to the skew t type 2 distribution in GAMLSS (<code><a href="https://rdrr.io/pkg/gamlss.dist/man/ST1.html" class="external-link">ST2</a></code>), see pp. 411-412 of Rigby et al. (2019) and the version implemented in the <code>sn</code> package.
-This implementation of <code>dskewt</code> allows for automatic differentiation with <code>RTMB</code> while the other functions are imported from the <code>sn</code> package.</p>
+This implementation of <code>dskewt</code> allows for automatic differentiation with <code>RTMB</code> while the other functions are imported from the <code>sn</code> package.
+See <code>sn::<a href="https://rdrr.io/pkg/sn/man/dst.html" class="external-link">dst</a></code> for more details.</p>
 <p><strong>Caution:</strong> In a numerial optimisation, the <code>skew</code> parameter should NEVER be initialised with exactly zero.
 This will cause the initial and all subsequent derivatives to be exactly zero and hence the parameter will remain at its initial value.</p>
     </div>
