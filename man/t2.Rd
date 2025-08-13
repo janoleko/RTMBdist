@@ -7,7 +7,7 @@
 \alias{rt2}
 \alias{qt2}
 \alias{pt}
-\title{Non-central and scaled students t distribution}
+\title{Student t distribution with location and scale}
 \usage{
 dt2(x, mu, sigma, df, log = FALSE)
 
@@ -39,7 +39,7 @@ pt(q, df)
 }
 \description{
 Density, distribution function, quantile function, and random generation for
-the t distribution with non-centrality and scale parameters.
+the t distribution with location and scale parameters.
 }
 \details{
 This implementation of \code{dt2} allows for automatic differentiation with \code{RTMB}.

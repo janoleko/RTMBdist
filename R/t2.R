@@ -1,7 +1,7 @@
-#' Non-central and scaled students t distribution
+#' Student t distribution with location and scale
 #'
 #' Density, distribution function, quantile function, and random generation for
-#' the t distribution with non-centrality and scale parameters.
+#' the t distribution with location and scale parameters.
 #'
 #' @details
 #' This implementation of \code{dt2} allows for automatic differentiation with \code{RTMB}.

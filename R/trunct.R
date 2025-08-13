@@ -32,7 +32,8 @@ NULL
 dtrunct <- function(x, df, min = -Inf, max = Inf, log = FALSE) {
 
   if (!ad_context()) {
-    if (df <= 0) stop("'df' must be strictly positive.")
+    if (df <= 0) stop("df must be strictly positive.")
+    if (min >= max) stop("min must be less than max.")
   }
 
   # potentially escape to RNG or CDF
@@ -63,8 +64,8 @@ dtrunct <- function(x, df, min = -Inf, max = Inf, log = FALSE) {
 ptrunct <- function(q, df, min = -Inf, max = Inf, lower.tail = TRUE, log.p = FALSE) {
 
   if (!ad_context()) {
-    if (df <= 0) stop("'df' must be strictly positive.")
-    if (min >= max) stop("'min' must be less than 'max'.")
+    if (df <= 0) stop("df must be strictly positive.")
+    if (min >= max) stop("min must be less than max.")
   }
 
   denom <- pt(max, df = df) - pt(min, df = df)
@@ -92,9 +93,9 @@ qtrunct <- function(p, df, min = -Inf, max = Inf, lower.tail = TRUE, log.p = FAL
   if (!lower.tail) p <- 1 - p
 
   if (!ad_context()) {
-    if (df <= 0) stop("'df' must be strictly positive.")
+    if (df <= 0) stop("df must be strictly positive.")
     if (any(p < 0 | p > 1)) stop("Probabilities must be in [0, 1].")
-    if (min >= max) stop("'min' must be less than 'max'.")
+    if (min >= max) stop("min must be less than max.")
   }
 
   denom <- pt(max, df = df) - pt(min, df = df)
@@ -109,8 +110,8 @@ qtrunct <- function(p, df, min = -Inf, max = Inf, lower.tail = TRUE, log.p = FAL
 rtrunct <- function(n, df, min = -Inf, max = Inf) {
 
   if (!ad_context()) {
-    if (df <= 0) stop("'df' must be strictly positive.")
-    if (min >= max) stop("'min' must be less than 'max'.")
+    if (df <= 0) stop("df must be strictly positive.")
+    if (min >= max) stop("min must be less than max.")
   }
 
   u <- runif(n)

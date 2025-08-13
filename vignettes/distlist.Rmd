@@ -52,6 +52,8 @@ knitr::opts_chunk$set(
 
 * [`trunct(df, min, max)`](../reference/trunct.html): Truncated t-distribution parameterised by degrees of freedom `df`, lower bound `min` and upper bound `max`
 
+* [`trunct2(df, mu, sigma, min, max)`](../reference/trunct.html): Truncated t-distribution parameterised location `mu`, scale `sigma`, degrees of freedom `df`, lower bound `min` and upper bound `max`
+
 * [`t2(mu, sigma, df)`](../reference/t2.html): Non-central and scaled t-distribution parameterised by location `mu`, scale `sigma` and degrees of freedom `df`
 
 * [`vm(mu, kappa)`](../reference/vm.html): Von Mises distribution parameterised by mean direction `mu` and concentration `kappa`
