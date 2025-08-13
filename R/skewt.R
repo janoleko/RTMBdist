@@ -52,25 +52,12 @@ dskewt <- function(x, mu = 0, sigma = 1, skew = 0, df = 1e3, log = FALSE) {
   omega <- skew * sqrt(lambda) * z
 
   pdf <- RTMB::dt(z, df, log = TRUE)
-  cdf <- log(pt_ad(omega, df + 1))
+  cdf <- log(pt(omega, df + 1))
 
   logdens <- log(2) - log(sigma) + pdf + cdf
 
   if(log) return(logdens)
   return(exp(logdens))
-}
-
-#' @import RTMB
-pt_ad <- function(q, df) {
-  # AD compatible version of pt - slightly sketchy but works
-
-  x <- df / (df + q^2)
-  q <- q + 1e-8 # avoid numerical issues with q = 0
-  # if skew is exactly zero, q will be zero and the gradient will be exactly zero
-
-  val <- RTMB::pbeta(x, df / 2, 0.5) / 2
-  test <- 0.5 * (sign(q) + 1)  # test if q > 0
-  test * (1 - val) + (1 - test) * val
 }
 
 #' @rdname skewt

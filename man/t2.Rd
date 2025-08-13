@@ -6,6 +6,7 @@
 \alias{pt2}
 \alias{rt2}
 \alias{qt2}
+\alias{pt}
 \title{Non-central and scaled students t distribution}
 \usage{
 dt2(x, mu, sigma, df, log = FALSE)
@@ -15,6 +16,8 @@ pt2(q, mu, sigma, df)
 rt2(n, mu, sigma, df)
 
 qt2(p, mu, sigma, df)
+
+pt(q, df)
 }
 \arguments{
 \item{x, q}{vector of quantiles}

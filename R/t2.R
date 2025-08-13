@@ -49,7 +49,7 @@ dt2 = function(x, mu, sigma, df, log = FALSE){
 pt2 <- function(q, mu, sigma, df){
   z <- (q - mu) / sigma
   # stats::pt(z, df)
-  pt_ad(z, df)
+  pt(z, df)
 }
 #' @rdname t2
 #' @export
@@ -64,4 +64,19 @@ rt2 <- function(n, mu, sigma, df) {
 qt2 <- function(p, mu, sigma, df){
   z <- stats::qt(p, df)
   return(mu + sigma * z)
+}
+
+#' @rdname t2
+#' @export
+#' @importFrom RTMB pbeta
+pt <- function(q, df) {
+  # AD compatible version of pt - slightly sketchy but works
+
+  x <- df / (df + q^2)
+  q <- q + 1e-8 # avoid numerical issues with q = 0
+  # if skew is exactly zero, q will be zero and the gradient will be exactly zero
+
+  val <- RTMB::pbeta(x, df / 2, 0.5) / 2
+  test <- 0.5 * (sign(q) + 1)  # test if q > 0
+  test * (1 - val) + (1 - test) * val
 }

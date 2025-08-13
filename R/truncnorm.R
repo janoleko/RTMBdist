@@ -6,8 +6,6 @@
 #' @details
 #' This implementation of \code{dtruncnorm} allows for automatic differentiation with \code{RTMB}.
 #'
-#' \strong{Caution:} \code{x} should not be parameter dependent as this introduces a non-differentiability.
-#'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
 #' @param n number of random values to return.

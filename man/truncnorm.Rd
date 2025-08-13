@@ -44,8 +44,6 @@ the truncated normal distribution.
 }
 \details{
 This implementation of \code{dtruncnorm} allows for automatic differentiation with \code{RTMB}.
-
-\strong{Caution:} \code{x} should not be parameter dependent as this introduces a non-differentiability.
 }
 \examples{
 x <- rtruncnorm(1, mean = 2, sd = 2, min = -1, max = 5)
