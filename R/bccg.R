@@ -46,16 +46,24 @@ dbccg <- function(x, mu = 1, sigma = 0.1, nu = 1, log = FALSE) {
     stop("Currently, GAMLSS distributions don't support OSA residuals.")
   }
 
-  # Standardized z without branching:
-  # z = ((x/mu)^nu - 1)/(nu*sigma)  if nu != 0
-  #   =  log(x/mu)/sigma            if nu == 0
   iz <- iszero(nu)
+
+  # z-transform
   z <- iz * (log(x / mu) / sigma) +
     (1 - iz) * (((x / mu)^nu - 1) / ((nu + .Machine$double.xmin) * sigma))
 
-  # Log-density: (nu-1)log x - nu log mu - log sigma - 0.5 z^2 - 0.5 log(2*pi)
-  logdens <- (nu - 1) * log(x) - nu * log(mu) - log(sigma) -
-    0.5 * z * z - 0.5 * log(2 * pi)
+  # lower truncation bound in z-space
+  lower <- (1 - iz) * (-1 / ((nu + .Machine$double.xmin) * sigma)) +
+    iz * (-.Machine$double.xmax)
+
+  # Jacobian term log|dz/dx|
+  log_jac <- iz * (-log(x) - log(sigma)) +
+    (1 - iz) * ((nu - 1) * log(x) - nu * log(mu) - log(sigma))
+
+  # truncated standard normal log-density
+  logfz <- dtruncnorm(z, mean = 0, sd = 1, min = lower, max = Inf, log = TRUE)
+
+  logdens <- logfz + log_jac
 
   if (log) return(logdens)
   exp(logdens)
