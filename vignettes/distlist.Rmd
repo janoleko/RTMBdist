@@ -20,6 +20,8 @@ knitr::opts_chunk$set(
 
 * [`bcpe(mu, sigma, nu, tau)`](../reference/bcpe.html): Box-Cox power exponential distribution parameterised by location `mu`, scale `sigma`, `nu`, and `tau`
 
+* [`bccg(mu, sigma, nu)`](../reference/bccg.html): Box-Cox Cole and Green distribution parameterised by location `mu`, scale `sigma`, and skewness `nu`
+
 * [`exgauss(mu, sigma, lambda)`](../reference/exgauss.html): Exponentially modified Gaussian distribution parameterised by location `mu`, scale `sigma` and rate `lambda`
 
 * [`foldnorm(mu, sigma)`](../reference/foldnorm.html): Folded normal distribution parameterised by location `mu` and scale `sigma`
