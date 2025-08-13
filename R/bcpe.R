@@ -34,8 +34,16 @@ NULL
 dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
 
   if(!ad_context()) {
-    # if (any(x <= 0)) stop("BCPE is only defined for x > 0")
+    if (any(x <= 0)) stop("BCPE is only defined for x > 0")
     if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
+  }
+
+  # potentially escape to RNG or CDF
+  if(inherits(x, "simref")) {
+    return(dGenericSim("dbcpe", x=x, mu=mu, sigma=sigma, nu=nu, tau=tau, log=log))
+  }
+  if(inherits(x, "osa")) {
+    stop("Currently, GAMLSS distributions don't support OSA residuals.")
   }
 
   # constant for scaling the PE part
@@ -60,6 +68,12 @@ dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
 #'       lower.tail = TRUE, log.p = FALSE)
 #' @importFrom gamlss.dist pBCPE
 pbcpe <- function(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE) {
+
+  if(!ad_context()) {
+    if (any(x <= 0)) stop("BCPE is only defined for x > 0")
+    if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
+  }
+
   gamlss.dist::pBCPE(q, mu = mu, sigma = sigma, nu = nu, tau = tau,
                      lower.tail = lower.tail, log.p = log.p)
 }
@@ -69,6 +83,12 @@ pbcpe <- function(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, lo
 #'       lower.tail = TRUE, log.p = FALSE)
 #' @importFrom gamlss.dist qBCPE
 qbcpe <- function(p, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE) {
+
+  if(!ad_context()) {
+    if (any(x <= 0)) stop("BCPE is only defined for x > 0")
+    if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
+  }
+
   gamlss.dist::qBCPE(p, mu = mu, sigma = sigma, nu = nu, tau = tau,
                      lower.tail = lower.tail, log.p = log.p)
 }
@@ -76,5 +96,11 @@ qbcpe <- function(p, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, lo
 #' @export
 #' @importFrom gamlss.dist pBCPE
 rbcpe <- function(n, mu = 5, sigma = 0.1, nu = 1, tau = 2) {
+
+  if(!ad_context()) {
+    if (any(x <= 0)) stop("BCPE is only defined for x > 0")
+    if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
+  }
+
   gamlss.dist::rBCPE(n, mu = mu, sigma = sigma, nu = nu, tau = tau)
 }
