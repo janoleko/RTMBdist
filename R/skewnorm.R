@@ -10,6 +10,7 @@ rsn <- Vectorize(sn::rsn)
 #'
 #' @details
 #' This implementation of \code{dskewnorm} allows for automatic differentiation with \code{RTMB} while the other functions are imported from the \code{sn} package.
+#' See \code{sn::\link[sn]{dsn}} for more details.
 #'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities

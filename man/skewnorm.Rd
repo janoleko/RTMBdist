@@ -42,6 +42,7 @@ the skew normal distribution.
 }
 \details{
 This implementation of \code{dskewnorm} allows for automatic differentiation with \code{RTMB} while the other functions are imported from the \code{sn} package.
+See \code{sn::\link[sn]{dsn}} for more details.
 }
 \examples{
 # alpha is skew parameter
