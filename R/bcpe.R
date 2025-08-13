@@ -1,4 +1,4 @@
-#' Box-Cox Power Exponential distribution
+#' Box-Cox Power Exponential distribution (BCPE)
 #'
 #' Density, distribution function, quantile function, and random generation for
 #' the Box-Cox Power Exponential distribution.
@@ -64,8 +64,7 @@ dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
 }
 #' @rdname bcpe
 #' @export
-#' @usage pbcpe(q, mu = 5, sigma = 0.1, nu = 1, tau = 2,
-#'       lower.tail = TRUE, log.p = FALSE)
+#' @usage pbcpe(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE)
 #' @importFrom gamlss.dist pBCPE
 pbcpe <- function(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE) {
 
@@ -79,8 +78,7 @@ pbcpe <- function(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, lo
 }
 #' @rdname bcpe
 #' @export
-#' @usage qbcpe(p, mu = 5, sigma = 0.1, nu = 1, tau = 2,
-#'       lower.tail = TRUE, log.p = FALSE)
+#' @usage qbcpe(p, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE)
 #' @importFrom gamlss.dist qBCPE
 qbcpe <- function(p, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE) {
 

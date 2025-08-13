@@ -6,15 +6,13 @@
 \alias{pbcpe}
 \alias{qbcpe}
 \alias{rbcpe}
-\title{Box-Cox Power Exponential distribution}
+\title{Box-Cox Power Exponential distribution (BCPE)}
 \usage{
 dbcpe(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE)
 
-pbcpe(q, mu = 5, sigma = 0.1, nu = 1, tau = 2,
-      lower.tail = TRUE, log.p = FALSE)
+pbcpe(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE)
 
-qbcpe(p, mu = 5, sigma = 0.1, nu = 1, tau = 2,
-      lower.tail = TRUE, log.p = FALSE)
+qbcpe(p, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE)
 
 rbcpe(n, mu = 5, sigma = 0.1, nu = 1, tau = 2)
 }
