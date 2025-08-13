@@ -69,7 +69,7 @@ dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
 pbcpe <- function(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE) {
 
   if(!ad_context()) {
-    if (any(x <= 0)) stop("BCPE is only defined for x > 0")
+    if (any(q <= 0)) stop("BCPE is only defined for x > 0")
     if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
   }
 
@@ -83,7 +83,7 @@ pbcpe <- function(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, lo
 qbcpe <- function(p, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE) {
 
   if(!ad_context()) {
-    if (any(x <= 0)) stop("BCPE is only defined for x > 0")
+    if (any(p < 0 | p > 1)) stop("p must be in [0, 1]")
     if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
   }
 
@@ -95,10 +95,7 @@ qbcpe <- function(p, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, lo
 #' @importFrom gamlss.dist pBCPE
 rbcpe <- function(n, mu = 5, sigma = 0.1, nu = 1, tau = 2) {
 
-  if(!ad_context()) {
-    if (any(x <= 0)) stop("BCPE is only defined for x > 0")
-    if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
-  }
+  if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
 
   gamlss.dist::rBCPE(n, mu = mu, sigma = sigma, nu = nu, tau = tau)
 }
