@@ -65,7 +65,7 @@ dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
     return(dGenericSim("dbcpe", x=x, mu=mu, sigma=sigma, nu=nu, tau=tau, log=log))
   }
   if(inherits(x, "osa")) {
-    stop("Currently, GAMLSS distributions don't support OSA residuals.")
+    return(dGenericOSA("dbcpe", x=x, mu=mu, sigma=sigma, nu=nu, tau=tau, log=log))
   }
 
   ## length of return value
