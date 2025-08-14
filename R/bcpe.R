@@ -2,9 +2,9 @@
 f.T <- function(t, tau, log = FALSE){
   log.c <- 0.5 * (-(2 / tau) * log(2) + lgamma(1/tau) - lgamma(3/tau))
   c <- exp(log.c)
-  log.lik <- log(tau) - log.c - (0.5*(abs(t/c)^tau)) - (1+(1/tau)) * log(2) - lgamma(1/tau)
-  if(log) return(log.lik)
-  return(exp(loglik))
+  logdens <- log(tau) - log.c - (0.5*(abs(t/c)^tau)) - (1+(1/tau)) * log(2) - lgamma(1/tau)
+  if(log) return(logdens)
+  return(exp(logdens))
 }
 F.T <- function(t, tau){
   log.c <- 0.5 * (-(2/tau) * log(2) + lgamma(1/tau) - lgamma(3/tau))
