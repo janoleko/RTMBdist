@@ -69,6 +69,9 @@ greater <- function(x, val) {
 as.finite <- function(x) {
   pmin.ad(x, .Machine$double.xmax)
 }
+as.finite.neg <- function(x) {
+  pmax.ad(x, -.Machine$double.xmax)
+}
 
 
 ## Logarithm of zero-inflated density/ pmf
