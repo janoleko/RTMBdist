@@ -1,11 +1,32 @@
+# inner functions
+f.T <- function(t, tau, log = FALSE){
+  log.c <- 0.5 * (-(2 / tau) * log(2) + lgamma(1/tau) - lgamma(3/tau))
+  c <- exp(log.c)
+  log.lik <- log(tau) - log.c - (0.5*(abs(t/c)^tau)) - (1+(1/tau)) * log(2) - lgamma(1/tau)
+  if(log) return(log.lik)
+  return(exp(loglik))
+}
+F.T <- function(t, tau){
+  log.c <- 0.5 * (-(2/tau) * log(2) + lgamma(1/tau) - lgamma(3/tau))
+  c <- exp(log.c)
+  s <- 0.5 * ((abs(t/c))^tau)
+  F.s <- RTMB::pgamma(s, shape = 1/tau, scale = 1)
+  cdf <- 0.5*(1 + F.s * sign(t))
+  cdf
+}
+
 #' Box-Cox Power Exponential distribution (BCPE)
 #'
 #' Density, distribution function, quantile function, and random generation for
 #' the Box-Cox Power Exponential distribution.
 #'
 #' @details
-#' This implementation of \code{dbcpe} allows for automatic differentiation with \code{RTMB} while the other functions are imported from \code{gamlss.dist} package.
+#' This implementation of \code{dbcpe} and \code{pbcpe} allows for automatic differentiation with \code{RTMB} while the other functions are imported from \code{gamlss.dist} package.
 #' See \code{gamlss.dist::\link[gamlss.dist]{BCPE}} for more details.
+#'
+#' @references
+#' Rigby, R. A., Stasinopoulos, D. M., Heller, G. Z., and De Bastiani, F. (2019) Distributions for modeling location, scale, and shape: Using GAMLSS in R, Chapman and Hall/CRC,
+#' doi:10.1201/9780429298547. An older version can be found in https://www.gamlss.com/.
 #'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
@@ -34,8 +55,9 @@ NULL
 dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
 
   if(!ad_context()) {
-    if (any(x <= 0)) stop("BCPE is only defined for x > 0")
-    if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
+    if (any(mu < 0))  stop("mu must be > 0")
+    if (any(sigma < 0))  stop("sigma must be > 0")
+    if (any(tau < 0))  stop("tau must be > 0")
   }
 
   # potentially escape to RNG or CDF
@@ -46,18 +68,27 @@ dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
     stop("Currently, GAMLSS distributions don't support OSA residuals.")
   }
 
-  # constant for scaling the PE part
-  logc <- 0.5 * ((-2 / tau) * log(2) + lgamma(1 / tau) - lgamma(3 / tau))
+  ## length of return value
+  n <- max(length(x), length(mu), length(sigma), length(nu), length(tau))
+  x <- rep_len(x, n)
+  mu <- rep_len(mu, n)
+  sigma <- rep_len(sigma, n)
+  nu <- rep_len(nu, n)
+  tau <- rep_len(tau, n)
+  z <- rep_len(0, n)
+  FYy <- rep_len(0, n)
 
-  # standardized z
-  iszero_nu <- iszero(nu)
-  z <- iszero_nu * log(x / mu) / sigma +
-    (1 - iszero_nu) * ((x / mu)^nu - 1) / (nu + .Machine$double.xmin * sigma)
+  iz <- iszero(nu)
 
-  # log-density
-  logdens <- (nu - 1) * log(x) - nu * log(mu) - log(sigma) -
-    logc - (1 + 1 / tau) * log(2) - lgamma(1 / tau) +
-    log(tau) - 0.5 * abs(z / exp(logc))^tau
+  z <- (1-iz) * (((x / mu)^nu - 1) / (nu * sigma)) +
+    iz * (log(x / mu) / sigma)
+
+  logfZ <- f.T(z, tau, log=TRUE) - log(F.T(1 / (sigma * abs(nu)), tau))
+
+  logder <- (nu-1) * log(x) - nu * log(mu) - log(sigma)
+  logdens <- logder + logfZ
+
+  logdens <- logdens + log(greater(x, 0))
 
   if(log) return(logdens)
   return(exp(logdens))
@@ -65,16 +96,41 @@ dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
 #' @rdname bcpe
 #' @export
 #' @usage pbcpe(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE)
-#' @importFrom gamlss.dist pBCPE
+#' @import RTMB
 pbcpe <- function(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE) {
 
   if(!ad_context()) {
-    if (any(q <= 0)) stop("BCPE is only defined for x > 0")
-    if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
+    if (any(mu < 0))  stop("mu must be > 0")
+    if (any(sigma < 0))  stop("sigma must be > 0")
+    if (any(tau < 0))  stop("tau must be > 0")
   }
 
-  gamlss.dist::pBCPE(q, mu = mu, sigma = sigma, nu = nu, tau = tau,
-                     lower.tail = lower.tail, log.p = log.p)
+  ## length of return value
+  n <- max(length(q), length(mu), length(sigma), length(nu), length(tau))
+  q <- rep_len(q, n)
+  mu <- rep_len(mu, n)
+  sigma <- rep_len(sigma, n)
+  nu <- rep_len(nu, n)
+  tau <- rep_len(tau, n)
+  z <- rep_len(0, n)
+  FYy2 <- FYy1 <- FYy3 <- rep_len(0, n)
+
+  ##  calculate the cdf
+  iz <- iszero(nu)
+  z <- (1-iz) * (((q/mu)^nu-1)/(nu*sigma)) +
+    iz * (log(q/mu)/sigma)
+
+  FYy1 <- F.T(z, tau)
+  FYy2 <- greater(nu, 0) * F.T(-1/(sigma*abs(nu)), tau)
+  FYy3 <- F.T(1 / (sigma*abs(nu)), tau)
+
+  p  <- (FYy1 - FYy2) / FYy3
+  p <- p * greater(q, 0)
+
+  if(!lower.tail) p <- 1 - p
+  if(log.p) p <- log(p)
+
+  return(p)
 }
 #' @rdname bcpe
 #' @export
@@ -83,8 +139,9 @@ pbcpe <- function(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, lo
 qbcpe <- function(p, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE) {
 
   if(!ad_context()) {
-    if (any(p < 0 | p > 1)) stop("p must be in [0, 1]")
-    if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
+    if (any(mu < 0))  stop("mu must be > 0")
+    if (any(sigma < 0))  stop("sigma must be > 0")
+    if (any(tau < 0))  stop("tau must be > 0")
   }
 
   gamlss.dist::qBCPE(p, mu = mu, sigma = sigma, nu = nu, tau = tau,
@@ -95,7 +152,9 @@ qbcpe <- function(p, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, lo
 #' @importFrom gamlss.dist pBCPE
 rbcpe <- function(n, mu = 5, sigma = 0.1, nu = 1, tau = 2) {
 
-  if (mu <= 0 || sigma <= 0 || tau <= 0) stop("mu, sigma, tau must be > 0")
+  if (any(mu < 0))  stop("mu must be > 0")
+  if (any(sigma < 0))  stop("sigma must be > 0")
+  if (any(tau < 0))  stop("tau must be > 0")
 
   gamlss.dist::rBCPE(n, mu = mu, sigma = sigma, nu = nu, tau = tau)
 }

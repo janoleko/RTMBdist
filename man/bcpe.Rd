@@ -43,7 +43,7 @@ Density, distribution function, quantile function, and random generation for
 the Box-Cox Power Exponential distribution.
 }
 \details{
-This implementation of \code{dbcpe} allows for automatic differentiation with \code{RTMB} while the other functions are imported from \code{gamlss.dist} package.
+This implementation of \code{dbcpe} and \code{pbcpe} allows for automatic differentiation with \code{RTMB} while the other functions are imported from \code{gamlss.dist} package.
 See \code{gamlss.dist::\link[gamlss.dist]{BCPE}} for more details.
 }
 \examples{
@@ -51,4 +51,8 @@ x <- rbcpe(1, mu = 5, sigma = 0.1, nu = 1, tau = 1)
 d <- dbcpe(x, mu = 5, sigma = 0.1, nu = 1, tau = 1)
 p <- pbcpe(x, mu = 5, sigma = 0.1, nu = 1, tau = 1)
 q <- qbcpe(p, mu = 5, sigma = 0.1, nu = 1, tau = 1)
+}
+\references{
+Rigby, R. A., Stasinopoulos, D. M., Heller, G. Z., and De Bastiani, F. (2019) Distributions for modeling location, scale, and shape: Using GAMLSS in R, Chapman and Hall/CRC,
+doi:10.1201/9780429298547. An older version can be found in https://www.gamlss.com/.
 }
