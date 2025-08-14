@@ -41,8 +41,8 @@ dbccg <- function(x, mu = 1, sigma = 0.1, nu = 1, log = FALSE) {
   # and modified to allow for automatic differentiaion
 
   if (!ad_context()) {
-    if (mu <= 0) stop("mu must be > 0")
-    if (sigma <= 0) stop("sigma must be > 0")
+    if (any(mu <= 0)) stop("mu must be > 0")
+    if (any(sigma <= 0)) stop("sigma must be > 0")
   }
 
   # allow simulated references / OSA conventions consistent with your BCPE
@@ -85,8 +85,8 @@ pbccg <- function(q, mu = 1, sigma = 0.1, nu = 1, lower.tail = TRUE, log.p = FAL
   # and modified to allow for automatic differentiaion
 
   if (!ad_context()) {
-    if (mu <= 0) stop("mu must be > 0")
-    if (sigma <= 0) stop("sigma must be > 0")
+    if (any(mu <= 0)) stop("mu must be > 0")
+    if (any(sigma <= 0)) stop("sigma must be > 0")
   }
 
   ## length of return value
@@ -129,8 +129,8 @@ pbccg <- function(q, mu = 1, sigma = 0.1, nu = 1, lower.tail = TRUE, log.p = FAL
 qbccg <- function(p, mu = 1, sigma = 0.1, nu = 1, lower.tail = TRUE, log.p = FALSE) {
 
   if (!ad_context()) {
-    if (any(p < 0 | p > 1)) stop("p must be in [0, 1]")
-    if (mu <= 0 || sigma <= 0) stop("mu and sigma must be > 0")
+    if (any(mu <= 0)) stop("mu must be > 0")
+    if (any(sigma <= 0)) stop("sigma must be > 0")
   }
 
   gamlss.dist::qBCCG(p, mu = mu, sigma = sigma, nu = nu,
@@ -142,10 +142,8 @@ qbccg <- function(p, mu = 1, sigma = 0.1, nu = 1, lower.tail = TRUE, log.p = FAL
 #' @importFrom gamlss.dist rBCCG
 rbccg <- function(n, mu = 1, sigma = 0.1, nu = 1) {
 
-  if (!ad_context()) {
-    if (length(n) != 1 || !is.finite(n) || n < 0) stop("n must be a non-negative scalar")
-    if (mu <= 0 || sigma <= 0) stop("mu and sigma must be > 0")
-  }
+  if (any(mu <= 0)) stop("mu must be > 0")
+  if (any(sigma <= 0)) stop("sigma must be > 0")
 
   gamlss.dist::rBCCG(n, mu = mu, sigma = sigma, nu = nu)
 }
