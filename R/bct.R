@@ -53,21 +53,25 @@ dbct <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
     return(dGenericOSA("dbct", x = x, mu = mu, sigma = sigma, nu = nu, tau = tau, log = log))
   }
 
-  ## length of return value
-  n <- max(length(x), length(mu), length(sigma), length(nu), length(tau))
-  x <- rep_len(x, n)
-  mu <- rep_len(mu, n)
-  sigma <- rep_len(sigma, n)
-  nu <- rep_len(nu, n)
-  tau <- rep_len(tau, n)
-  z <- rep_len(0, n)
-  FYy <- rep_len(0, n)
+  # ## length of return value
+  # n <- max(length(x), length(mu), length(sigma), length(nu), length(tau))
+  # x <- rep_len(x, n)
+  # mu <- rep_len(mu, n)
+  # sigma <- rep_len(sigma, n)
+  # nu <- rep_len(nu, n)
+  # tau <- rep_len(tau, n)
+  # z <- rep_len(0, n)
+  # FYy <- rep_len(0, n)
 
   # stabilising log if x = 0
   x <- x + .Machine$double.xmin
 
   # calculating pdf
   iz <- iszero(nu)
+
+  # preventing problems with nu == 0
+  nu <- nu + .Machine$double.xmin
+
   z <- (1 - iz) * (((x / mu)^nu - 1) / (nu * sigma)) +
     iz * (log(x / mu) / sigma)
 
