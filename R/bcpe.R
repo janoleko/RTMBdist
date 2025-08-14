@@ -68,19 +68,19 @@ dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
     return(dGenericOSA("dbcpe", x=x, mu=mu, sigma=sigma, nu=nu, tau=tau, log=log))
   }
 
-  ## length of return value
-  n <- max(length(x), length(mu), length(sigma), length(nu), length(tau))
-  x <- rep_len(x, n)
-  mu <- rep_len(mu, n)
-  sigma <- rep_len(sigma, n)
-  nu <- rep_len(nu, n)
-  tau <- rep_len(tau, n)
-  z <- rep_len(0, n)
-  FYy <- rep_len(0, n)
+  # ## length of return value
+  # n <- max(length(x), length(mu), length(sigma), length(nu), length(tau))
+  # x <- rep_len(x, n)
+  # mu <- rep_len(mu, n)
+  # sigma <- rep_len(sigma, n)
+  # nu <- rep_len(nu, n)
+  # tau <- rep_len(tau, n)
+  # z <- rep_len(0, n)
+  # FYy <- rep_len(0, n)
 
   iz <- iszero(nu)
 
-  z <- (1-iz) * (((x / mu)^nu - 1) / (nu * sigma)) +
+  z <- (1-iz) * (((x / mu)^nu - 1) / ((nu + .Machine$double.xmin) * sigma)) +
     iz * (log(x / mu) / sigma)
 
   logfZ <- f.T(z, tau, log=TRUE) - log(F.T(1 / (sigma * abs(nu)), tau))
