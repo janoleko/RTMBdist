@@ -97,9 +97,14 @@ the exponentially modified Gaussian distribution.</p>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This implementation of <code>dexgauss</code> and <code>pexgauss</code> allows for automatic differentiation with <code>RTMB</code>.
-<code>qexgauss</code> is a reparameterised import from <code><a href="https://rdrr.io/pkg/gamlss.dist/man/exGAUS.html" class="external-link">gamlss.dist::qexGAUS</a></code>.</p>
+<code>qexgauss</code> and <code>rexgauss</code> are reparameterised imports from <code>gamlss.dist::<a href="https://rdrr.io/pkg/gamlss.dist/man/exGAUS.html" class="external-link">exGAUS</a></code>.</p>
 <p>If \(X \sim N(\mu, \sigma^2)\) and \(Y \sim \text{Exp}(\lambda)\), then
 \(Z = X + Y\) follows the exponentially modified Gaussian distribution with parameters \(\mu\), \(\sigma\), and \(\lambda\).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+    <p>Rigby, R. A., Stasinopoulos, D. M., Heller, G. Z., and De Bastiani, F. (2019) Distributions for modeling location, scale, and shape: Using GAMLSS in R, Chapman and Hall/CRC,
+doi:10.1201/9780429298547. An older version can be found in https://www.gamlss.com/.</p>
     </div>
 
     <div class="section level2">
