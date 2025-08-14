@@ -63,7 +63,7 @@ dbccg <- function(x, mu = 1, sigma = 0.1, nu = 1, log = FALSE) {
   ## calculating the pdf
   iz <- iszero(nu)
 
-  # preventing problems with nu == 0
+  # preventing problems with nu = 0
   nu <- nu + .Machine$double.xmin
 
   z <- (1-iz) * ((((x / mu)^nu) - 1) / (nu * sigma)) +

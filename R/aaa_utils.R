@@ -35,7 +35,7 @@ pmax.ad <- function(x, y) apply(cbind(x,y), 1, max)
 ## AD-indicator constructors
 # 1 if x == 0, 0 otherwise
 iszero <- RTMB::ADjoint(f = function(x) as.numeric(x==0),
-                        df = function(x,y,dy) 0,
+                        df = function(x,y,dy) rep(0, length(x)),
                         name = "iszero")
 # 1 if x != 0, 0 otherwise
 isnonzero <- function(x) {
