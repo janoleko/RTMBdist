@@ -41,7 +41,7 @@ Density, distribution function, quantile function, and random generation for
 the Box–Cox Cole and Green distribution.
 }
 \details{
-This implementation of \code{dbccg} allows for automatic differentiation with \code{RTMB} while the other functions are imported from \code{gamlss.dist} package.
+This implementation of \code{dbccg} and \code{pbccg} allows for automatic differentiation with \code{RTMB} while the other functions are imported from \code{gamlss.dist} package.
 See \code{gamlss.dist::\link[gamlss.dist]{BCCG}} for more details.
 }
 \examples{
@@ -49,4 +49,8 @@ x <- rbccg(5, mu = 10, sigma = 0.2, nu = 0.5)
 d <- dbccg(x, mu = 10, sigma = 0.2, nu = 0.5)
 p <- pbccg(x, mu = 10, sigma = 0.2, nu = 0.5)
 q <- qbccg(p, mu = 10, sigma = 0.2, nu = 0.5)
+}
+\references{
+Rigby, R. A., Stasinopoulos, D. M., Heller, G. Z., and De Bastiani, F. (2019) Distributions for modeling location, scale, and shape: Using GAMLSS in R, Chapman and Hall/CRC,
+doi:10.1201/9780429298547. An older version can be found in https://www.gamlss.com/.
 }

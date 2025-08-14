@@ -4,8 +4,12 @@
 #' the Box–Cox Cole and Green distribution.
 #'
 #' @details
-#' This implementation of \code{dbccg} allows for automatic differentiation with \code{RTMB} while the other functions are imported from \code{gamlss.dist} package.
+#' This implementation of \code{dbccg} and \code{pbccg} allows for automatic differentiation with \code{RTMB} while the other functions are imported from \code{gamlss.dist} package.
 #' See \code{gamlss.dist::\link[gamlss.dist]{BCCG}} for more details.
+#'
+#' @references
+#' Rigby, R. A., Stasinopoulos, D. M., Heller, G. Z., and De Bastiani, F. (2019) Distributions for modeling location, scale, and shape: Using GAMLSS in R, Chapman and Hall/CRC,
+#' doi:10.1201/9780429298547. An older version can be found in https://www.gamlss.com/.
 #'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
@@ -33,9 +37,12 @@ NULL
 #' @import RTMB
 dbccg <- function(x, mu = 1, sigma = 0.1, nu = 1, log = FALSE) {
 
+  # taken from https://github.com/gamlss-dev/gamlss.dist/blob/main/R/BCCG.R
+  # and modified to allow for automatic differentiaion
+
   if (!ad_context()) {
-    if (any(x < 0)) stop("BCCG is only defined for x => 0")
-    if (mu <= 0 || sigma <= 0) stop("mu and sigma must be > 0")
+    if (mu <= 0) stop("mu must be > 0")
+    if (sigma <= 0) stop("sigma must be > 0")
   }
 
   # allow simulated references / OSA conventions consistent with your BCPE
@@ -43,45 +50,76 @@ dbccg <- function(x, mu = 1, sigma = 0.1, nu = 1, log = FALSE) {
     return(dGenericSim("dbccg", x = x, mu = mu, sigma = sigma, nu = nu, log = log))
   }
   if (inherits(x, "osa")) {
-    stop("Currently, GAMLSS distributions don't support OSA residuals.")
+    return(dGenericOSA("dbccg", x = x, mu = mu, sigma = sigma, nu = nu, log = log))
   }
 
+  ## length of return value
+  n <- max(length(x), length(mu), length(sigma), length(nu))
+  x <- rep_len(x, n)
+  mu <- rep_len(mu, n)
+  sigma <- rep_len(sigma, n)
+  nu <- rep_len(nu, n)
+
+  ## calculating the pdf
   iz <- iszero(nu)
 
-  # z-transform
-  z <- iz * (log(x / mu) / sigma) +
-    (1 - iz) * (((x / mu)^nu - 1) / ((nu + .Machine$double.xmin) * sigma))
+  z <- (1-iz) * ((((x / mu)^nu) - 1) / (nu * sigma)) +
+    iz * (log(x / mu) / sigma)
 
-  # lower truncation bound in z-space
-  lower <- (1 - iz) * (-1 / ((nu + .Machine$double.xmin) * sigma)) +
-    iz * (-.Machine$double.xmax)
+  logdens <- nu * log(x / mu) - log(sigma) - (z * z) / 2 - log(x) -(log(2*pi)) / 2
+  logdens <- logdens - log(RTMB::pnorm(1 / (sigma * abs(nu))))
 
-  # Jacobian term log|dz/dx|
-  log_jac <- iz * (-log(x) - log(sigma)) +
-    (1 - iz) * ((nu - 1) * log(x) - nu * log(mu) - log(sigma))
+  logdens <- log(greater(x, 0)) + logdens
 
-  # truncated standard normal log-density
-  logfz <- dtruncnorm(z, mean = 0, sd = 1, min = lower, max = Inf, log = TRUE)
-
-  logdens <- logfz + log_jac
-
-  if (log) return(logdens)
-  exp(logdens)
+  if(log) return(logdens)
+  return(exp(logdens))
 }
 
 #' @rdname bccg
 #' @export
 #' @usage pbccg(q, mu = 1, sigma = 0.1, nu = 1, lower.tail = TRUE, log.p = FALSE)
-#' @importFrom gamlss.dist pBCCG
+#' @importFrom RTMB pnorm
 pbccg <- function(q, mu = 1, sigma = 0.1, nu = 1, lower.tail = TRUE, log.p = FALSE) {
 
+  # taken from https://github.com/gamlss-dev/gamlss.dist/blob/main/R/BCCG.R
+  # and modified to allow for automatic differentiaion
+
   if (!ad_context()) {
-    if (any(q <= 0)) stop("BCCG is only defined for q > 0")
-    if (mu <= 0 || sigma <= 0) stop("mu and sigma must be > 0")
+    if (mu <= 0) stop("mu must be > 0")
+    if (sigma <= 0) stop("sigma must be > 0")
   }
 
-  gamlss.dist::pBCCG(q, mu = mu, sigma = sigma, nu = nu,
-                     lower.tail = lower.tail, log.p = log.p)
+  ## length of return value
+  n <- max(length(q), length(mu), length(sigma), length(nu))
+  q <- rep_len(q, n)
+  mu <- rep_len(mu, n)
+  sigma <- rep_len(sigma, n)
+  nu <- rep_len(nu, n)
+
+  z <- rep_len(0, n)
+  FYy1 <- rep_len(0, n)
+  FYy2 <- rep_len(0, n)
+  FYy3 <- rep_len(0, n)
+
+  iz <- iszero(nu)
+
+  z <- (1-iz) * (((q / mu)^nu - 1)/(nu * sigma)) +
+    iz * (log(q / mu) / sigma)
+
+  FYy1 <- RTMB::pnorm(z)
+
+  gz <- greater(nu, 0)
+
+  FYy2 <- gz * RTMB::pnorm(-1 / (sigma * abs(nu)))
+  FYy3 <- RTMB::pnorm(1 / (sigma * abs(nu)))
+  p <- (FYy1 - FYy2) / FYy3
+
+  p <- p * greater(q, 0)
+
+  if(!lower.tail) p <- 1 - p
+  if(log.p) p <- log(p)
+
+  return(p)
 }
 
 #' @rdname bccg
