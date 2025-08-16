@@ -40,6 +40,8 @@ knitr::opts_chunk$set(
 
 * [`oibeta2(mu, phi, oneprob)`](../reference/oibeta2.html): One-inflated beta distribution reparameterised by mean `mu`, precision `phi`, and one-probability `oneprob`
 
+* [`pareto(mu)`](../reference/pareto.html): Pareto distribution parameterised by `mu`
+
 * [`powerexp(mu, sigma, nu)`](../reference/pe.html): Power exponential distribution parameterised by mean `mu`, standard deviation `sigma` and shape `nu`
 
 * [`powerexp2(mu, sigma, nu)`](../reference/pe2.html): Power exponential distribution reparameterised by location `mu`, scale `sigma` and shape `nu`
