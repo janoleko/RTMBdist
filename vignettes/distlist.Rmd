@@ -40,9 +40,9 @@ knitr::opts_chunk$set(
 
 * [`oibeta2(mu, phi, oneprob)`](../reference/oibeta2.html): One-inflated beta distribution reparameterised by mean `mu`, precision `phi`, and one-probability `oneprob`
 
-* [`pe(mu, sigma, nu)`](../reference/pe.html): Power exponential distribution parameterised by mean `mu`, standard deviation `sigma` and shape `nu`
+* [`powerexp(mu, sigma, nu)`](../reference/pe.html): Power exponential distribution parameterised by mean `mu`, standard deviation `sigma` and shape `nu`
 
-* [`pe2(mu, sigma, nu)`](../reference/pe2.html): Power exponential distribution reparameterised by location `mu`, scale `sigma` and shape `nu`
+* [`powerexp2(mu, sigma, nu)`](../reference/pe2.html): Power exponential distribution reparameterised by location `mu`, scale `sigma` and shape `nu`
 
 * [`skewnorm(xi, omega, alpha)`](../reference/skewnorm.html): Skew normal distribution parameterised by location `xi`, scale `omega` and skewness `alpha`
 
