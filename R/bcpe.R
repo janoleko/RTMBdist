@@ -54,6 +54,9 @@ NULL
 #' @import RTMB
 dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
 
+  # taken https://github.com/gamlss-dev/gamlss.dist/blob/main/R/BCPE.R
+  # and modified to allow for automatic differentiaion
+
   if(!ad_context()) {
     if (any(mu < 0))  stop("mu must be > 0")
     if (any(sigma < 0))  stop("sigma must be > 0")
@@ -101,6 +104,9 @@ dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
 #' @usage pbcpe(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE)
 #' @import RTMB
 pbcpe <- function(q, mu = 5, sigma = 0.1, nu = 1, tau = 2, lower.tail = TRUE, log.p = FALSE) {
+
+  # taken https://github.com/gamlss-dev/gamlss.dist/blob/main/R/BCPE.R
+  # and modified to allow for automatic differentiaion
 
   if(!ad_context()) {
     if (any(mu < 0))  stop("mu must be > 0")
