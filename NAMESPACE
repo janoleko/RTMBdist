@@ -3,6 +3,7 @@
 export(dbccg)
 export(dbcpe)
 export(dbct)
+export(dbeta)
 export(dbeta2)
 export(dbetabinom)
 export(ddirichlet)

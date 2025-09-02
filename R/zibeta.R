@@ -55,7 +55,7 @@ dzibeta <- function(x, shape1, shape2, zeroprob = 0, log = FALSE) {
   # logdens[!zero_idx] <- log(1 - zeroprob) +
   #   RTMB::dbeta(x[!zero_idx], shape1 = shape1, shape2 = shape2, log = TRUE)
 
-  logdens <- RTMB::dbeta(x, shape1 = shape1, shape2 = shape2, log = TRUE)
+  logdens <- dbeta(x, shape1 = shape1, shape2 = shape2, log = TRUE)
   logdens <- log_zi(x, logdens, zeroprob)
 
   # making sure x == 1 evaluates to -Inf

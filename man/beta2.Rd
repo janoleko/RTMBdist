@@ -2,12 +2,15 @@
 % Please edit documentation in R/beta2.R
 \name{beta2}
 \alias{beta2}
+\alias{dbeta}
 \alias{dbeta2}
 \alias{pbeta2}
 \alias{qbeta2}
 \alias{rbeta2}
 \title{Reparameterised beta distribution}
 \usage{
+dbeta(x, shape1, shape2, log = FALSE)
+
 dbeta2(x, mu, phi, log = FALSE)
 
 pbeta2(q, mu, phi, lower.tail = TRUE, log.p = FALSE)
@@ -19,11 +22,13 @@ rbeta2(n, mu, phi)
 \arguments{
 \item{x, q}{vector of quantiles}
 
+\item{shape1, shape2}{non-negative parameters}
+
+\item{log, log.p}{logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.}
+
 \item{mu}{mean parameter, must be in the interval from 0 to 1.}
 
 \item{phi}{concentration parameter, must be positive.}
-
-\item{log, log.p}{logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.}
 
 \item{lower.tail}{logical; if \code{TRUE} (default), probabilities are \eqn{P[X \leq x]}, otherwise \eqn{P[X > x]}.}
 

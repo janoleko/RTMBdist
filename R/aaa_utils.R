@@ -107,3 +107,7 @@ log_zi_discrete <- function(x, logdens, zeroprob) {
     log1p(-zeroprob) + logdens
     )
 }
+# log Beta function
+lbeta.ad <- function(a, b) {
+  lgamma(a) + lgamma(b) - lgamma(a + b)
+}

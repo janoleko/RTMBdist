@@ -11,6 +11,7 @@
 #' @param n number of random values to return.
 #' @param mu mean parameter, must be in the interval from 0 to 1.
 #' @param phi concentration parameter, must be positive.
+#' @param shape1,shape2 non-negative parameters
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
 #' @param lower.tail logical; if \code{TRUE} (default), probabilities are \eqn{P[X \leq x]}, otherwise \eqn{P[X > x]}.
 #'
@@ -27,7 +28,31 @@
 NULL
 #' @rdname beta2
 #' @export
-#' @importFrom RTMB dbeta
+#' @import RTMB
+dbeta <- function(x, shape1, shape2, log = FALSE) {
+
+  if(!ad_context()) {
+    # shapes positive
+    if (any(shape1 <= 0)) stop("shape1 must be positive.")
+    if (any(shape2 <= 0)) stop("shape2 must be positive.")
+  }
+
+  # potentially escape to RNG or CDF
+  if(inherits(x, "simref")) {
+    return(dGenericSim("dbeta", x=x, shape1=shape1, shape2=shape2, log=log))
+  }
+  if(inherits(x, "osa")) {
+    return(dGenericOSA("dbeta", x=x, shape1=shape1, shape2=shape2, log=log))
+  }
+
+  B <- lbeta.ad(shape1, shape2)
+  logdens <- (shape1 - 1) * log(x) + (shape2 - 1) * log1p(-x) - B
+
+  if(log) return(logdens)
+  return(exp(logdens))
+}
+#' @rdname beta2
+#' @export
 dbeta2 <- function(x, mu, phi, log = FALSE) {
 
   if(!ad_context()) {
@@ -45,9 +70,10 @@ dbeta2 <- function(x, mu, phi, log = FALSE) {
     return(dGenericOSA("dbeta2", x=x, mu=mu, phi=phi, log=log))
   }
 
+  # parameter transformations
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
-  RTMB::dbeta(x, shape1 = shape1, shape2 = shape2, log = log)
+  dbeta(x, shape1 = shape1, shape2 = shape2, log = log)
 }
 #' @rdname beta2
 #' @export
