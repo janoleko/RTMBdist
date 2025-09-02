@@ -9,9 +9,9 @@
 \alias{rbeta2}
 \title{Reparameterised beta distribution}
 \usage{
-dbeta(x, shape1, shape2, log = FALSE)
+dbeta(x, shape1, shape2, log = FALSE, eps = 0)
 
-dbeta2(x, mu, phi, log = FALSE)
+dbeta2(x, mu, phi, log = FALSE, eps = 0)
 
 pbeta2(q, mu, phi, lower.tail = TRUE, log.p = FALSE)
 
@@ -25,6 +25,8 @@ rbeta2(n, mu, phi)
 \item{shape1, shape2}{non-negative parameters}
 
 \item{log, log.p}{logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.}
+
+\item{eps}{for internal use only, don't change.}
 
 \item{mu}{mean parameter, must be in the interval from 0 to 1.}
 
@@ -45,6 +47,8 @@ the beta distribution reparameterised in terms of mean and concentration.
 }
 \details{
 This implementation allows for automatic differentiation with \code{RTMB}.
+
+Currently, \code{dbeta} overrides \code{RTMB::dbeta} because the latter has numerically unstable gradient.
 }
 \examples{
 set.seed(123)

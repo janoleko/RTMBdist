@@ -6,6 +6,8 @@
 #' @details
 #' This implementation allows for automatic differentiation with \code{RTMB}.
 #'
+#' Currently, \code{dbeta} overrides \code{RTMB::dbeta} because the latter has numerically unstable gradient.
+#'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
 #' @param n number of random values to return.
@@ -14,6 +16,7 @@
 #' @param shape1,shape2 non-negative parameters
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
 #' @param lower.tail logical; if \code{TRUE} (default), probabilities are \eqn{P[X \leq x]}, otherwise \eqn{P[X > x]}.
+#' @param eps for internal use only, don't change.
 #'
 #' @return
 #' \code{dbeta2} gives the density, \code{pbeta2} gives the distribution function, \code{qbeta2} gives the quantile function, and \code{rbeta2} generates random deviates.
@@ -29,7 +32,7 @@ NULL
 #' @rdname beta2
 #' @export
 #' @import RTMB
-dbeta <- function(x, shape1, shape2, log = FALSE) {
+dbeta <- function(x, shape1, shape2, log = FALSE, eps = 0) {
 
   if(!ad_context()) {
     # shapes positive
@@ -45,15 +48,16 @@ dbeta <- function(x, shape1, shape2, log = FALSE) {
     return(dGenericOSA("dbeta", x=x, shape1=shape1, shape2=shape2, log=log))
   }
 
-  B <- lbeta.ad(shape1, shape2)
-  logdens <- (shape1 - 1) * log(x) + (shape2 - 1) * log1p(-x) - B
+  logB <- lbeta.ad(shape1, shape2)
+  logdens <- (shape1 - 1) * log(x + eps) +
+    (shape2 - 1) * log1p(-x + eps) - logB
 
   if(log) return(logdens)
   return(exp(logdens))
 }
 #' @rdname beta2
 #' @export
-dbeta2 <- function(x, mu, phi, log = FALSE) {
+dbeta2 <- function(x, mu, phi, log = FALSE, eps = 0) {
 
   if(!ad_context()) {
     # ensure mu in [0,1]
@@ -73,7 +77,7 @@ dbeta2 <- function(x, mu, phi, log = FALSE) {
   # parameter transformations
   shape1 <- mu * phi
   shape2 <- (1 - mu) * phi
-  dbeta(x, shape1 = shape1, shape2 = shape2, log = log)
+  dbeta(x, shape1 = shape1, shape2 = shape2, log = log, eps = eps)
 }
 #' @rdname beta2
 #' @export
