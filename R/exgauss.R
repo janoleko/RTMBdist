@@ -62,11 +62,11 @@ dexgauss <- function(x, mu = 0, sigma = 1, lambda = 1, log = FALSE) {
   lambda <- rep(lambda, length = ly)
   nu <- 1 / lambda
 
-  z <- x - mu - (sigma^2 / nu)
+  z <- x - mu - ((sigma * sigma) / nu)
 
   nu_gr <- greater(nu, 0.05 * sigma) # numerical stability
 
-  logdens <- nu_gr * as.finite.neg(- log(nu) - (z + (sigma^2 / (2 * nu))) / nu + log(RTMB::pnorm(z / sigma))) +
+  logdens <- nu_gr * as.finite.neg(- log(nu) - (z + ((sigma * sigma) / (2 * nu))) / nu + log(RTMB::pnorm(z / sigma))) +
     (1-nu_gr) * RTMB::dnorm(x, mean = mu, sd = sigma, log = TRUE)
 
   if(log) return(logdens)

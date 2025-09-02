@@ -38,8 +38,9 @@ dfoldnorm <- function(x, mu = 0, sigma = 1, log = FALSE) {
   }
 
   const <- - log(sqrt(2 * pi) * sigma)
-  part1 <- - (x - mu)^2 / (2 * sigma^2)
-  part2 <- - (x + mu)^2 / (2 * sigma^2)
+  x_m_mu <- x - mu; x_p_mu <- x + mu
+  part1 <- - (x_m_mu * x_m_mu) / (2 * (sigma * sigma))
+  part2 <- - (x_p_mu * x_p_mu) / (2 * (sigma * sigma))
 
   logdens <- logspace_add(const + part1, const + part2)
 
