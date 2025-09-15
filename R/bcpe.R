@@ -86,7 +86,7 @@ dbcpe <- function(x, mu = 5, sigma = 0.1, nu = 1, tau = 2, log = FALSE) {
   # preventing problems with nu == 0
   nu <- nu + .Machine$double.xmin
 
-  z <- (1-iz) * (((x / mu)^nu - 1) / ((nu + .Machine$double.xmin) * sigma)) +
+  z <- (1-iz) * (((x / mu)^nu - 1) / (nu * sigma)) +
     iz * (log(x / mu) / sigma)
 
   logfZ <- f.T(z, tau, log=TRUE) - log(F.T(1 / (sigma * abs(nu)), tau))
