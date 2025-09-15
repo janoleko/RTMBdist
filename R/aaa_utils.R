@@ -43,8 +43,8 @@ iszero <- function(x) {
 }
 
 iszero.ad <- RTMB::ADjoint(f = function(x) as.numeric(x==0),
-                          df = function(x,y,dy) RTMB::AD(rep(0, length(x))),
-                          name = "iszero.ad")
+                           df = function(x,y,dy) RTMB::AD(rep(0, length(x))),
+                           name = "iszero.ad")
 # zero <- ADjoint(f = function(x) rep(0, length(x)),
 #                 df = function(x, y, dy) zero(x),
 #                 name = "zero")
