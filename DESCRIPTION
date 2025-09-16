@@ -28,7 +28,12 @@ RoxygenNote: 7.3.2
 Suggests: 
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    LaMa,
+    Matrix,
+    TMB,
+    gamlss.data,
+    scales
 Config/testthat/edition: 3
 URL: https://janoleko.github.io/RTMBdist/
 VignetteBuilder: knitr
