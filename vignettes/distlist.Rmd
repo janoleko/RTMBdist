@@ -106,3 +106,15 @@ knitr::opts_chunk$set(
 * [`vmf(mu, kappa)`](../reference/vmf.html): Multivariate von Mises-Fisher distribution parameterised by unit mean vector `mu` and concentration `kappa`
 
 * [`vmf2(theta)`](../reference/vmf2.html): Multivariate von Mises-Fisher distribution parameterised by parameter `theta` equal to unit mean vector `mu` times concentration scalar `kappa`
+
+
+## Copulas
+
+Bivariate copulas can be implemented in a modular way using the [`dcopula`](../reference/dcopula.html) function together with one of the copula constructors below. Available copula constructors are:
+
+* [`cgaussian(rho)`](../reference/cgaussian.html) (Gaussian copula)
+* [`cclayton(theta)`](../reference/cclayton.html) (Clayton copula)
+* [`cgumbel(theta)`](../reference/cgumbel.html) (Gumbel copula)
+* [`cfrank(theta)`](../reference/cfrank.html) (Frank copula)
+
+
