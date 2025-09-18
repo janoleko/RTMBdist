@@ -4,7 +4,7 @@
 \alias{dcopula}
 \title{Joint density under a bivariate copula}
 \usage{
-dcopula(d1, d2, p1, p2, copula, log = FALSE)
+dcopula(d1, d2, p1, p2, copula = cgaussian(0), log = FALSE)
 }
 \arguments{
 \item{d1, d2}{Marginal density values. If \code{log = TRUE}, supply the log-density.
