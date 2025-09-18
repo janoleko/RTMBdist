@@ -99,7 +99,7 @@ dcopula <- function(d1, d2, p1, p2, copula = cgaussian(0), log = FALSE) {
 #' d1 <- dnorm(x, 1, log = TRUE); d2 <- dexp(y, 2, log = TRUE)
 #' p1 <- pnorm(x, 1); p2 <- pexp(y, 2)
 #' dcopula(d1  , d2, p1, p2, copula = cgaussian(0.5), log = TRUE)
-cgaussian <- function(rho) {
+cgaussian <- function(rho = 0) {
   function(u, v) {
     # u, v assumed clipped in dcopula()
     z1 <- qnorm(u)

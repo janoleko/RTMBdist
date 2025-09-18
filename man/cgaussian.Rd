@@ -4,7 +4,7 @@
 \alias{cgaussian}
 \title{Gaussian copula constructor}
 \usage{
-cgaussian(rho)
+cgaussian(rho = 0)
 }
 \arguments{
 \item{rho}{Correlation parameter (\eqn{-1 < rho < 1}).}
