@@ -42,12 +42,12 @@ dbetabinom <- function(x, size, shape1, shape2, log = FALSE) {
 
   if (!ad_context()) {
     # checks
-    if (any(x < 0) || any(x != floor(x)))
-      stop("x must be non-negative integers.")
+    # if (any(x < 0) || any(x != floor(x)))
+    #   stop("x must be non-negative integers.")
     if (any(size < 0) || any(size != floor(size)))
       stop("size must be non-negative integers.")
-    if (any(x > size))
-      stop("x cannot be greater than size.")
+    # if (any(x > size))
+    #   stop("x cannot be greater than size.")
     if (any(shape1 <= 0) || any(shape2 <= 0))
       stop("shape1 and shape2 must be positive.")
   }

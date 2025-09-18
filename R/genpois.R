@@ -39,10 +39,6 @@ dgenpois <- function(x, lambda = 1, phi = 1, log = FALSE) {
     # ensure lambda, phi > 0
     if (any(lambda <= 0)) stop("lambda must be > 0")
     if (any(phi <= 0)) stop("phi must be > 0")
-    # Check x is integer >= 0
-    if(any(x < 0 | x != floor(x))) {
-      stop("x must be a non-negative integer")
-    }
   }
 
   # potentially escape to RNG or CDF
@@ -50,7 +46,8 @@ dgenpois <- function(x, lambda = 1, phi = 1, log = FALSE) {
     return(dGenericSim("dgenpois", x = x, lambda = lambda, phi = phi, log=log))
   }
   if(inherits(x, "osa")) {
-    stop("Currently, generalised Poisson does not support OSA residuals.")
+    # stop("Currently, generalised Poisson does not support OSA residuals.")
+    return(dGenericOSA("dgenpois", x = x, lambda = lambda, phi = phi, log=log))
   }
 
   phi_lambda_p1 <- 1 + phi * lambda
@@ -76,9 +73,28 @@ pgenpois <- function(q, lambda = 1, phi = 1, lower.tail = TRUE, log.p = FALSE) {
     if(any(q < 0 | q != floor(q))) {
       stop("q must be a non-negative integer")
     }
+
+    p <- gamlss.dist::pGPO(q, mu = lambda, sigma = phi)
+
+    if (!lower.tail) p <- 1 - p
+    if (log.p) p <- log(p)
+
+    return(p)
   }
 
-  p <- gamlss.dist::pGPO(q, mu = lambda, sigma = phi)
+  pgenpois.ad(q=q, lambda=lambda, phi=phi, lower.tail=lower.tail, log.p=log.p)
+}
+pgenpois.ad <- function(q, lambda = 1, phi = 1, lower.tail = TRUE, log.p = FALSE){
+
+  p <- rep(0, length(q))
+
+  if(length(lambda)==1) lambda <- rep(lambda, length(q))
+  if(length(phi)==1) phi <- rep(phi, length(q))
+
+  for(i in 1:length(q)) {
+    x <- 0:q[i]
+    p[i] <- sum(dgenpois(x, lambda[i], phi[i]))
+  }
 
   if (!lower.tail) p <- 1 - p
   if (log.p) p <- log(p)
@@ -116,6 +132,6 @@ rgenpois <- function(n, lambda = 1, phi = 1, max.value = 1e4) {
     if (any(phi <= 0)) stop("phi must be > 0")
   }
 
-  gamlss.dist::rGPO(n, mu = lambda, sigma = phi)
+  gamlss.dist::rGPO(n, mu = lambda, sigma = phi, max.value = max.value)
 }
 
