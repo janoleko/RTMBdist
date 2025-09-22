@@ -35,6 +35,13 @@ NULL
 #' @importFrom RTMB besselI
 dvmf <- function(x, mu, kappa, log = FALSE) {
 
+  if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
+    # ensure kappa >= 0
+    if (any(kappa < 0)) stop("kappa must be non-negative.")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")){
     return(dGenericSim("dvmf", x = x, mu = mu, kappa = kappa, log=log))

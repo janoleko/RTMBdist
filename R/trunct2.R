@@ -34,6 +34,8 @@ NULL
 dtrunct2 <- function(x, df, mu = 0, sigma = 1, min = -Inf, max = Inf, log = FALSE) {
 
   if (!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     if (df <= 0) stop("df must be strictly positive.")
     if (sigma <= 0) stop("sigma must be strictly positive.")
     if (min >= max) stop("min must be less than max.")

@@ -27,6 +27,19 @@ NULL
 #' @import RTMB
 dbetabinom <- function(x, size, shape1, shape2, log = FALSE) {
 
+  if (!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
+    # if (any(x < 0) || any(x != floor(x)))
+    #   stop("x must be non-negative integers.")
+    if (any(size < 0) || any(size != floor(size)))
+      stop("size must be non-negative integers.")
+    # if (any(x > size))
+    #   stop("x cannot be greater than size.")
+    if (any(shape1 <= 0) || any(shape2 <= 0))
+      stop("shape1 and shape2 must be positive.")
+  }
+
   if (inherits(x, "simref")) {
     return(dGenericSim("dbetabinom", x = x, size = size, shape1 = shape1, shape2 = shape2, log = log))
   }
@@ -39,18 +52,6 @@ dbetabinom <- function(x, size, shape1, shape2, log = FALSE) {
   if (length(size) == 1) size <- rep(size, nx)
   if (length(shape1) == 1) shape1 <- rep(shape1, nx)
   if (length(shape2) == 1) shape2 <- rep(shape2, nx)
-
-  if (!ad_context()) {
-    # checks
-    # if (any(x < 0) || any(x != floor(x)))
-    #   stop("x must be non-negative integers.")
-    if (any(size < 0) || any(size != floor(size)))
-      stop("size must be non-negative integers.")
-    # if (any(x > size))
-    #   stop("x cannot be greater than size.")
-    if (any(shape1 <= 0) || any(shape2 <= 0))
-      stop("shape1 and shape2 must be positive.")
-  }
 
   logdens <- lgamma(size + 1) - lgamma(x + 1) - lgamma(size - x + 1) +
     lgamma(x + shape1) + lgamma(size - x + shape2) -

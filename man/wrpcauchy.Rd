@@ -35,6 +35,6 @@ This implementation of \code{dwrpcauchy} allows for automatic differentiation wi
 }
 \examples{
 set.seed(1)
-x <- rwrpcauchy(10, 0, 1)
-d <- dwrpcauchy(x, 0, 1)
+x <- rwrpcauchy(10, 0, 0.5)
+d <- dwrpcauchy(x, 0, 0.5)
 }

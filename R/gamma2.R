@@ -30,6 +30,14 @@ NULL
 #' @importFrom RTMB dgamma
 dgamma2 = function(x, mean = 1, sd = 1, log = FALSE) {
 
+  if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
+    # ensure mean, sd > 0
+    if (any(mean <= 0)) stop("mean must be strictly positive.")
+    if (any(sd <= 0)) stop("sd must be strictly positive.")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dgamma2", x=x, mean = mean, sd = sd, log=log))

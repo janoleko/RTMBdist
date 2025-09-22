@@ -30,6 +30,8 @@ NULL
 dzigamma = function(x, shape, scale, zeroprob = 0, log = FALSE) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure shape >= 0, scale > 0, zeroprob in [0,1]
     if (any(shape < 0)) stop("shape must be >= 0")
     if (any(scale <= 0)) stop("scale must be > 0")

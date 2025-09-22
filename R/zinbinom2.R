@@ -30,6 +30,8 @@ NULL
 dzinbinom2 <- function(x, mu, size, zeroprob = 0, log = FALSE) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure size, mu > 0, zeroprob in [0,1]
     if (any(mu <= 0)) stop("mu must be > 0")
     if (any(size <= 0)) stop("size must be > 0")

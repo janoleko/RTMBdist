@@ -30,6 +30,8 @@ NULL
 dgumbel <- function(x, location = 0, scale = 1, log = FALSE) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     if(scale <= 0) stop("Scale parameter must be positive.")
   }
 

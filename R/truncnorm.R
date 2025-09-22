@@ -32,6 +32,8 @@ NULL
 dtruncnorm <- function(x, mean = 0, sd = 1, min = -Inf, max = Inf, log = FALSE) {
 
   if (!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure sd > 0
     if (sd <= 0) stop("sd must be strictly positive.")
   }

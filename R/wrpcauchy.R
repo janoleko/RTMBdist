@@ -17,14 +17,21 @@
 #'
 #' @examples
 #' set.seed(1)
-#' x <- rwrpcauchy(10, 0, 1)
-#' d <- dwrpcauchy(x, 0, 1)
+#' x <- rwrpcauchy(10, 0, 0.5)
+#' d <- dwrpcauchy(x, 0, 0.5)
 #' @name wrpcauchy
 NULL
 
 #' @rdname wrpcauchy
 #' @export
 dwrpcauchy <- function(x, mu = 0, rho, log = FALSE) {
+
+  if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
+    # ensure rho in [0, 1)
+    if (any(rho < 0) || any(rho >= 1)) stop("rho must be in the interval [0, 1).")
+  }
 
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")){

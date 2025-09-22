@@ -33,6 +33,8 @@ NULL
 dinvgauss <- function(x, mean = 1, shape = 1, log = FALSE) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure mean, shape > 0
     if (any(mean <= 0)) stop("mean must be strictly positive.")
     if (any(shape <= 0)) stop("shape must be strictly positive.")

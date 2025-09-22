@@ -31,6 +31,8 @@ NULL
 dzinbinom <- function(x, size, prob, zeroprob = 0, log = FALSE) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure size >= 0, prob in (0,1], zeroprob in [0,1]
     if (any(size <= 0)) stop("size must be > 0")
     if (any(prob <= 0 | prob > 1)) stop("prob must be in (0,1]")

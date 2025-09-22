@@ -35,6 +35,8 @@ NULL
 dbeta <- function(x, shape1, shape2, log = FALSE, eps = 0) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # shapes positive
     if (any(shape1 <= 0)) stop("shape1 must be positive.")
     if (any(shape2 <= 0)) stop("shape2 must be positive.")
@@ -60,6 +62,8 @@ dbeta <- function(x, shape1, shape2, log = FALSE, eps = 0) {
 dbeta2 <- function(x, mu, phi, log = FALSE, eps = 0) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure mu in [0,1]
     if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
     # ensure phi > 0

@@ -29,6 +29,15 @@ NULL
 #' @importFrom RTMB dt
 dt2 = function(x, mu, sigma, df, log = FALSE){
 
+  if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
+    # ensure sigma > 0
+    if (any(sigma <= 0)) stop("sigma must be strictly positive.")
+    # ensure df > 0
+    if (any(df <= 0)) stop("df must be strictly positive.")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dt2", x=x, mu=mu, sigma=sigma, df=df, log=log))

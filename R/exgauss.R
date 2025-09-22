@@ -43,6 +43,8 @@ dexgauss <- function(x, mu = 0, sigma = 1, lambda = 1, log = FALSE) {
   # and modified to allow for automatic differentiaion
 
   if (!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure sigma > 0, lambda > 0
     if (any(sigma <= 0)) stop("sigma must be > 0")
     if (any(lambda <= 0)) stop("lambda must be > 0")

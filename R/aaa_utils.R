@@ -111,3 +111,14 @@ log_zi_discrete <- function(x, logdens, zeroprob) {
 lbeta.ad <- function(a, b) {
   lgamma(a) + lgamma(b) - lgamma(a + b)
 }
+
+# Error messages
+make_sim_error_msg <- function(){
+  "Automatic simulation requires the likelihood to follow the model hierarchy: random effects first, then data given those random effects."
+}
+simulation_check <- function(args, exclude = c("x", "log")) {
+  args <- args[setdiff(names(args), exclude)]
+  if (any(vapply(args, function(a) inherits(a, "simref"), logical(1)))) {
+    stop(make_sim_error_msg())
+  }
+}

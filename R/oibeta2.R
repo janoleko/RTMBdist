@@ -29,6 +29,8 @@ NULL
 doibeta2 <- function(x, mu, phi, oneprob = 0, log = FALSE) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure mu in [0,1]
     if (any(mu < 0 | mu > 1)) stop("mu must be in the interval [0, 1].")
     # ensure phi > 0

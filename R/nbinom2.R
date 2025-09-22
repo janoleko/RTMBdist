@@ -34,6 +34,8 @@ NULL
 dnbinom2 <- function(x, mu, size, log = FALSE) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure mu, size > 0
     if (any(mu <= 0)) stop("mu must be strictly positive.")
     if (any(size <= 0)) stop("size must be strictly positive.")

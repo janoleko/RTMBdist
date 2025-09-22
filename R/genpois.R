@@ -36,6 +36,8 @@ NULL
 dgenpois <- function(x, lambda = 1, phi = 1, log = FALSE) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure lambda, phi > 0
     if (any(lambda <= 0)) stop("lambda must be > 0")
     if (any(phi <= 0)) stop("phi must be > 0")

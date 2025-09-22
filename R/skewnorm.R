@@ -40,6 +40,8 @@ NULL
 dskewnorm <- function(x, xi = 0, omega = 1, alpha = 0, log = FALSE) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure omega > 0
     if (any(omega <= 0)) stop("omega must be strictly positive.")
   }

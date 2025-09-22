@@ -29,7 +29,10 @@ NULL
 #' @export
 #' @import RTMB
 dlaplace <- function(x, mu = 0, b = 1, log = FALSE) {
+
   if (!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # ensure b > 0
     if (b <= 0) stop("b must be strictly positive.")
   }

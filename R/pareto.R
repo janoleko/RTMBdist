@@ -38,7 +38,9 @@ dpareto <- function(x, mu = 1, log = FALSE) {
   # and modified to allow for automatic differentiaion
 
   if(!ad_context()) {
-   if(any(mu <= 0)) stop("mu must be > 0")
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
+    if(any(mu <= 0)) stop("mu must be > 0")
   }
 
   # potentially escape to RNG or CDF

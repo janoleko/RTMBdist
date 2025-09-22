@@ -38,6 +38,14 @@ NULL
 #' @importFrom RTMB dt
 dskewt <- function(x, mu = 0, sigma = 1, skew = 0, df = 1e3, log = FALSE) {
 
+  if (!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
+    # ensure sigma, df > 0
+    if (sigma <= 0) stop("sigma must be strictly positive.")
+    if (df <= 0) stop("df must be strictly positive.")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dskewt", x=x, mu=mu, sigma=sigma, skew=skew, df=df, log=log))

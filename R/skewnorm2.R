@@ -31,6 +31,13 @@ NULL
 #' @export
 dskewnorm2 <- function(x, mean = 0, sd = 1, alpha = 0, log = FALSE) {
 
+  if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
+    # ensure sd > 0
+    if (any(sd <= 0)) stop("sd must be strictly positive.")
+  }
+
   # parameter transformation
   delta <- alpha / sqrt(1 + alpha^2)
   omega <- sd / sqrt(1 - (2 * delta^2) / pi)

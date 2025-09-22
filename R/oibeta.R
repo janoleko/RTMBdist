@@ -29,6 +29,8 @@ NULL
 doibeta <- function(x, shape1, shape2, oneprob = 0, log = FALSE) {
 
   if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
     # shapes non-negative
     if (any(shape1 <= 0)) stop("shape1 must be positive.")
     if (any(shape2 <= 0)) stop("shape2 must be positive.")

@@ -29,6 +29,13 @@ NULL
 #' @importFrom RTMB dnorm logspace_add
 dfoldnorm <- function(x, mu = 0, sigma = 1, log = FALSE) {
 
+  if(!ad_context()) {
+    args <- as.list(environment())
+    simulation_check(args) # informative error message if likelihood in wrong order
+    # ensure sigma > 0
+    if (any(sigma <= 0)) stop("sigma must be positive")
+  }
+
   # potentially escape to RNG or CDF
   if(inherits(x, "simref")) {
     return(dGenericSim("dfoldnorm", x=x, mu=mu, sigma=sigma, log=log))
