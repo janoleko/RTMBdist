@@ -167,7 +167,7 @@ cclayton <- function(theta) {
 #' @export
 #'
 #' @examples
-#' x <- c(0.5, 1); y <- c(1, 2)
+#' x <- c(0.5, 1); y <- c(0.2, 0.4)
 #' d1 <- dnorm(x, 1, log = TRUE); d2 <- dbeta(y, 2, 1, log = TRUE)
 #' p1 <- pnorm(x, 1); p2 <- pbeta(y, 2, 1)
 #' dcopula(d1, d2, p1, p2, copula = cgumbel(1.5), log = TRUE)
