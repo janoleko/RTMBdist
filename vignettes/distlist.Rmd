@@ -103,6 +103,8 @@ knitr::opts_chunk$set(
 
 * [`dirmult(size, alpha)`](../reference/dirmult.html): Dirichlet-multinomial distribution parameterised by `size` and concentration parameters `alpha`
 
+* [`mvt(mu, Sigma, df)`](../reference/mvt.html): Multivariate t-distribution parameterised by location `mu`, scale matrix `Sigma` and degrees of freedom `df`
+
 * [`vmf(mu, kappa)`](../reference/vmf.html): Multivariate von Mises-Fisher distribution parameterised by unit mean vector `mu` and concentration `kappa`
 
 * [`vmf2(theta)`](../reference/vmf2.html): Multivariate von Mises-Fisher distribution parameterised by parameter `theta` equal to unit mean vector `mu` times concentration scalar `kappa`
