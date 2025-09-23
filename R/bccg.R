@@ -38,7 +38,7 @@ NULL
 dbccg <- function(x, mu = 1, sigma = 0.1, nu = 1, log = FALSE) {
 
   # taken from https://github.com/gamlss-dev/gamlss.dist/blob/main/R/BCCG.R
-  # and modified to allow for automatic differentiaion
+  # and modified to allow for automatic differentiation
 
   if (!ad_context()) {
     args <- as.list(environment())
@@ -87,7 +87,7 @@ dbccg <- function(x, mu = 1, sigma = 0.1, nu = 1, log = FALSE) {
 pbccg <- function(q, mu = 1, sigma = 0.1, nu = 1, lower.tail = TRUE, log.p = FALSE) {
 
   # taken from https://github.com/gamlss-dev/gamlss.dist/blob/main/R/BCCG.R
-  # and modified to allow for automatic differentiaion
+  # and modified to allow for automatic differentiation
 
   if (!ad_context()) {
     if (any(mu <= 0)) stop("mu must be > 0")

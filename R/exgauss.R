@@ -40,7 +40,7 @@ NULL
 dexgauss <- function(x, mu = 0, sigma = 1, lambda = 1, log = FALSE) {
 
   # taken from https://github.com/gamlss-dev/gamlss.dist/blob/main/R/exGAUS.R
-  # and modified to allow for automatic differentiaion
+  # and modified to allow for automatic differentiation
 
   if (!ad_context()) {
     args <- as.list(environment())
@@ -80,7 +80,7 @@ dexgauss <- function(x, mu = 0, sigma = 1, lambda = 1, log = FALSE) {
 pexgauss <- function(q, mu = 0, sigma = 1, lambda = 1, lower.tail = TRUE, log.p = FALSE) {
 
   # taken from https://github.com/gamlss-dev/gamlss.dist/blob/main/R/exGAUS.R
-  # and modified to allow for automatic differentiaion
+  # and modified to allow for automatic differentiation
 
   if (!ad_context()) {
     # ensure sigma > 0, lambda > 0

@@ -47,7 +47,7 @@ NULL
 dpowerexp <- function(x, mu = 0, sigma = 1, nu = 2, log = FALSE) {
 
   # taken from https://github.com/gamlss-dev/gamlss.dist/blob/main/R/PE.R
-  # and modified to allow for automatic differentiaion
+  # and modified to allow for automatic differentiation
 
   if (!ad_context()) {
     args <- as.list(environment())
@@ -81,7 +81,7 @@ dpowerexp <- function(x, mu = 0, sigma = 1, nu = 2, log = FALSE) {
 ppowerexp <- function(q, mu = 0, sigma = 1, nu = 2, lower.tail = TRUE, log.p = FALSE) {
 
   # taken from https://github.com/gamlss-dev/gamlss.dist/blob/main/R/PE.R
-  # and modified to allow for automatic differentiaion
+  # and modified to allow for automatic differentiation
 
   if (!ad_context()) {
     if (any(sigma <= 0)) stop("sigma must be > 0")

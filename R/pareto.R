@@ -35,7 +35,7 @@ NULL
 dpareto <- function(x, mu = 1, log = FALSE) {
 
   # taken https://github.com/gamlss-dev/gamlss.dist/blob/main/R/PARETO.R
-  # and modified to allow for automatic differentiaion
+  # and modified to allow for automatic differentiation
 
   if(!ad_context()) {
     args <- as.list(environment())
@@ -67,7 +67,7 @@ dpareto <- function(x, mu = 1, log = FALSE) {
 ppareto <- function(q, mu = 1, lower.tail = TRUE, log.p = FALSE) {
 
   # taken https://github.com/gamlss-dev/gamlss.dist/blob/main/R/PARETO.R
-  # and modified to allow for automatic differentiaion
+  # and modified to allow for automatic differentiation
 
   if(!ad_context()) {
     if(any(mu <= 0)) stop("mu must be > 0")
