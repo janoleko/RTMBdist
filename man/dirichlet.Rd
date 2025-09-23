@@ -21,7 +21,7 @@ If \code{x} is a matrix, each row should sum to one.}
 \item{n}{number of random values to return.}
 }
 \value{
-\code{ddirichlet} gives the density.
+\code{ddirichlet} gives the density, \code{rdirichlet} generates random deviates.
 }
 \description{
 Density and and random generation for the Dirichlet distribution.

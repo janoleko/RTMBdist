@@ -12,7 +12,7 @@
 #' @param log logical; if \code{TRUE}, densities \eqn{p} are returned as \eqn{\log(p)}.
 #'
 #' @return
-#' \code{ddirichlet} gives the density.
+#' \code{ddirichlet} gives the density, \code{rdirichlet} generates random deviates.
 #'
 #' @examples
 #' # single alpha
