@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# RTMBdist — AD-compatible distribution library <img src="man/figures/RTMBdist_hex.png" align="right" style="height:170px; width:auto;">
+# RTMBdist — AD distribution library <img src="man/figures/RTMBdist_hex.png" align="right" style="height:170px; width:auto;">
 
 <!-- badges: start -->
 

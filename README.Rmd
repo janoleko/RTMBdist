@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# RTMBdist --- AD-compatible distribution library <img src="man/figures/RTMBdist_hex.png" align="right" style="height:170px; width:auto;">
+# RTMBdist --- AD distribution library <img src="man/figures/RTMBdist_hex.png" align="right" style="height:170px; width:auto;">
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
