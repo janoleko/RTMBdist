@@ -144,7 +144,7 @@ rmvt <- function(n, mu, Sigma, df) {
 
   z <- matrix(rnorm(n * d), nrow = n, ncol = d)
   L <- chol(Sigma)
-  y <- z %*% L
+  y <- z %*% L # y ~ N(0, Sigma)
   x <- y / sqrt(u / df) + mu
 
   return(x)
