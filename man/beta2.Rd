@@ -48,7 +48,7 @@ the beta distribution reparameterised in terms of mean and concentration.
 \details{
 This implementation allows for automatic differentiation with \code{RTMB}.
 
-Currently, \code{dbeta} overrides \code{RTMB::dbeta} because the latter has numerically unstable gradient.
+Currently, \code{dbeta} masks \code{RTMB::dbeta} because the latter has a numerically unstable gradient.
 }
 \examples{
 set.seed(123)

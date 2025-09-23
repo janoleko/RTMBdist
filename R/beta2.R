@@ -6,7 +6,7 @@
 #' @details
 #' This implementation allows for automatic differentiation with \code{RTMB}.
 #'
-#' Currently, \code{dbeta} overrides \code{RTMB::dbeta} because the latter has numerically unstable gradient.
+#' Currently, \code{dbeta} masks \code{RTMB::dbeta} because the latter has a numerically unstable gradient.
 #'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
