@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 library(RTMBdist)
 ```
 
-# Example 1: Chicken weight
+## Example 1: Random regression with non-Gaussian data
 
 Our first example is the chicken weight data set, already used in the `RTMB` Introduction vignette.
 
@@ -30,39 +30,39 @@ data(ChickWeight)
 
 ```{r parameters}
 parameters <- list(
-  mua=0,          ## Mean slope
-  log_sda=1,      ## log-Std of slopes
-  mub=0,          ## Mean intercept
-  log_sdb=1,      ## log-Std of intercepts
-  log_sigma=0,    ## log-Scale of BCCG distribution
-  nu = 0.1,       ## Skewness of BCCG distribution
-  a=rep(0, 50),   ## Random slope by chick
-  b=rep(5, 50)    ## Random intercept by chick
+  mua=0,          # Mean slope
+  log_sda=1,      # log-Std of slopes
+  mub=0,          # Mean intercept
+  log_sdb=1,      # log-Std of intercepts
+  log_sigma=0,    # log-Scale of BCCG distribution
+  nu = 0.1,       # Skewness of BCCG distribution
+  a=rep(0, 50),   # Random slope by chick
+  b=rep(5, 50)    # Random intercept by chick
 )
 ```
 
 The joint negative log-likelihood function has the same structure as in the `RTMB` vignette, but with the normal likelihood replaced by the BCCG likelihood, and hence also some necessary parameter transformations.
 
 ```{r likelihood}
-nll <- function(parms) {
+nll_chick <- function(parms) {
   getAll(ChickWeight, parms, warn=FALSE)
-  ## Optional (enables extra RTMB features)
+  # Optional (enables extra RTMB features)
   weight <- OBS(weight)
-  ## Initialize joint negative log likelihood
+  # Initialise joint negative log likelihood
   nll <- 0
-  ## Random slopes
+  # Random slopes
   sda <- exp(log_sda); ADREPORT(sda)
   nll <- nll - sum(dnorm(a, mean=mua, sd=sda, log=TRUE))
-  ## Random intercepts
+  # Random intercepts
   sdb <- exp(log_sdb); ADREPORT(sdb)
   nll <- nll - sum(dnorm(b, mean=mub, sd=sdb, log=TRUE))
-  ## Data
+  # Data
   predWeight <- exp(a[Chick] * Time + b[Chick])
   sigma <- exp(log_sigma); ADREPORT(sigma)
   nll <- nll - sum(dbccg(weight, mu=predWeight, sigma=sigma, nu=nu, log=TRUE))
-  ## Get predicted weight uncertainties
+  # Get predicted weight uncertainties
   ADREPORT(predWeight)
-  ## Return
+  # Return
   nll
 }
 ```
@@ -70,75 +70,133 @@ nll <- function(parms) {
 The model can then again be fitted by constructing the Laplace-approximated marginal log-likelihood function and optimising this using any standard numerical optimiser.
 
 ```{r model fitting}
-obj <- MakeADFun(nll, parameters, random=c("a", "b"), silent = TRUE)
-opt <- nlminb(obj$par, obj$fn, obj$gr)
+obj_chick <- MakeADFun(nll_chick, parameters, random=c("a", "b"), silent = TRUE)
+opt_chick <- nlminb(obj_chick$par, obj_chick$fn, obj_chick$gr)
 ```
 
 We can use `RTMB`'s automatic simulation capabilities to simulate from the fitted model and run a check whether the Laplace approximation is adequate. All of this is done by a simple call to `checkConsistency()`.
 
 ```{r laplace_check}
 set.seed(1)
-chk <- checkConsistency(obj)
-chk
+checkConsistency(obj_chick)
 ```
 Lastly, we can also automatically calculate quantile residuals via probability integral transform using `oneStepPredict()`.
 
 ```{r residuals}
-osa <- oneStepPredict(obj, discrete=FALSE, trace=FALSE)
-qqnorm(osa$res); abline(0,1)
+osa_chick <- oneStepPredict(obj_chick, discrete=FALSE, trace=FALSE)
+qqnorm(osa_chick$res); abline(0,1)
 ```
 
-We see that this model is still not suitable but a bit better than the Gaussian model in the `RTMB` vignette.
+We see that this model is still not a great fit but a bit better than the Gaussian model.
 
-
-# Example 2: Distributional regression with penalised splines
-
-Our second example will cover the famous dutch boys BMI data set, which is part of the `gamlss.data` package. We will fit a distributional regression model where the location, scale, and skewness parameters of the Box-Cox power exponential (BCPE) distribution are modelled as smooth functions of age using penalised splines. The kurtosis parameter will be kept constant.
-
-```{r cleanup, include=FALSE}
-TMB::FreeADFun(obj)
+```{r cleanup1, include=FALSE}
+TMB::FreeADFun(obj_chick)
 ```
+
+
+## Example 2: Non-standard random GLM for count data
+
+Our second example is the `InsectSprays` data set. We will fit a GLMM where the counts are assumed to follow a *generalised* Poisson distribution, allowing for overdispersion (compared to the standard Poisson distribution). 
+In the model, we simple include a random effect for each spray type, to account for the fact that some sprays are more effective than others.
+
+```{r}
+data(InsectSprays)
+```
+
+```{r pardat}
+# Creating the model matrix
+X <- model.matrix(~ spray - 1, data = InsectSprays)
+
+par <- list(
+  beta0 = log(mean(InsectSprays$count)),
+  beta = rep(0, length(levels(InsectSprays$spray))),
+  log_phi = log(1),
+  log_sigma = log(1)
+)
+dat <- list(
+  count = InsectSprays$count,
+  spray = InsectSprays$spray,
+  X = X
+)
+```
+
+```{r nll_insect}
+nll_insect <- function(par) {
+  getAll(par, dat, warn=FALSE)
+  count <- OBS(count)
+  # Random effect likelihood
+  sigma <- exp(log_sigma); ADREPORT(sigma)
+  nll <- - sum(dnorm(beta, 0, sigma, log = TRUE))
+  # Data likelihood
+  lambda <- exp(beta0 + as.numeric(X %*% beta)); ADREPORT(lambda)
+  phi <- exp(log_phi); ADREPORT(phi)
+  nll <- nll -sum(dgenpois(count, lambda, phi, log = TRUE))
+  nll
+}
+```
+
+```{r model fit3}
+obj_insect <- MakeADFun(nll_insect, par, random = "beta", silent = TRUE)
+opt_insect <- nlminb(obj_insect$par, obj_insect$fn, obj_insect$gr)
+
+# Checking if the Laplace approximation is adequate
+checkConsistency(obj_insect)
+# Check okay
+
+# Calculating quantile residuals
+osa_insect <- oneStepPredict(obj_insect, method = "oneStepGeneric", 
+                             discrete=TRUE, trace=FALSE)
+qqnorm(osa_insect$res); abline(0,1)
+```
+
+```{r cleanup2, include=FALSE}
+TMB::FreeADFun(obj_insect)
+```
+
+
+## Example 3: Distributional regression with penalised splines
+
+Our third example covers the dutch boys BMI data set, part of the `gamlss.data` package. We will fit a distributional regression model where the location, scale, and skewness parameters of the Box-Cox power exponential (BCPE) distribution are modelled as smooth functions of age using penalised splines. The kurtosis parameter will be kept constant.
 
 We start by loading packages that are needed.
 
 ```{r packages, message = FALSE}
-library(gamlss.data)   # contains dutch-boys data
-library(LaMa)          # for creating model matrices
-library(Matrix)        # to create sparse matrices
+library(gamlss.data)   # Data
+library(LaMa)          # Creating model matrices
+library(Matrix)        # Sparse matrices
 ```
 
 ```{r data_boys}
 data(dbbmi)
+# Subset (just for speed here)
+set.seed(1)
+ind <- sample(1:nrow(dbbmi), 2000)
+dbbmi <- dbbmi[ind, ]
 ```
 
-We will use the function `make_matrices()` from package `LaMa` to conveniently create design and penalty matrices for the smooth functions. The penalty matrix is converted to a sparse matrix using the `Matrix` package, to work with `RTMB`'s `dgmrf()` function.
+We use the function `make_matrices()` from package `LaMa` to conveniently create design and penalty matrices for the smooth functions. Internally, this just interfaces `mgcv`. The penalty matrix is converted to a sparse matrix using the `Matrix` package, to work with `RTMB`'s `dgmrf()` function.
 
 ```{r creating model matrices}
-k <- 10 # basis dimension
-modmat <- make_matrices(~ s(age, bs="cs", k=k), data = dbbmi) 
-X <- modmat$Z                              # design matrix
-S <- Matrix(modmat$S[[1]], sparse = TRUE)  # sparse penalty matrix
+k <- 10 # Basis dimension
+modmat <- make_matrices(~ s(age, bs="cs"), data = dbbmi)
+X <- modmat$Z                              # Design matrix
+S <- Matrix(modmat$S[[1]], sparse = TRUE)  # Sparse penalty matrix
 ```
 
-The joint negative log-likelihood function computes covariate dependent location, scale, and skewness parameters using the design matrix and regression coefficients. The regression coefficients are treated as random effects with a multivariate normal distribution with zero mean and a precision matrix that is a scaled version of the penalty matrix, which is achieved by calling `dgmrf()` for each of them. The scaling parameters (smoothing parameters) are estimated by restricted maximum likelihood (REML), which is achieved by treating them as fixed effects and integrating out the regression coefficients and other fixed effects using the Laplace approximation.
+The joint negative log-likelihood function computes covariate dependent location, scale, and skewness parameters using the design matrix and regression coefficients. The regression coefficients are treated as random effects with a multivariate normal distribution with zero mean and a precision matrix that is a scaled version of the penalty matrix, which is achieved by calling `dgmrf()` for each of them. The scaling/ smoothing parameters are estimated by *restricted maximum likelihood* (REML), which is achieved by treating them as fixed effects and integrating out the regression coefficients and other fixed effects using the Laplace approximation.
 
 ```{r likelihood2}
-nll2 <- function(par) {
-  "c" <- ADoverload("c")
+nll_dbbmi <- function(par) {
   getAll(par, dat, warn=FALSE)
-  ## Optional (enables extra RTMB features)
   bmi <- OBS(bmi)
-  ## Calculating parameters
-  beta_mu <- c(beta0_mu, beta_age_mu)
-  beta_sigma <- c(beta0_sigma, beta_age_sigma)
-  beta_nu <- c(beta0_nu, beta_age_nu)
-  mu <- exp(X %*% beta_mu); ADREPORT(mu) # location
-  sigma <- exp(X %*% beta_sigma); ADREPORT(sigma) # scale
-  nu <- X %*% beta_nu; ADREPORT(nu) # skewness
-  tau <- exp(log_tau); ADREPORT(tau) # kurtosis
-  ## Likelihood: Box-Cox power exponential distribution
+  # Calculating response parameters
+  mu <- exp(X %*% c(beta0_mu, beta_age_mu)); ADREPORT(mu) # Location
+  sigma <- exp(X %*% c(beta0_sigma, beta_age_sigma)); ADREPORT(sigma) # Scale
+  nu <- X %*% c(beta0_nu, beta_age_nu); ADREPORT(nu) # Skewness
+  tau <- exp(log_tau); ADREPORT(tau) # Kurtosis
+  # Data likelihood: Box-Cox power exponential distribution
   nll <- - sum(dbcpe(bmi, mu, sigma, nu, tau, log=TRUE))
-  ## Penalised splines as random effects
+  # Penalised splines as random effects: log likelihood / penalty
   lambda <- exp(log_lambda); REPORT(lambda)
   nll <- nll - dgmrf(beta_age_mu, 0, lambda[1] * S, log=TRUE)
   nll <- nll - dgmrf(beta_age_sigma, 0, lambda[2] * S, log=TRUE)
@@ -149,12 +207,9 @@ nll2 <- function(par) {
 
 ```{r parameters and data}
 par <- list(
-  beta0_mu = log(18),
-  beta0_sigma = log(0.15),
-  beta0_nu = -1,
-  beta_age_mu = rep(0, k-1),
-  beta_age_sigma = rep(0, k-1),
-  beta_age_nu = rep(0, k-1),
+  beta0_mu = log(18), beta0_sigma = log(0.15),
+  beta0_nu = -1, beta_age_mu = rep(0, k-1),
+  beta_age_sigma = rep(0, k-1), beta_age_nu = rep(0, k-1),
   log_tau = log(2),
   log_lambda = log(rep(1e4, 3))
 )
@@ -166,19 +221,19 @@ dat <- list(
 )
 ```
 
-As we are using REML, we are integrating out all parameters other than the smoothing parameters `log_lambda`, which are treated as fixed effects. The model is then fitted by constructing the Laplace-approximated marginal log-likelihood function and optimising this using any standard numerical optimiser.
+As we are using REML, we are integrating out *all* parameters that are not smoothing parameters `log_lambda`. The model is then fitted by constructing the Laplace-approximated restricted log-likelihood function and optimising this.
 
 ```{r REML fit}
 # Restricted maximum likelihood (REML) - also integrating out fixed effects
 random <- names(par)[names(par) != "log_lambda"]
-obj2 <- MakeADFun(nll2, par, random = random, silent = TRUE)
-opt2 <- nlminb(obj2$par, obj2$fn, obj2$gr)
+obj_dbbmi <- MakeADFun(nll_dbbmi, par, random = random, silent = TRUE)
+opt_dbbmi <- nlminb(obj_dbbmi$par, obj_dbbmi$fn, obj_dbbmi$gr)
 ```
 
 We can have access to all `ADREPORT()`ed quantities and their standard deviation using `sdreport()`.
 
 ```{r results}
-sdr <- sdreport(obj2, ignore.parm.uncertainty = TRUE)
+sdr <- sdreport(obj_dbbmi, ignore.parm.uncertainty = TRUE)
 par <- as.list(sdr, "Est", report = TRUE)
 par_sd <- as.list(sdr, "Std", report = TRUE)
 ```
@@ -189,7 +244,7 @@ This way, we can easily plot the estimated smooth functions with confidence inte
 age <- dbbmi$age
 ord <- order(age)
 
-## Plotting estimated effects
+# Plotting estimated effects
 par(mfrow = c(1,3))
 plot(age[ord], par$mu[ord], type = "l", lwd = 2, bty = "n", xlab = "Age", ylab = "Mu")
 polygon(c(age[ord], rev(age[ord])),
@@ -206,21 +261,224 @@ polygon(c(age[ord], rev(age[ord])),
 ```
 
 ```{r cond_dist}
-## Plotting conditional distribution
+# Plotting conditional distribution
 par(mfrow = c(1,1))
 plot(dbbmi$age, dbbmi$bmi, pch = 16, col = "#00000020",
      xlab = "Age", ylab = "BMI", bty = "n")
 lines(age[ord], par$mu[ord], lwd = 3, col = "deepskyblue")
 
-# compute quantiles (point estimates)
+# Compute quantiles (point estimates)
 par <- lapply(par, as.numeric)
 ps <- seq(0, 1, length = 8)
 ps[1] <- 0.005 # avoid 0 and 1
 ps[length(ps)] <- 0.995 # avoid 0 and 1
 for(p in ps) {
-  q <- qbcpe(p, par$mu, par$sigma, par$nu, par$tau)
+  q <- qbcpe(p, par$mu, par$sigma, par$nu, par$tau) # quantiles
   lines(age[ord], q[ord], col = "deepskyblue")
 }
-
 legend("topleft", lwd = c(3, 1), col = "deepskyblue", legend = c("Mean", "Quantiles"), bty = "n")
 ```
+
+```{r cleanup3, include=FALSE}
+TMB::FreeADFun(obj_dbbmi)
+```
+
+
+## Example 4: Zero inflation
+
+In this example, we look at the `aep` data set, containing data on the number of inappropriate days spent in the hospital and the length of a stay for patients admitted to a hospital in Barcelona. These data have been analysed by Gange et al. (1996). They fitted a binomial logistic regression model as well as a beta-binomial regression model, concluding that the beta-binomial model produced a better fit. 
+Due to the large number of zeros in the data, we will here also fit a zero-inflated binomial model and compare the results.
+
+```{r data4}
+library(gamlss.data)
+head(aep)
+```
+
+We start by fitting the 2 binomial models. We only define one likelihood function and fix the zero probability to 0 for the binomial model.
+
+```{r binom4}
+# Defininig the model matrix for the model reported in Gange et al. (1996)
+X <- model.matrix(~ age + ward + loglos * year, data = aep)
+
+# (zero-inflated) binomial likelihood
+nll_aep <- function(par) {
+  getAll(par, dat)
+  y <- OBS(y); size <- OBS(size)
+  prob <- plogis(X %*% beta); ADREPORT(prob) # linear predictor and link
+  zeroprob <- plogis(logit_zeroprob); ADREPORT(zeroprob)
+  - sum(dzibinom(y, size, prob, zeroprob, log = TRUE))
+}
+
+# Initial parameters
+beta_init <- c(-1, rep(0, ncol(X)-1))
+names(beta_init) <- colnames(X)
+par <- list(beta = beta_init)
+
+dat <- list(
+  y = aep$y[,1],
+  size = aep$los,
+  X = X
+)
+
+# Fitting the binomial model (zeroprob fixed at 0)
+map <- list(logit_zeroprob = factor(NA)) # fixing at initial value
+par$logit_zeroprob <- qlogis(0) # set to zero
+obj_aep1 <- MakeADFun(nll_aep, par, silent = TRUE, map = map)
+opt_aep1 <- nlminb(obj_aep1$par, obj_aep1$fn, obj_aep1$gr)
+
+# Fitting the zero-inflated binomial model, no parameter restrictions
+par$logit_zeroprob <- qlogis(1e-2) # more sensible initial value
+obj_aep2 <- MakeADFun(nll_aep, par, silent = TRUE)
+opt_aep2 <- nlminb(obj_aep2$par, obj_aep2$fn, obj_aep2$gr)
+
+# Reporting
+sdr_aep1 <- sdreport(obj_aep1)
+sdr_aep2 <- sdreport(obj_aep2)
+
+beta1 <- as.list(sdr_aep1, "Est")$beta
+beta2 <- as.list(sdr_aep2, "Est")$beta
+(zeroprob2 <- as.list(sdr_aep2, "Est", report = TRUE)$zeroprob)
+
+round(rbind(beta1, beta2), 3)
+```
+
+We find that accounting for the zero-inflation somewhat changes the estimated coefficients. Now we also fit the beta-binomial model. In this model, the shape parameters are modelled as $p_i / \theta_i$ and $(1-p_i) / \theta_i$, where $p_i$ is the covariate-dependent probability for observation $i$ and $\theta_i$ is a parameter controlling the overdispersion. The parameter $\theta_i$ is modelled as a function of year only, exactly as in Gange et al. (1996).
+
+```{r betabinom}
+# Beta-binomial likelihood
+nll_aep2 <- function(par) {
+  getAll(par, dat)
+  y <- OBS(y); size <- OBS(size)
+  theta <- plogis(X_theta %*% beta_theta); ADREPORT(theta) # overdispersion parameter
+  prob <- plogis(X %*% beta); ADREPORT(prob) # linear predictor and link
+  - sum(dbetabinom(y, size, prob / theta, (1-prob) / theta, log = TRUE))
+}
+
+# Design matrices
+X <- model.matrix(~ ward + loglos + year, data = aep)
+X_theta <- model.matrix(~ year, data = aep)
+
+# Initial parameters
+beta <- c(-1, rep(0, ncol(X)-1)); names(beta) <- colnames(X)
+beta_theta <- c(1, 0); names(beta_theta) <- colnames(X_theta)
+
+par <- list(beta = beta, beta_theta = beta_theta)
+dat <- list(
+  y = aep$y[,1],
+  size = aep$los,
+  X = X, 
+  X_theta = X_theta
+)
+
+obj_aep3 <- MakeADFun(nll_aep2, par, silent = TRUE)
+opt_aep3 <- nlminb(obj_aep3$par, obj_aep3$fn, obj_aep3$gr)
+
+sdr_aep3 <- sdreport(obj_aep3)
+
+beta3 <- as.list(sdr_aep3, "Est")$beta
+
+round(beta3, 3)
+```
+
+```{r cleanup4, include=FALSE}
+TMB::FreeADFun(obj_aep1)
+TMB::FreeADFun(obj_aep2)
+TMB::FreeADFun(obj_aep3)
+```
+
+
+## Example 5: Copulas
+
+For this example, we are modelling the `faithful` data set. It contains measurements of the waiting time between eruptions and the duration of the eruption for the Old Faithful geyser in Yellowstone National Park, Wyoming, USA. We will fit a mixture of two bivariate distributions, where each component has normal marginal distributions and a Clayton copula to model the dependence between the two variables.
+
+```{r faithful}
+data(faithful)
+```
+
+Specifying the mixture likelihood using `dcopula()` and `cclayton()` for the components is straightforward, it's just imporant to not confuse mixture components and dimensions.
+```{r copula likelihood}
+nll_copula <- function(par) {
+  getAll(par, faithful)
+  REPORT(mu1); REPORT(mu2)
+  sigma1 <- exp(log_sigma1); REPORT(sigma1) # marginal sds component 1
+  sigma2 <- exp(log_sigma2); REPORT(sigma2) # marginal sds component 2
+  theta <- exp(log_theta); REPORT(theta) # dependence parameters
+  alpha <- exp(log_alpha); REPORT(alpha) # mixture weights
+  # Marginal densities
+  # Margin 1: Waiting
+  d1 <- cbind(dnorm(waiting, mu1[1], sigma1[1], log=TRUE), # Component 1
+              dnorm(waiting, mu2[1], sigma2[1], log=TRUE)) # Component 2
+  # Margin 2: Eruptions
+  d2 <- cbind(dnorm(eruptions, mu1[2], sigma1[2], log=TRUE), # Component 1
+              dnorm(eruptions, mu2[2], sigma2[2], log=TRUE)) # Component 2
+  # Marginal CDFs
+  # Margin 1: Waiting
+  p1 <- cbind(pnorm(waiting, mu1[1], sigma1[1]), # Component 1
+              pnorm(waiting, mu2[1], sigma2[1])) # Component 2
+  # Margin 2: Eruptions
+  p2 <- cbind(pnorm(eruptions, mu1[2], sigma1[2]), # component 1
+              pnorm(eruptions, mu2[2], sigma2[2])) # component 2
+  
+  # Computing mixture likelihood:
+  ll1 <- dcopula(d1[,1], d2[,1], p1[,1], p2[,1], cclayton(theta[1]), log=TRUE) # f1(x,y)
+  ll2 <- dcopula(d1[,2], d2[,2], p1[,2], p2[,2], cclayton(theta[2]), log=TRUE) # f2(x,y)
+  # alpha * f1(x,y) + (1-alpha) * f2(x,y) on log scale for each obervation
+  ll <- logspace_add(log_alpha + ll1, log1p(-alpha) + ll2) 
+  - sum(ll) # returning negative sum
+}
+```
+
+We fit the model as usual, now using reporting to easily extract the estimated parameters on their natural scale:
+```{r copula fit}
+# Initial parameters
+par <- list(
+  mu1 = c(55, 2), mu2 = c(80, 4),
+  log_sigma1 = log(c(10, 1)), log_sigma2 = log(c(10, 1)),
+  log_theta = log(c(0.5, 0.5)),
+  log_alpha = log(0.5)
+)
+
+obj_copula <- MakeADFun(nll_copula, par, silent = TRUE)
+opt_copula <- nlminb(obj_copula$par, obj_copula$fn, obj_copula$gr)
+
+mod_copula <- obj_copula$report()
+
+# Extract transformed parameters
+mu1    <- mod_copula$mu1
+mu2    <- mod_copula$mu2
+sigma1 <- mod_copula$sigma1
+sigma2 <- mod_copula$sigma2
+theta  <- mod_copula$theta
+alpha  <- mod_copula$alpha
+```
+
+We can plot the result:
+```{r copula results}
+# Scatterplot
+plot(faithful$waiting, faithful$eruptions, pch = 19, cex = 0.5,
+     xlab = "Waiting time", ylab = "Eruption time")
+
+# Grid for evaluation
+xseq <- seq(min(faithful$waiting), max(faithful$waiting), length.out = 80)
+yseq <- seq(min(faithful$eruptions), max(faithful$eruptions), length.out = 80)
+
+# Evaluate mixture density on grid
+dens <- outer(xseq, yseq, function(x,y){
+  d1c1 <- dnorm(x, mu1[1], sigma1[1])
+  d2c1 <- dnorm(y, mu1[2], sigma1[2])
+  p1c1 <- pnorm(x, mu1[1], sigma1[1])
+  p2c1 <- pnorm(y, mu1[2], sigma1[2])
+  f1 <- alpha * dcopula(d1c1, d2c1, p1c1, p2c1, cclayton(theta[1]))
+  d1c2 <- dnorm(x, mu2[1], sigma2[1])
+  d2c2 <- dnorm(y, mu2[2], sigma2[2])
+  p1c2 <- pnorm(x, mu2[1], sigma2[1])
+  p2c2 <- pnorm(y, mu2[2], sigma2[2])
+  f2 <- (1-alpha) * dcopula(d1c2, d2c2, p1c2, p2c2, cclayton(theta[2]))
+  f1 + f2
+})
+
+# Add contours
+contour(xseq, yseq, dens, add = TRUE, nlevels = 8,
+        drawlabels = FALSE, col = "deepskyblue", lwd = 2)
+```
+
