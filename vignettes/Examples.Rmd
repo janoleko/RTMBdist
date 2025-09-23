@@ -455,30 +455,33 @@ alpha  <- mod_copula$alpha
 We can plot the result:
 ```{r copula results}
 # Scatterplot
-plot(faithful$waiting, faithful$eruptions, pch = 19, cex = 0.5,
-     xlab = "Waiting time", ylab = "Eruption time")
+plot(faithful$waiting, faithful$eruptions, pch = 20, bty = "n",
+     xlab = "Waiting time", ylab = "Eruption time", col = "#00000070")
 
 # Grid for evaluation
 xseq <- seq(min(faithful$waiting), max(faithful$waiting), length.out = 80)
 yseq <- seq(min(faithful$eruptions), max(faithful$eruptions), length.out = 80)
 
-# Evaluate mixture density on grid
-dens <- outer(xseq, yseq, function(x,y){
+# Evaluate component densities on grid
+f1 <- outer(xseq, yseq, function(x,y){
   d1c1 <- dnorm(x, mu1[1], sigma1[1])
   d2c1 <- dnorm(y, mu1[2], sigma1[2])
   p1c1 <- pnorm(x, mu1[1], sigma1[1])
   p2c1 <- pnorm(y, mu1[2], sigma1[2])
-  f1 <- alpha * dcopula(d1c1, d2c1, p1c1, p2c1, cclayton(theta[1]))
+  dcopula(d1c1, d2c1, p1c1, p2c1, cclayton(theta[1]))
+})
+f2 <- outer(xseq, yseq, function(x,y){
   d1c2 <- dnorm(x, mu2[1], sigma2[1])
   d2c2 <- dnorm(y, mu2[2], sigma2[2])
   p1c2 <- pnorm(x, mu2[1], sigma2[1])
   p2c2 <- pnorm(y, mu2[2], sigma2[2])
-  f2 <- (1-alpha) * dcopula(d1c2, d2c2, p1c2, p2c2, cclayton(theta[2]))
-  f1 + f2
+  dcopula(d1c2, d2c2, p1c2, p2c2, cclayton(theta[2]))
 })
 
 # Add contours
-contour(xseq, yseq, dens, add = TRUE, nlevels = 8,
+contour(xseq, yseq, alpha * f1, add = TRUE, nlevels = 8,
+        drawlabels = FALSE, col = "orange", lwd = 2)
+contour(xseq, yseq, (1-alpha) * f2, add = TRUE, nlevels = 8,
         drawlabels = FALSE, col = "deepskyblue", lwd = 2)
 ```
 
