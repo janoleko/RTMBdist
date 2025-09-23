@@ -89,20 +89,19 @@ dmvt <- function(x, mu, Sigma, df, log = FALSE) {
     stop("df must be either a scalar or have the same length as the number of rows in x.")
   }
 
-  # Cholesky for determinant and Inverse/ Mahalanobis
-  cholS <- chol(Sigma)
-  logdet <- 2 * sum(log(diag(cholS)))
 
-  # Mahalanobis distances using Cholesky (correct: no transpose)
-  # Solve R * y = (x - mu)^T  where R = chol(Sigma)
-  Y <- backsolve(cholS, t(x - mu))
-  Q <- colSums(Y^2)
+  # Log determinant of Sigma
+  logdet <- determinant(Sigma, logarithm=TRUE)$modulus
+
+  # Mahalanobis distances
+  z <- x - mu # centered
+  quadform <- rowSums((z %*% solve(Sigma)) * z)
 
   # log density constant
   const <- lgamma((df + d) / 2) - lgamma(df / 2) -
     0.5 * (d * log(df * pi) + logdet)
 
-  logdens <- const - 0.5 * (df + d) * log1p(Q / df)
+  logdens <- const - 0.5 * (df + d) * log1p(quadform / df)
 
   if(log) return(logdens)
   return(exp(logdens))
@@ -145,7 +144,7 @@ rmvt <- function(n, mu, Sigma, df) {
 
   z <- matrix(rnorm(n * d), nrow = n, ncol = d)
   L <- chol(Sigma)
-  y <- z %*% t(L)
+  y <- z %*% L
   x <- y / sqrt(u / df) + mu
 
   return(x)
