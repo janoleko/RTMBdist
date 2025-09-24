@@ -60,9 +60,13 @@ dmvt <- function(x, mu, Sigma, df, log = FALSE) {
 
   # Input reshaping
   if (is.null(dim(x))) x <- matrix(x, nrow = 1)
-  if (is.null(dim(mu))) mu <- matrix(mu, nrow = 1)
 
   d <- ncol(x) # dimension
+
+  if (is.null(dim(mu))){
+    if(length(mu) == 1) mu <- matrix(mu, nrow = 1, ncol = d)
+    else mu <- matrix(mu, nrow = 1)
+  }
 
   # Dimension checks
   if (ncol(x) != ncol(mu)) {
