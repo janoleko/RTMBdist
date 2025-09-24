@@ -92,12 +92,10 @@
 <span><span class="va">opt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/nlminb.html" class="external-link">nlminb</a></span><span class="op">(</span><span class="va">obj</span><span class="op">$</span><span class="va">par</span>, <span class="va">obj</span><span class="op">$</span><span class="va">fn</span>, <span class="va">obj</span><span class="op">$</span><span class="va">gr</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># model summary</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">sdreport</span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt;        Estimate Std. Error</span></span>
-<span><span class="co">#&gt; par   5.0015427 0.20659355</span></span>
-<span><span class="co">#&gt; par   0.6732893 0.07663174</span></span>
-<span><span class="co">#&gt; loc   5.0015427 0.20659355</span></span>
-<span><span class="co">#&gt; scale 1.9606760 0.15025002</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu">sdreport</span><span class="op">(</span><span class="va">obj</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span>,<span class="op">]</span></span>
+<span><span class="co">#&gt;       Estimate Std. Error</span></span>
+<span><span class="co">#&gt; loc   5.001543  0.2065935</span></span>
+<span><span class="co">#&gt; scale 1.960676  0.1502500</span></span></code></pre></div>
 <p>Through the magic of <code>RTMB</code>, we can also immediately simulate new data from the fitted model and calculate residuals:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># simulate new data</span></span>
