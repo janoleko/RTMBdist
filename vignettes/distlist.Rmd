@@ -16,13 +16,13 @@ knitr::opts_chunk$set(
 
 ## Continuous distributions
 
-* [`beta2(mu, phi)`](../reference/beta2.html): Beta distribution reparameterised by mean `mu` and precision `phi`
+* [`bccg(mu, sigma, nu)`](../reference/bccg.html): Box-Cox Cole and Green distribution parameterised by location `mu`, scale `sigma`, and skewness `nu`
 
 * [`bcpe(mu, sigma, nu, tau)`](../reference/bcpe.html): Box-Cox power exponential distribution parameterised by location `mu`, scale `sigma`, `nu`, and `tau`
 
-* [`bccg(mu, sigma, nu)`](../reference/bccg.html): Box-Cox Cole and Green distribution parameterised by location `mu`, scale `sigma`, and skewness `nu`
-
 * [`bct(mu, sigma, nu, tau)`](../reference/bct.html): Box-Cox t-distribution parameterised by location `mu`, scale `sigma`, skewness `nu`, and degrees of freedom `tau`
+
+* [`beta2(mu, phi)`](../reference/beta2.html): Beta distribution reparameterised by mean `mu` and precision `phi`
 
 * [`exgauss(mu, sigma, lambda)`](../reference/exgauss.html): Exponentially modified Gaussian distribution parameterised by location `mu`, scale `sigma` and rate `lambda`
 
@@ -73,6 +73,8 @@ knitr::opts_chunk$set(
 * [`zigamma2(mean, sd, zeroprob)`](../reference/zigamma2.html): Zero-inflated gamma distribution reparameterised by mean, standard deviation and zero-probability `zeroprob`
 
 * [`ziinvgauss(mean, shape, zeroprob)`](../reference/ziinvgauss.html): Zero-inflated inverse Gaussian distribution parameterised by mean, shape and zero-probability `zeroprob`
+
+* [`zilnorm(meanlog, sdlog, zeroprob)`](../reference/zilnorm.html): Zero-inflated log normal distribution parameterised by meanlog, sdlog and zero-probability `zeroprob`
 
 * [`zoibeta(shape1, shape2, zeroprob, oneprob)`](../reference/zoibeta.html): Zero- and one-inflated beta distribution parameterised by shape parameters `shape1`, `shape2`, zero-probability `zeroprob` and one-probability `oneprob`
 
