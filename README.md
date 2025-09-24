@@ -23,7 +23,9 @@ estimated with `RTMB`. Most of the distributions implemented in
 The full list of distributions currently available is given in the [List
 of
 distributions](https://janoleko.github.io/RTMBdist/articles/distlist.html)
-vignette.
+vignette. There are also a couple of [Worked
+examples](https://janoleko.github.io/RTMBdist/articles/Examples.html)
+demonstrating how to use `RTMBdist` in practice.
 
 Feel free to contribute!
 
@@ -36,7 +38,7 @@ You can install the development version of `RTMBdist` from
 remotes::install_github("janoleko/RTMBdist")
 ```
 
-## Example
+## Introductory example
 
 ``` r
 library(RTMBdist)
