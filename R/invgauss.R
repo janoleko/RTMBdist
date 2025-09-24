@@ -49,7 +49,7 @@ dinvgauss <- function(x, mean = 1, shape = 1, log = FALSE) {
   }
 
   # avoid issues with zero -> if x == 0, returns +/- Inf
-  x <- x + .Machine$double.xmin / 10
+  x <- x + .Machine$double.xmin
   x_cen <- x - mean
 
   logdens <- 0.5 * log(shape) - 0.5 * log(2 * pi) - 1.5 * log(x) -
