@@ -65,7 +65,7 @@ obj <- MakeADFun(nll, c(5, log(2)), silent = TRUE)
 opt <- nlminb(obj$par, obj$fn, obj$gr)
 
 # model summary
-summary(sdreport(obj))
+summary(sdreport(obj))[3:4,]
 ```
 
 Through the magic of `RTMB`, we can also immediately simulate new data from the fitted model and calculate residuals:

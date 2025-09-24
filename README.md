@@ -64,12 +64,10 @@ obj <- MakeADFun(nll, c(5, log(2)), silent = TRUE)
 opt <- nlminb(obj$par, obj$fn, obj$gr)
 
 # model summary
-summary(sdreport(obj))
-#>        Estimate Std. Error
-#> par   5.0015427 0.20659355
-#> par   0.6732893 0.07663174
-#> loc   5.0015427 0.20659355
-#> scale 1.9606760 0.15025002
+summary(sdreport(obj))[3:4,]
+#>       Estimate Std. Error
+#> loc   5.001543  0.2065935
+#> scale 1.960676  0.1502500
 ```
 
 Through the magic of `RTMB`, we can also immediately simulate new data
