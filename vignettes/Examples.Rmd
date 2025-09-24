@@ -484,4 +484,81 @@ contour(xseq, yseq, alpha * f1, add = TRUE, nlevels = 8,
 contour(xseq, yseq, (1-alpha) * f2, add = TRUE, nlevels = 8,
         drawlabels = FALSE, col = "deepskyblue", lwd = 2)
 ```
+```{r cleanup5, include=FALSE}
+TMB::FreeADFun(obj_copula)
+```
 
+
+## Example 6: Multivariate stochastic volatility 
+
+This example reproduces one of the `TMB` examples. It fits a multivariate stochastic volatility model to financial returns data. In the example given [here](https://github.com/kaskr/RTMB/blob/master/tmb_examples/sdv_multi.R), the response distribution is a multivariate Gaussian, with the marginal variance for each of the three time series being time-varying and modelled based on a latent volatility process. We generalise the example to a multivariate t distribution, which typically results in a better fit to financial returns data, due to the heavier tails.
+
+```{r tape_config, include=FALSE}
+# generalised to multivariate t distributed responses
+TapeConfig(atomic="disable") ## Optional (speeds up this model)
+```
+
+We get the data from
+```{r svt data}
+source("https://raw.githubusercontent.com/kaskr/RTMB/master/tmb_examples/sdv_multi_data.R")
+```
+
+The code below is basically the same as in the original example, but uses a multivariate t distribution (`dmvt()`) in the data likelihood. Note that the `Cov` matrix is now not actually the covariance matrix anymore, but only proportional to it.
+
+```{r mvt sv}
+# Multivatiate SV model from Table 5 of Skaug and Yu "A flexible and automated likelihood based 
+# framework for inference in stochastic volatility models." Computational Statistics & Data Analysis 76 (2014): 642-654.
+
+## Parameter initial guess
+par <- list(
+  logit_phi  = qlogis(rep(0.97,p)),       # See eqn (12) in Skaug and Yu (2014)
+  log_sigma  = log(rep(0.2,p)),           #       ---------||---------
+  mu_y       = rep(-0.5,p),               #       ---------||---------
+  off_diag_x = rep(0,p),                  #       ---------||---------
+  h          = matrix(0,nrow=n,ncol=p),   #       ---------||---------
+  log_df     = log(20)                    # this allows for heavier tails
+)
+
+# Negative joint likelihood (nll) of data and parameters
+nll_svt <- function(par) {
+  getAll(par)
+  # Optionally mark the observation object
+  y <- OBS(y)
+  
+  # Parameters on natural scale
+  sigma <- exp(log_sigma)
+  phi <- plogis(logit_phi)
+  sigma_init <- sigma / sqrt(1-phi^2)
+  df <- exp(log_df)
+  
+  nll <- 0  # Start collecting contributions
+  
+  # Prior on state variable (h)
+  nll <- nll - sum(dnorm(h[1,], 0, sigma_init, log=TRUE))   # Start in stationary distribution
+  for(j in 1:p) {
+    nll <- nll - sum(dnorm(h[-1,j], phi[j]*h[-n,j], sigma[j], log=TRUE))  # AR(1) process for each dimension
+  }
+  
+  # Parameterizes correlation matrix of X in terms of Cholesky factor
+  L <- diag(p)
+  L[lower.tri(L)] <- off_diag_x   
+  row_norms <- apply(L, 1, function(row) sqrt(sum(row^2)))
+  L <- L / row_norms
+  R <- L %*% t(L)  # Correlation matrix of X (guarantied positive definite)
+  
+  # Likelihood of data y given h
+  for(i in 1:n){
+    sigma_y <- exp(0.5 * (mu_y + h[i,])) # variance depending on state
+    Cov <- diag(sigma_y) %*% R %*% diag(sigma_y)
+    nll <- nll - sum(dmvt(y[i,], 0, Cov, df, log = TRUE))
+  }
+  nll
+}
+
+obj_svt <- MakeADFun(nll_svt, par, random="h", silent = TRUE)
+system.time(
+  opt_svt <- nlminb(obj_svt$par, obj_svt$fn, obj_svt$gr)
+)
+rep <- sdreport(obj_svt)
+rep
+```
