@@ -51,7 +51,7 @@ dztnbinom <- function(x, size, prob, log = FALSE) {
 }
 
 #' @rdname ztnbinom
-#' @importFrom RTMB pnbinom dnbinom
+#' @importFrom RTMB pbeta dnbinom
 #' @export
 pztnbinom <- function(q, size, prob, lower.tail = TRUE, log.p = FALSE) {
 
