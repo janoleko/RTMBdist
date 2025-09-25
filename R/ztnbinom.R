@@ -61,7 +61,8 @@ pztnbinom <- function(q, size, prob, lower.tail = TRUE, log.p = FALSE) {
     if (any(prob <= 0 | prob >= 1)) stop("prob must be in (0,1)")
   }
 
-  cdf <- pnbinom(q, size = size, prob = prob)
+  # cdf <- pnbinom(q, size = size, prob = prob)
+  cdf <- pbeta(prob, size, q+1)
   p0 <- dnbinom(0, size = size, prob = prob)
   p <- pmax.ad(cdf - p0, 0) / (1 - p0)
 
