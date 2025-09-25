@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Worked Examples • RTMBdist</title>
-<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- katex math --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -420,18 +421,9 @@ model.</p>
 <span><span class="co">#&gt; beta2       0.058 0.009 -0.622 -0.873  0.235 -0.294        -0.087</span></span></code></pre></div>
 <p>We find that accounting for the zero-inflation somewhat changes the
 estimated coefficients. Now we also fit the beta-binomial model. In this
-model, the shape parameters are modelled as
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub><mi>/</mi><msub><mi>θ</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">p_i / \theta_i</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mo stretchy="true" form="prefix">(</mo><mn>1</mn><mo>−</mo><msub><mi>p</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><msub><mi>θ</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">(1-p_i) / \theta_i</annotation></semantics></math>,
-where
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>p</mi><mi>i</mi></msub><annotation encoding="application/x-tex">p_i</annotation></semantics></math>
-is the covariate-dependent probability for observation
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>i</mi><annotation encoding="application/x-tex">i</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\theta_i</annotation></semantics></math>
-is a parameter controlling the overdispersion. The parameter
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>θ</mi><mi>i</mi></msub><annotation encoding="application/x-tex">\theta_i</annotation></semantics></math>
+model, the shape parameters are modelled as <span class="math inline">p_i / \theta_i</span> and <span class="math inline">(1-p_i) / \theta_i</span>, where <span class="math inline">p_i</span> is the covariate-dependent probability
+for observation <span class="math inline">i</span> and <span class="math inline">\theta_i</span> is a parameter controlling the
+overdispersion. The parameter <span class="math inline">\theta_i</span>
 is modelled as a function of year only, exactly as in Gange et
 al. (1996).</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -645,7 +637,7 @@ the covariance matrix anymore, but only proportional to it.</p>
 <span>  <span class="va">opt_svt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/nlminb.html" class="external-link">nlminb</a></span><span class="op">(</span><span class="va">obj_svt</span><span class="op">$</span><span class="va">par</span>, <span class="va">obj_svt</span><span class="op">$</span><span class="va">fn</span>, <span class="va">obj_svt</span><span class="op">$</span><span class="va">gr</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;  14.281   0.026  14.309</span></span>
+<span><span class="co">#&gt;  14.030   0.023  14.054</span></span>
 <span><span class="va">rep</span> <span class="op">&lt;-</span> <span class="fu">sdreport</span><span class="op">(</span><span class="va">obj_svt</span><span class="op">)</span></span>
 <span><span class="va">rep</span></span>
 <span><span class="co">#&gt; sdreport(.) result</span></span>
