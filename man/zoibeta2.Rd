@@ -27,7 +27,7 @@ rzoibeta2(n, mu, phi, zeroprob = 0, oneprob = 0)
 
 \item{log, log.p}{logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.}
 
-\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.}
+\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.}
 
 \item{n}{number of random values to return.}
 }

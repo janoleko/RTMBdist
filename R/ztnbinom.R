@@ -16,7 +16,7 @@
 #' @param size target for number of successful trials, or dispersion parameter (the shape parameter of the gamma mixing distribution). Must be strictly positive, need not be integer.
 #' @param prob probability of success in each trial. 0 < prob <= 1.
 #' @param log,log.p logical; return log-density if TRUE
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dztnbinom} gives the probability mass function, \code{pztnbinom} gives the distribution function, and \code{rztnbinom} generates random deviates.

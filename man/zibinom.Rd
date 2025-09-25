@@ -24,7 +24,7 @@ rzibinom(n, size, prob, zeroprob = 0)
 
 \item{log, log.p}{logical; return log-density if TRUE}
 
-\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.}
+\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.}
 
 \item{n}{number of random values to return.}
 }

@@ -12,7 +12,7 @@
 #' @param mu location parameter
 #' @param b scale parameter, must be positive.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dlaplace} gives the density, \code{plaplace} gives the distribution function, \code{qlaplace} gives the quantile function, and \code{rlaplace} generates random deviates.

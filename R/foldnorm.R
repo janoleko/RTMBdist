@@ -12,7 +12,7 @@
 #' @param mu location parameter
 #' @param sigma scale parameter, must be positive.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dfoldnorm} gives the density, \code{pfoldnorm} gives the distribution function, and \code{rfoldnorm} generates random deviates.

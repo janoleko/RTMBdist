@@ -15,7 +15,7 @@
 #' @param mu mean parameter, must be positive.
 #' @param size size parameter, must be positive.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dnbinom2} gives the density, \code{pnbinom2} gives the distribution function, \code{qnbinom2} gives the quantile function, and \code{rnbinom2} generates random deviates.

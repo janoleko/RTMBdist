@@ -11,7 +11,7 @@
 #' @param meanlog,sdlog mean and standard deviation of the distribution on the log scale with default values of 0 and 1 respectively.
 #' @param zeroprob zero-inflation probability between 0 and 1.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dzilnorm} gives the density, \code{pzilnorm} gives the distribution function, and \code{rzilnorm} generates random deviates.

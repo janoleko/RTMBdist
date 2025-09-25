@@ -12,7 +12,7 @@
 #' @param shape shape parameter, must be positive.
 #' @param zeroprob zero-probability, must be in \eqn{[0, 1]}.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dziinvgauss} gives the density, \code{pziinvgauss} gives the distribution function, and \code{rziinvgauss} generates random deviates.

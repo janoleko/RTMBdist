@@ -33,7 +33,7 @@ rskewt(n, mu = 0, sigma = 1, skew = 0, df = 1000)
 
 \item{method}{an integer value between 0 and 5 which selects the computing method; see ‘Details’ in the \code{\link[sn]{pst}} documentation below for the meaning of these values. If method=0 (default value), an automatic choice is made among the four actual computing methods, depending on the other arguments.}
 
-\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.}
+\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.}
 
 \item{p}{vector of probabilities}
 

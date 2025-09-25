@@ -12,7 +12,7 @@
 #' @param prob probability of success on each trial.
 #' @param zeroprob zero-inflation probability between 0 and 1
 #' @param log,log.p logical; return log-density if TRUE
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dzibinom} gives the probability mass function, \code{pzibinom} gives the distribution function, and \code{rzibinom} generates random deviates.

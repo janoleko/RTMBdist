@@ -15,7 +15,7 @@
 #' @param n number of random values to return.
 #' @param lambda vector of (non-negative) means
 #' @param log,log.p logical; return log-density if TRUE
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dztpois} gives the probability mass function, \code{pztpois} gives the distribution function, and \code{rztpois} generates random deviates.

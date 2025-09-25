@@ -21,7 +21,7 @@
 #' @param sigma standard deviation parameter of the Gaussian part, must be positive.
 #' @param lambda rate parameter of the exponential part, must be positive.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dexgauss} gives the density, \code{pexgauss} gives the distribution function, \code{qexgauss} gives the quantile function, and \code{rexgauss} generates random deviates.

@@ -15,7 +15,7 @@
 #' @param phi concentration parameter, must be positive.
 #' @param shape1,shape2 non-negative parameters
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE} (default), probabilities are \eqn{P[X \leq x]}, otherwise \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE} (default), probabilities are \eqn{P[X \le x]}, otherwise \eqn{P[X > x]}.
 #' @param eps for internal use only, don't change.
 #'
 #' @return

@@ -26,7 +26,7 @@ rgenpois(n, lambda = 1, phi = 1, max.value = 10000)
 
 \item{log, log.p}{logical; return log-density if TRUE}
 
-\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.}
+\item{lower.tail}{logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.}
 
 \item{p}{vector of probabilities}
 

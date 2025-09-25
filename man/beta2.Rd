@@ -32,7 +32,7 @@ rbeta2(n, mu, phi)
 
 \item{phi}{concentration parameter, must be positive.}
 
-\item{lower.tail}{logical; if \code{TRUE} (default), probabilities are \eqn{P[X \leq x]}, otherwise \eqn{P[X > x]}.}
+\item{lower.tail}{logical; if \code{TRUE} (default), probabilities are \eqn{P[X \le x]}, otherwise \eqn{P[X > x]}.}
 
 \item{p}{vector of probabilities}
 

@@ -13,7 +13,7 @@
 #' @param phi concentration parameter, must be positive.
 #' @param zeroprob zero-inflation probability between 0 and 1.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE} (default), probabilities are \eqn{P[X \leq x]}, otherwise \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE} (default), probabilities are \eqn{P[X \le x]}, otherwise \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dzibeta2} gives the density, \code{pzibeta2} gives the distribution function, and \code{rzibeta2} generates random deviates.

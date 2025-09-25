@@ -12,7 +12,7 @@
 #' @param location location parameter
 #' @param scale scale parameter, must be positive.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dgumbel} gives the density, \code{pgumbel} gives the distribution function, \code{qgumbel} gives the quantile function, and \code{rgumbel} generates random deviates.

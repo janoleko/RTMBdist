@@ -16,7 +16,7 @@
 #' @param lambda vector of positive means
 #' @param phi vector of non-negative dispersion parameters
 #' @param log,log.p logical; return log-density if TRUE
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #' @param max.value a constant, set to the default value of 10000 for how far the algorithm should look for \code{q}.
 #'
 #' @return

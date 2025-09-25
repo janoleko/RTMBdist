@@ -12,7 +12,7 @@
 #' @param df degrees of freedom parameter, must be positive.
 #' @param min,max truncation bounds.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dtrunct} gives the density, \code{ptrunct} gives the distribution function,

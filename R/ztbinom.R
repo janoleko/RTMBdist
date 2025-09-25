@@ -16,7 +16,7 @@
 #' @param size number of trials
 #' @param prob success probability in each trial
 #' @param log,log.p logical; return log-density if TRUE
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dztbinom} gives the probability mass function, \code{pztbinom} gives the distribution function, and \code{rztbinom} generates random deviates.

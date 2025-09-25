@@ -14,7 +14,7 @@
 #' @param mean location parameter
 #' @param shape shape parameter, must be positive.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #' @param ... additional parameter passed to \code{statmod::qinvgauss} for numerical evaluation of the quantile function.
 #'
 #' @return

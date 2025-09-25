@@ -16,7 +16,7 @@
 #' @param mu mean parameter, must be positive
 #' @param size size/dispersion parameter, must be positive
 #' @param log,log.p logical; return log-density if TRUE
-#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X <= x]}, otherwise, \eqn{P[X > x]}.
+#' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
 #'
 #' @return
 #' \code{dztnbinom2} gives the probability mass function, \code{pztnbinom2} gives the distribution function, and \code{rztnbinom2} generates random deviates.
