@@ -39,12 +39,9 @@ dztnbinom2 <- function(x, mu, size, log = FALSE) {
     if (any(size <= 0)) stop("size must be > 0")
   }
 
-  log_1m_zprob <- log1p(-dnbinom2(0, mu = mu, size = size))  # log(1-P(X=0))
-  logdens <- dnbinom2(x, mu = mu, size = size, log = TRUE)
-  logdens <- logdens - log_1m_zprob + log(ispos_strict(x))
+  prob <- size / (size + mu)
 
-  if (log) return(logdens)
-  exp(logdens)
+  dztnbinom(x, size = size, prob = prob, log = log)
 }
 
 #' @rdname ztnbinom2
@@ -56,13 +53,10 @@ pztnbinom2 <- function(q, mu, size, lower.tail = TRUE, log.p = FALSE) {
     if (any(size <= 0)) stop("size must be > 0")
   }
 
-  cdf <- pnbinom2(q, mu = mu, size = size)
-  p0 <- dnbinom2(0, mu = mu, size = size)
-  p <- pmax.ad(cdf - p0, 0) / (1 - p0)
+  prob <- size / (size + mu)
 
-  if (!lower.tail) p <- 1 - p
-  if (log.p) p <- log(p)
-  p
+  pztnbinom(q, size = size, prob = prob,
+            lower.tail = lower.tail, log.p = log.p)
 }
 
 #' @rdname ztnbinom2
@@ -74,7 +68,7 @@ rztnbinom2 <- function(n, mu, size) {
     if (any(size <= 0)) stop("size must be > 0")
   }
 
-  u <- runif(n)
-  p0 <- dnbinom2(0, mu = mu, size = size)
-  qnbinom2(p0 + (1 - p0) * u, mu = mu, size = size)
+  prob <- size / (size + mu)
+
+  rztnbinom(n, size = size, prob = prob)
 }
