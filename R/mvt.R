@@ -6,7 +6,7 @@
 #' This implementation of \code{dmvt} allows for automatic differentiation with \code{RTMB}.
 #'
 #' Note: for \code{df} \eqn{\le 1} the mean is undefined, and for \code{df} \eqn{\le 2} the covariance is infinite.
-#' For \code{df} \eqn{> 2}, the covariance is \code{df/(df-2) * Sigma}.
+#' For \code{df} > 2, the covariance is \code{df/(df-2) * Sigma}.
 #'
 #' @param x vector or matrix of quantiles
 #' @param n number of random values to return.
