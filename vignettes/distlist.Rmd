@@ -97,6 +97,13 @@ knitr::opts_chunk$set(
 
 * [`zipois(lambda, zeroprob)`](../reference/zipois.html): Zero-inflated Poisson distribution parameterised by rate `lambda` and zero-probability `zeroprob`
 
+* [`ztbinom(size, prob)`](../reference/ztbinom.html): Zero-truncated binomial distribution parameterised by size `size` and success probability `prob`
+
+* [`ztnbinom(size, prob)`](../reference/ztnbinom.html): Zero-truncated negative binomial distribution parameterised by size `size` and success probability `prob`
+
+* [`ztnbinom2(mu, size)`](../reference/ztnbinom2.html): Zero-truncated negative binomial distribution reparameterised by mean `mu` and size `size`
+
+* [`ztpois(lambda)`](../reference/ztpois.html): Zero-truncated Poisson distribution parameterised by rate `lambda`
 
 
 ## Multivariate distributions
