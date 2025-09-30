@@ -60,6 +60,10 @@ ddirichlet <- function(x, alpha, log = FALSE) {
       stop("If x is a matrix, alpha must have either one row or the same number of rows as x.")
     }
   }
+  # If x has more than one row and alpha has only one row, replicate it
+  if(nrow(x) > 1 && nrow(alpha) == 1){
+    alpha <- matrix(rep(alpha, each = nrow(x)), nrow = nrow(x))
+  }
 
   # Compute log of the multivariate beta function B(alpha) for each row
   log_B_alpha <- rowSums(lgamma(alpha)) - lgamma(rowSums(alpha))
