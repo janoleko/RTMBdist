@@ -31,7 +31,7 @@
 NULL
 #' @rdname beta2
 #' @export
-#' @import RTMB
+#' @importFrom RTMB lbeta
 dbeta <- function(x, shape1, shape2, log = FALSE, eps = 0) {
 
   if(!ad_context()) {
@@ -50,7 +50,8 @@ dbeta <- function(x, shape1, shape2, log = FALSE, eps = 0) {
     return(dGenericOSA("dbeta", x=x, shape1=shape1, shape2=shape2, log=log))
   }
 
-  logB <- lbeta.ad(shape1, shape2)
+  # logB <- lbeta.ad(shape1, shape2)
+  logB <- RTMB::lbeta(shape1, shape2)
   logdens <- (shape1 - 1) * log(x + eps) +
     (shape2 - 1) * log1p(-x + eps) - logB
 
