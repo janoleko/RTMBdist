@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   distlist: distlist.html
   Examples: Examples.html
-last_built: 2025-10-01T07:58Z
+last_built: 2025-10-01T08:04Z
 urls:
   reference: https://janoleko.github.io/RTMBdist/reference
   article: https://janoleko.github.io/RTMBdist/articles
