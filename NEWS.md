@@ -1,7 +1,7 @@
 # RTMBdist (development version)
 
-- Package was created
+- Ongoing development version.
 
-## RTMBdist 0.0.0.9000
+# RTMBdist 0.1.0
 
-- Initial release.
+- First release on CRAN.
