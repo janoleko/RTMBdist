@@ -312,7 +312,7 @@ age.</p>
 <span><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Plotting estimated effects</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">oldpar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">age</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span>, <span class="va">par</span><span class="op">$</span><span class="va">mu</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"l"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, bty <span class="op">=</span> <span class="st">"n"</span>, xlab <span class="op">=</span> <span class="st">"Age"</span>, ylab <span class="op">=</span> <span class="st">"Mu"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">age</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">age</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">par</span><span class="op">$</span><span class="va">mu</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">par_sd</span><span class="op">$</span><span class="va">mu</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">par</span><span class="op">$</span><span class="va">mu</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">par_sd</span><span class="op">$</span><span class="va">mu</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -327,8 +327,9 @@ age.</p>
 <span>        col <span class="op">=</span> <span class="st">"#00000020"</span>, border <span class="op">=</span> <span class="st">"NA"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Examples_files/figure-html/effects_plot-1.png" width="700"></p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plotting conditional distribution</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dbbmi</span><span class="op">$</span><span class="va">age</span>, <span class="va">dbbmi</span><span class="op">$</span><span class="va">bmi</span>, pch <span class="op">=</span> <span class="fl">16</span>, col <span class="op">=</span> <span class="st">"#00000020"</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Age"</span>, ylab <span class="op">=</span> <span class="st">"BMI"</span>, bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">age</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span>, <span class="va">par</span><span class="op">$</span><span class="va">mu</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span>, lwd <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"deepskyblue"</span><span class="op">)</span></span>
@@ -356,7 +357,7 @@ logistic regression model as well as a beta-binomial regression model,
 concluding that the beta-binomial model produced a better fit. Due to
 the large number of zeros in the data, we will here also fit a
 zero-inflated binomial model and compare the results.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.gamlss.com/" class="external-link">gamlss.data</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">aep</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   los noinap     loglos sex ward year age y.noinap y.failures</span></span>
@@ -369,7 +370,7 @@ zero-inflated binomial model and compare the results.</p>
 <p>We start by fitting the 2 binomial models. We only define one
 likelihood function and fix the zero probability to 0 for the binomial
 model.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Defininig the model matrix for the model reported in Gange et al. (1996)</span></span>
 <span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">ward</span> <span class="op">+</span> <span class="va">loglos</span> <span class="op">*</span> <span class="va">year</span>, data <span class="op">=</span> <span class="va">aep</span><span class="op">)</span></span>
 <span></span>
@@ -426,7 +427,7 @@ for observation <span class="math inline">i</span> and <span class="math inline"
 overdispersion. The parameter <span class="math inline">\theta_i</span>
 is modelled as a function of year only, exactly as in Gange et
 al. (1996).</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Beta-binomial likelihood</span></span>
 <span><span class="va">nll_aep2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">par</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/RTMB/man/TMB-interface.html" class="external-link">getAll</a></span><span class="op">(</span><span class="va">par</span>, <span class="va">dat</span><span class="op">)</span></span>
@@ -473,12 +474,12 @@ National Park, Wyoming, USA. We will fit a mixture of two bivariate
 distributions, where each component has normal marginal distributions
 and a Clayton copula to model the dependence between the two
 variables.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">faithful</span><span class="op">)</span></span></code></pre></div>
 <p>Specifying the mixture likelihood using <code><a href="../reference/dcopula.html">dcopula()</a></code> and
 <code><a href="../reference/cclayton.html">cclayton()</a></code> for the components is straightforward, it’s just
 imporant to not confuse mixture components and dimensions.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nll_copula</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">par</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/RTMB/man/TMB-interface.html" class="external-link">getAll</a></span><span class="op">(</span><span class="va">par</span>, <span class="va">faithful</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/RTMB/man/TMB-interface.html" class="external-link">REPORT</a></span><span class="op">(</span><span class="va">mu1</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/pkg/RTMB/man/TMB-interface.html" class="external-link">REPORT</a></span><span class="op">(</span><span class="va">mu2</span><span class="op">)</span></span>
@@ -510,7 +511,7 @@ imporant to not confuse mixture components and dimensions.</p>
 <span><span class="op">}</span></span></code></pre></div>
 <p>We fit the model as usual, now using reporting to easily extract the
 estimated parameters on their natural scale:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initial parameters</span></span>
 <span><span class="va">par</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  mu1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">55</span>, <span class="fl">2</span><span class="op">)</span>, mu2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">80</span>, <span class="fl">4</span><span class="op">)</span>,</span>
@@ -532,7 +533,7 @@ estimated parameters on their natural scale:</p>
 <span><span class="va">theta</span>  <span class="op">&lt;-</span> <span class="va">mod_copula</span><span class="op">$</span><span class="va">theta</span></span>
 <span><span class="va">alpha</span>  <span class="op">&lt;-</span> <span class="va">mod_copula</span><span class="op">$</span><span class="va">alpha</span></span></code></pre></div>
 <p>We can plot the result:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Scatterplot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">faithful</span><span class="op">$</span><span class="va">waiting</span>, <span class="va">faithful</span><span class="op">$</span><span class="va">eruptions</span>, pch <span class="op">=</span> <span class="fl">20</span>, bty <span class="op">=</span> <span class="st">"n"</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Waiting time"</span>, ylab <span class="op">=</span> <span class="st">"Eruption time"</span>, col <span class="op">=</span> <span class="st">"#00000070"</span><span class="op">)</span></span>
@@ -576,13 +577,13 @@ modelled based on a latent volatility process. We generalise the example
 to a multivariate t distribution, which typically results in a better
 fit to financial returns data, due to the heavier tails.</p>
 <p>We get the data from</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html" class="external-link">source</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/kaskr/RTMB/master/tmb_examples/sdv_multi_data.R"</span><span class="op">)</span></span></code></pre></div>
 <p>The code below is basically the same as in the original example, but
 uses a multivariate t distribution (<code><a href="../reference/mvt.html">dmvt()</a></code>) in the data
 likelihood. Note that the <code>Cov</code> matrix is now not actually
 the covariance matrix anymore, but only proportional to it.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Multivatiate SV model from Table 5 of Skaug and Yu "A flexible and automated likelihood based </span></span>
 <span><span class="co"># framework for inference in stochastic volatility models." Computational Statistics &amp; Data Analysis 76 (2014): 642-654.</span></span>
 <span></span>
@@ -637,7 +638,7 @@ the covariance matrix anymore, but only proportional to it.</p>
 <span>  <span class="va">opt_svt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/nlminb.html" class="external-link">nlminb</a></span><span class="op">(</span><span class="va">obj_svt</span><span class="op">$</span><span class="va">par</span>, <span class="va">obj_svt</span><span class="op">$</span><span class="va">fn</span>, <span class="va">obj_svt</span><span class="op">$</span><span class="va">gr</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;  14.087   0.024  14.111</span></span>
+<span><span class="co">#&gt;  13.816   0.026  13.844</span></span>
 <span><span class="va">rep</span> <span class="op">&lt;-</span> <span class="fu">sdreport</span><span class="op">(</span><span class="va">obj_svt</span><span class="op">)</span></span>
 <span><span class="va">rep</span></span>
 <span><span class="co">#&gt; sdreport(.) result</span></span>
