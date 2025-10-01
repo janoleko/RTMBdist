@@ -245,7 +245,7 @@ age <- dbbmi$age
 ord <- order(age)
 
 # Plotting estimated effects
-par(mfrow = c(1,3))
+oldpar <- par(mfrow = c(1,3))
 plot(age[ord], par$mu[ord], type = "l", lwd = 2, bty = "n", xlab = "Age", ylab = "Mu")
 polygon(c(age[ord], rev(age[ord])),
         c(par$mu[ord] + 2*par_sd$mu[ord], rev(par$mu[ord] - 2*par_sd$mu[ord])),
@@ -258,11 +258,11 @@ plot(age[ord], par$nu[ord], type = "l", lwd = 2, bty = "n", xlab = "Age", ylab =
 polygon(c(age[ord], rev(age[ord])),
         c(par$nu[ord] + 2*par_sd$nu[ord], rev(par$nu[ord] - 2*par_sd$nu[ord])),
         col = "#00000020", border = "NA")
+par(oldpar)
 ```
 
 ```{r cond_dist}
 # Plotting conditional distribution
-par(mfrow = c(1,1))
 plot(dbbmi$age, dbbmi$bmi, pch = 16, col = "#00000020",
      xlab = "Age", ylab = "BMI", bty = "n")
 lines(age[ord], par$mu[ord], lwd = 3, col = "deepskyblue")
