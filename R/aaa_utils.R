@@ -112,6 +112,15 @@ lbeta.ad <- function(a, b) {
   lgamma(a) + lgamma(b) - lgamma(a + b)
 }
 
+# Log multivariate gamma, AD-friendly
+lmultigamma <- function(a, p) {
+  # Only check bounds if not in AD context
+  if (!ad_context()) {
+    if (a <= (p - 1) / 2) stop("a must be greater than (p - 1) / 2")
+  }
+  sum(lgamma(a + (1 - 1:p)/2))
+}
+
 # Error messages
 make_sim_error_msg <- function(){
   "Automatic simulation requires the likelihood to follow the model hierarchy: random effects first, then data given those random effects."
