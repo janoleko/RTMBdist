@@ -118,6 +118,8 @@ knitr::opts_chunk$set(
 
 * [`vmf2(theta)`](../reference/vmf2.html): Multivariate von Mises-Fisher distribution parameterised by parameter `theta` equal to unit mean vector `mu` times concentration scalar `kappa`
 
+* [`wishart(nu, Sigma)`](../reference/wishart.html): Wishart distribution parameterised by degrees of freedom `nu` and scale matrix `Sigma`
+
 
 ## Copulas
 
