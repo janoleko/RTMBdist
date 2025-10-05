@@ -6,6 +6,7 @@
 #' @param nu degrees of freedom, needs to be greater than \code{p - 1}
 #' @param Sigma scale matrix, needs to be positive definite and match the dimension of \code{x}.
 #' @param log logical; if \code{TRUE}, densities \eqn{p} are returned as \eqn{\log(p)}.
+#' @param n number of random deviates to return
 #'
 #' @returns
 #' \code{dwishart} gives the density,

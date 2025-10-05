@@ -18,6 +18,8 @@ rwishart(n, nu, Sigma)
 \item{Sigma}{scale matrix, needs to be positive definite and match the dimension of \code{x}.}
 
 \item{log}{logical; if \code{TRUE}, densities \eqn{p} are returned as \eqn{\log(p)}.}
+
+\item{n}{number of random deviates to return}
 }
 \value{
 \code{dwishart} gives the density,
