@@ -25,7 +25,7 @@ The [`RTMB`](https://kaskr.r-universe.dev/RTMB) package enables powerful and fle
 The full list of distributions currently available is given in the [List of distributions](https://janoleko.github.io/RTMBdist/articles/distlist.html) vignette.
 There are also a couple of [Worked examples](https://janoleko.github.io/RTMBdist/articles/Examples.html) demonstrating how to use `RTMBdist` in practice.
 
-Feel free to contribute!
+Feel free to contribute or open an issue if you are missing a distribution!
 
 ## Installation
 

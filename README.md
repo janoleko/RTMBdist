@@ -27,7 +27,8 @@ vignette. There are also a couple of [Worked
 examples](https://janoleko.github.io/RTMBdist/articles/Examples.html)
 demonstrating how to use `RTMBdist` in practice.
 
-Feel free to contribute!
+Feel free to contribute or open an issue if you are missing a
+distribution!
 
 ## Installation
 
