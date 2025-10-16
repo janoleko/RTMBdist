@@ -38,8 +38,14 @@ distribution!
 
 ## Installation
 
-You can install the development version of `RTMBdist` from
-[GitHub](https://github.com/) with:
+You can install the released version from
+[CRAN](https://CRAN.R-project.org/package=RTMBdist) with:
+
+``` r
+install.packages("RTMBdist")
+```
+
+or the development version from [GitHub](https://github.com/) with:
 
 ``` r
 remotes::install_github("janoleko/RTMBdist")

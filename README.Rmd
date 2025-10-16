@@ -30,11 +30,17 @@ There are also a couple of [Worked examples](https://janoleko.github.io/RTMBdist
 
 Feel free to contribute or open an issue if you are missing a distribution!
 
+
 ## Installation
 
-You can install the development version of `RTMBdist` from [GitHub](https://github.com/) with:
+You can install the released version from [CRAN](https://CRAN.R-project.org/package=RTMBdist) with:
+```{r install_cran, eval = FALSE}
+install.packages("RTMBdist")
+```
 
-```{r install, eval = FALSE}
+or the development version from [GitHub](https://github.com/) with:
+
+```{r install_dev, eval = FALSE}
 remotes::install_github("janoleko/RTMBdist")
 ```
 
