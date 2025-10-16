@@ -45,7 +45,8 @@ You can install the released version from
 install.packages("RTMBdist")
 ```
 
-or the development version from [GitHub](https://github.com/) with:
+or the development version from
+[GitHub](https://github.com/janoleko/RTMBdist) with:
 
 ``` r
 remotes::install_github("janoleko/RTMBdist")
