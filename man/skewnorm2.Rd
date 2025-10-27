@@ -50,3 +50,6 @@ d <- dskewnorm2(x, alpha = 1)
 p <- pskewnorm2(x, alpha = 1)
 q <- qskewnorm2(p, alpha = 1)
 }
+\seealso{
+\link{skewnorm}, \link{skewt}, \link{skewt2}
+}

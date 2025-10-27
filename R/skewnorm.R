@@ -12,6 +12,8 @@ rsn <- Vectorize(sn::rsn)
 #' This implementation of \code{dskewnorm} allows for automatic differentiation with \code{RTMB} while the other functions are imported from the \code{sn} package.
 #' See \code{sn::\link[sn]{dsn}} for more details.
 #'
+#' @seealso [skewnorm2], [skewt], [skewt2]
+#'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
 #' @param n number of random values to return
