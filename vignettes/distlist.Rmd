@@ -52,6 +52,8 @@ knitr::opts_chunk$set(
 
 * [`skewt(mu, sigma, skew, df)`](../reference/skewt.html): Skew t-distribution parameterised by location `mu`, scale `sigma`, skewness `skew` and degrees of freedom `df`
 
+* [`skewt2(mean, sd, skew, df)`](../reference/skewt2.html): Skew t-distribution reparameterised by mean, standard deviation, skewness `skew` and degrees of freedom `df`
+
 * [`truncnorm(mean, sd, min, max)`](../reference/truncnorm.html): Truncated normal distribution parameterised by mean, standard deviation, lower bound `min` and upper bound `max`
 
 * [`trunct(df, min, max)`](../reference/trunct.html): Truncated t-distribution parameterised by degrees of freedom `df`, lower bound `min` and upper bound `max`
