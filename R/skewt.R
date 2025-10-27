@@ -11,6 +11,8 @@
 #' \strong{Caution:} In a numerial optimisation, the \code{skew} parameter should NEVER be initialised with exactly zero.
 #' This will cause the initial and all subsequent derivatives to be exactly zero and hence the parameter will remain at its initial value.
 #'
+#' @seealso [skewt2], [skewnorm], [skewnorm2]
+#'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
 #' @param n number of random values to return.
@@ -56,7 +58,7 @@ dskewt <- function(x, mu = 0, sigma = 1, skew = 0, df = 1e3, log = FALSE) {
   }
 
   z <- (x - mu) / sigma
-  lambda <- (df + 1) / (df + z^2)
+  lambda <- (df + 1) / (df + z * z)
   omega <- skew * sqrt(lambda) * z
 
   pdf <- RTMB::dt(z, df, log = TRUE)
