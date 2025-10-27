@@ -62,3 +62,6 @@ d <- dskewt(x, 1, 2, 5, 2)
 p <- pskewt(x, 1, 2, 5, 2)
 q <- qskewt(p, 1, 2, 5, 2)
 }
+\seealso{
+\link{skewt2}, \link{skewnorm}, \link{skewnorm2}
+}
