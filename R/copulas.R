@@ -222,3 +222,215 @@ cfrank <- function(theta) {
     log(num / (den * den))
   }
 }
+
+
+
+#' Joint density under a multivariate copula
+#'
+#' Computes the joint density (or log-density) of a distribution
+#' constructed from any number of arbitrary margins combined with a specified copula.
+#'
+#' @param D Matrix of marginal density values of with rows corresponding to observations and columns corresponding to dimensions.
+#' If \code{log = TRUE}, supply the log-densities.
+#' If \code{log = FALSE}, supply the raw densities
+#' @param P Matrix of marginal CDF values of the same dimension as \code{D}. Need not be supplied on log scale.
+#' @param copula A function of a matrix argument \code{U} returning
+#'   the log copula density \eqn{\log c(u_1, ... u_d)}. The columns of \code{U} correspond to dimensions.
+#'   You can either construct this yourself or use the copula constructors available (see details)
+#' @param log Logical; if \code{TRUE}, return the log joint density. In this case,
+#'   \code{D} must be on the log scale.
+#'
+#' @returns Joint density (or log-density) under the chosen copula.
+#'
+#' @details
+#' The joint density is
+#' \deqn{f(x_1, \dots, x_d) = c(F_1(x_1), \dots, F_d(x_d)) \, f_1(x_1) \dots f_d(x_d),}
+#' where \eqn{F_i} are the marginal CDFs, \eqn{f_i} are the marginal densities,
+#' and \eqn{c} is the copula density.
+#'
+#' The marginal densities \code{d_1, \dots, d_d} and CDFs \code{p_1, \dots, p_d}
+#' must be differentiable for automatic differentiation (AD) to work.
+#'
+#' Available multivariate copula constructors are:
+#' - \code{\link{cmvgauss}} (Multivariate Gaussian copula)
+#' - \code{\link{cgmrf}} (Multivariate Gaussian copula parameterised by precision (inverse correlation) matrix)
+#'
+#' @export
+#'
+#' @examples
+#' x <- c(0.5, 1); y <- c(1, 2); z <- c(0.2, 0.8)
+#' d1 <- dnorm(x, 1, log = TRUE); d2 <- dexp(y, 2, log = TRUE); d3 <- dbeta(z, 2, 1, log = TRUE)
+#' p1 <- pnorm(x, 1); p2 <- pexp(y, 2); p3 <- pbeta(z, 2, 1)
+#' R <- matrix(c(1,0.5,0.3,0.5,1,0.4,0.3,0.4,1), nrow = 3)
+#'
+#' ### Multivariate Gaussian copula
+#' ## Based on correlation matrix
+#' dmvcopula(cbind(d1, d2, d3), cbind(p1, p2, p3), copula = cmvgauss(R), log = TRUE)
+#'
+#' ## Based on precision matrix
+#' Q <- solve(R)
+#' dmvcopula(cbind(d1, d2, d3), cbind(p1, p2, p3), copula = cgmrf(Q), log = TRUE)
+#'
+#' ## Parameterisation inside a model
+#' # using RTMB::unstructured to get a valid correlation matrix
+#' library(RTMB)
+#' d <- 5 # dimension
+#' cor_func <- unstructured(d)
+#' npar <- length(cor_func$parms())
+#' R <- cor_func$corr(rep(0.1, npar))
+dmvcopula <- function(D, P, copula = cmvgauss(diag(ncol(D))), log = FALSE) {
+
+  # ensure numeric stability of uniforms
+  eps <- .Machine$double.eps
+  P <- apply(P, 2, function(p) pmin.ad(pmax.ad(p, eps), 1 - eps))
+
+  # evaluate log copula density
+  log_c <- copula(P)
+
+  # combine with marginal densities
+  if (log) {
+    log_c + rowSums(D)
+  } else {
+    exp(log_c) * apply(D, 1, prod)
+  }
+}
+
+
+#' Multivariate Gaussian copula constructor
+#'
+#' Returns a function computing the log density of the multivariate Gaussian copula,
+#' intended to be used with \code{\link{dmvcopula}}.
+#'
+#' @seealso [cgmrf()]
+#'
+#' @param R Positive definite correlation matrix (unit diagonal)
+#'
+#' @return Function with matrix argument \code{U} returning log copula density.
+#'
+#' @export
+#'
+#' @examples
+#' x <- c(0.5, 1); y <- c(1, 2); z <- c(0.2, 0.8)
+#' d1 <- dnorm(x, 1, log = TRUE); d2 <- dexp(y, 2, log = TRUE); d3 <- dbeta(z, 2, 1, log = TRUE)
+#' p1 <- pnorm(x, 1); p2 <- pexp(y, 2); p3 <- pbeta(z, 2, 1)
+#' R <- matrix(c(1,0.5,0.3,0.5,1,0.4,0.3,0.4,1), nrow = 3)
+#'
+#' ## Based on correlation matrix
+#' dmvcopula(cbind(d1, d2, d3), cbind(p1, p2, p3), copula = cmvgauss(R), log = TRUE)
+#'
+#' ## Based on precision matrix
+#' Q <- solve(R)
+#' dmvcopula(cbind(d1, d2, d3), cbind(p1, p2, p3), copula = cgmrf(Q), log = TRUE)
+#'
+#' ## Parameterisation inside a model
+#' # using RTMB::unstructured to get a valid correlation matrix
+#' library(RTMB)
+#' d <- 5 # dimension
+#' cor_func <- unstructured(d)
+#' npar <- length(cor_func$parms())
+#' R <- cor_func$corr(rep(0.1, npar))
+cmvgauss <- function(R) {
+  if (!is.matrix(R) || nrow(R) != ncol(R)) {
+    stop("R must be a square matrix.")
+  }
+
+  if (!ad_context()) {
+    if (!isTRUE(all.equal(R, t(R), tolerance = 1e-8))) {
+      stop("R must be symmetric.")
+    }
+    if (inherits(try(chol(R), silent = TRUE), "try-error")) {
+      stop("R must be positive definite.")
+    }
+    if (!isTRUE(all.equal(diag(R), rep(1, nrow(R)), tolerance = 1e-8))) {
+      stop("R must have unit diagonal (correlation matrix).")
+    }
+  }
+
+  d <- nrow(R)
+  invR <- solve(R)
+  logdetR <- determinant(R, logarithm = TRUE)$modulus
+  P <- invR - diag(d)
+
+  function(U) {
+    if (ncol(U) != d) stop("Input dimension does not match correlation matrix R.")
+
+    Z <- apply(U, 2, qnorm)
+    quadform <- rowSums((Z %*% P) * Z)
+    -0.5 * logdetR - 0.5 * quadform
+  }
+}
+
+
+#' Multivariate Gaussian copula constructor parameterised by inverse correlation matrix
+#'
+#' Returns a function computing the log density of the multivariate Gaussian copula,
+#' parameterised by the inverse correlation matrix.
+#'
+#' \strong{Caution:} Parameterising the inverse correlation directly is difficult, as inverting it needs to yield a positive definite matrix with \strong{unit diagonal}.
+#' Hence we still advise parameterising the correaltion matrix \code{R} and computing its inverse.
+#' This function is useful when you need access to the precision (i.e. inverse correlation) in your likelihood function.
+#'
+#' @seealso [cmvgauss()]
+#'
+#' @param Q Inverse of a positive definite correlation matrix with unit diagonal. Can either be sparse or dense matrix.
+#'
+#' @return Function with matrix argument \code{U} returning log copula density.
+#'
+#' @export
+#' @import RTMB
+#'
+#' @examples
+#' x <- c(0.5, 1); y <- c(1, 2); z <- c(0.2, 0.8)
+#' d1 <- dnorm(x, 1, log = TRUE); d2 <- dexp(y, 2, log = TRUE); d3 <- dbeta(z, 2, 1, log = TRUE)
+#' p1 <- pnorm(x, 1); p2 <- pexp(y, 2); p3 <- pbeta(z, 2, 1)
+#' R <- matrix(c(1,0.5,0.3,0.5,1,0.4,0.3,0.4,1), nrow = 3)
+#'
+#' ## Based on correlation matrix
+#' dmvcopula(cbind(d1, d2, d3), cbind(p1, p2, p3), copula = cmvgauss(R), log = TRUE)
+#'
+#' ## Based on precision matrix
+#' Q <- solve(R)
+#' dmvcopula(cbind(d1, d2, d3), cbind(p1, p2, p3), copula = cgmrf(Q), log = TRUE)
+#'
+#' ## Parameterisation inside a model
+#' # using RTMB::unstructured to get a valid correlation matrix
+#' library(RTMB)
+#' d <- 5 # dimension
+#' cor_func <- unstructured(d)
+#' npar <- length(cor_func$parms())
+#' R <- cor_func$corr(rep(0.1, npar))
+cgmrf <- function(Q) {
+  if (nrow(Q) != ncol(Q)) {
+    stop("Q must be a square matrix.")
+  }
+
+  d <- nrow(Q)
+
+  ## if Q is dense, convert to sparse matrix
+  if (is.matrix(Q)) {
+    # Precompute log|Q| and the "precision minus I" matrix
+    L <- chol(Q)
+    logdetQ <- 2 * sum(log(diag(L)))
+    Prec <- Q - AD(diag(d))
+
+    f <- function(U) {
+      if (ncol(U) != d) stop("Input dimension does not match correlation matrix R.")
+      Z <- apply(U, 2, qnorm)
+
+      quadform <- rowSums((Z %*% Prec) * Z)
+      0.5 * logdetQ - 0.5 * quadform
+    }
+
+  } else {
+    f <- function(U) {
+      if (ncol(U) != d) stop("Input dimension does not match correlation matrix R.")
+      Z <- apply(U, 2, qnorm)
+
+      logdens <- RTMB::dgmrf(Z, Q = Q, log = TRUE)
+      logdens <- logdens + 0.5 * rowSums(Z^2)
+      logdens <- logdens + 0.5 * d * log(2 * pi)
+      return(logdens)
+    }
+  }
+  return(f)
+}
