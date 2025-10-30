@@ -4,14 +4,14 @@
 \alias{ddcopula}
 \title{Joint probability under a discrete bivariate copula}
 \usage{
-ddcopula(p1, p2, p1m1, p2m1, copula, log = FALSE)
+ddcopula(d1, d2, p1, p2, Copula, log = FALSE)
 }
 \arguments{
+\item{d1, d2}{Marginal p.m.f. values at the observed points, \strong{not} on log-scale.}
+
 \item{p1, p2}{Marginal CDF values at the observed points.}
 
-\item{p1m1, p2m1}{Marginal CDF values at previous points (y-1).}
-
-\item{copula}{A function of two arguments returning the copula CDF.}
+\item{Copula}{A function of two arguments returning the copula CDF.}
 
 \item{log}{Logical; if \code{TRUE}, return the log joint density. In this case,
 \code{d1} and \code{d2} must be on the log scale.}
@@ -20,7 +20,7 @@ ddcopula(p1, p2, p1m1, p2m1, copula, log = FALSE)
 Joint probability (or log-probability) under chosen copula
 }
 \description{
-Computes the joint probability mass function of two discrete margins
+Computes the joint probability mass function of two \strong{discrete} margins
 combined with a copula CDF.
 }
 \details{
@@ -34,9 +34,6 @@ C(F_1(y_1), F_2(y_2))
 }
 where \eqn{F_i} are the marginal CDFs, and \eqn{C} is the copula CDF.
 
-The marginal CDFs \code{p1}, \code{p2}
-must be differentiable for automatic differentiation (AD) to work.
-
 Available copula CDF constructors are:
 \itemize{
 \item \code{\link{Cclayton}} (Clayton copula)
@@ -45,10 +42,10 @@ Available copula CDF constructors are:
 }
 }
 \examples{
-x <-  c(3,5); y <- c(2,4)
+x <- c(3,5); y <- c(2,4)
+d1 <- dpois(x, 4); d2 <- dpois(y, 3)
 p1 <- ppois(x, 4); p2 <- ppois(y, 3)
-p1m1 <- p1 - dpois(x, 4); p2m1 <- p2 - dpois(y, 3)
-ddcopula(p1, p2, p1m1, p2m1, copula = Cclayton(2), log = FALSE)
+ddcopula(d1, d2, p1, p2, Copula = Cclayton(2), log = FALSE)
 }
 \seealso{
 \code{\link[=dcopula]{dcopula()}}, \code{\link[=dmvcopula]{dmvcopula()}}

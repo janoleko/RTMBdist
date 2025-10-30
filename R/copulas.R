@@ -77,12 +77,12 @@ dcopula <- function(d1, d2, p1, p2, copula = cgaussian(0), log = FALSE) {
 
 #' Joint probability under a discrete bivariate copula
 #'
-#' Computes the joint probability mass function of two discrete margins
+#' Computes the joint probability mass function of two \strong{discrete} margins
 #' combined with a copula CDF.
 #'
+#' @param d1,d2 Marginal p.m.f. values at the observed points, \strong{not} on log-scale.
 #' @param p1,p2 Marginal CDF values at the observed points.
-#' @param p1m1,p2m1 Marginal CDF values at previous points (y-1).
-#' @param copula A function of two arguments returning the copula CDF.
+#' @param Copula A function of two arguments returning the copula CDF.
 #' @param log Logical; if \code{TRUE}, return the log joint density. In this case,
 #'   \code{d1} and \code{d2} must be on the log scale.
 #'
@@ -97,9 +97,6 @@ dcopula <- function(d1, d2, p1, p2, copula = cgaussian(0), log = FALSE) {
 #' }
 #' where \eqn{F_i} are the marginal CDFs, and \eqn{C} is the copula CDF.
 #'
-#' The marginal CDFs \code{p1}, \code{p2}
-#' must be differentiable for automatic differentiation (AD) to work.
-#'
 #' Available copula CDF constructors are:
 #' - \code{\link{Cclayton}} (Clayton copula)
 #' - \code{\link{Cgumbel}} (Gumbel copula)
@@ -112,24 +109,26 @@ dcopula <- function(d1, d2, p1, p2, copula = cgaussian(0), log = FALSE) {
 #' @export
 #'
 #' @examples
-#' x <-  c(3,5); y <- c(2,4)
+#' x <- c(3,5); y <- c(2,4)
+#' d1 <- dpois(x, 4); d2 <- dpois(y, 3)
 #' p1 <- ppois(x, 4); p2 <- ppois(y, 3)
-#' p1m1 <- p1 - dpois(x, 4); p2m1 <- p2 - dpois(y, 3)
-#' ddcopula(p1, p2, p1m1, p2m1, copula = Cclayton(2), log = FALSE)
-ddcopula <- function(p1, p2, p1m1, p2m1, copula, log = FALSE) {
+#' ddcopula(d1, d2, p1, p2, Copula = Cclayton(2), log = FALSE)
+ddcopula <- function(d1, d2, p1, p2, Copula, log = FALSE) {
 
   # ensure numeric stability of uniforms
   eps <- .Machine$double.eps
   p1 <- pmin.ad(pmax.ad(p1, eps), 1 - eps)
   p2 <- pmin.ad(pmax.ad(p2, eps), 1 - eps)
+  p1m1 <- p1 - d1 # F(x_1 - 1)
+  p2m1 <- p2 - d2 # F(x_2 - 1)
   p1m1 <- pmin.ad(pmax.ad(p1m1, eps), 1 - eps)
   p2m1 <- pmin.ad(pmax.ad(p2m1, eps), 1 - eps)
 
   # finite-difference formula
-  prob <- copula(p1, p2) -
-    copula(p1m1, p2) -
-    copula(p1, p2m1) +
-    copula(p1m1, p2m1)
+  prob <- Copula(p1, p2) -
+    Copula(p1m1, p2) -
+    Copula(p1, p2m1) +
+    Copula(p1m1, p2m1)
 
   # ensure numeric stability of result
   prob <- pmin.ad(pmax.ad(prob, eps), 1-eps)
