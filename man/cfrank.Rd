@@ -2,15 +2,19 @@
 % Please edit documentation in R/copulas.R
 \name{cfrank}
 \alias{cfrank}
+\alias{Cfrank}
 \title{Frank copula constructor}
 \usage{
 cfrank(theta)
+
+Cfrank(theta)
 }
 \arguments{
-\item{theta}{Dependence parameter (\eqn{\theta = 0}).}
+\item{theta}{Dependence parameter (\eqn{\theta \neq 0}).}
 }
 \value{
-Function of two arguments (u,v) returning log copula density.
+A function of two arguments \code{(u, v)} returning either
+the log copula density (\code{cfrank}) or the copula CDF (\code{Cfrank}).
 }
 \description{
 Returns a function computing the log density of the bivariate Frank copula,

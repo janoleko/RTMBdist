@@ -2,19 +2,23 @@
 % Please edit documentation in R/copulas.R
 \name{cgumbel}
 \alias{cgumbel}
-\title{Gumbel copula constructor}
+\alias{Cgumbel}
+\title{Gumbel copula constructors}
 \usage{
 cgumbel(theta)
+
+Cgumbel(theta)
 }
 \arguments{
 \item{theta}{Dependence parameter (\eqn{\theta >= 1}).}
 }
 \value{
-A function of two arguments (u,v) returning log copula density.
+A function of two arguments \code{(u, v)} returning either
+the log copula density (\code{cgumbel}) or the copula CDF (\code{Cgumbel}).
 }
 \description{
-Returns a function that computes the log density of the bivariate Gumbel copula,
-intended to be used with \code{\link{dcopula}}.
+Construct functions that compute either the log density or the CDF
+of the bivariate Gumbel copula, intended for use with \code{\link{dcopula}}.
 }
 \details{
 The Gumbel copula density
@@ -29,6 +33,9 @@ x <- c(0.5, 1); y <- c(0.2, 0.4)
 d1 <- dnorm(x, 1, log = TRUE); d2 <- dbeta(y, 2, 1, log = TRUE)
 p1 <- pnorm(x, 1); p2 <- pbeta(y, 2, 1)
 dcopula(d1, d2, p1, p2, copula = cgumbel(1.5), log = TRUE)
+
+# CDF version (for discrete copulas)
+Cgumbel(1.5)(0.5, 0.4)
 }
 \seealso{
 \code{\link[=cgaussian]{cgaussian()}}, \code{\link[=cclayton]{cclayton()}}, \code{\link[=cfrank]{cfrank()}}

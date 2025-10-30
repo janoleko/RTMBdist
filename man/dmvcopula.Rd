@@ -64,3 +64,6 @@ cor_func <- unstructured(d)
 npar <- length(cor_func$parms())
 R <- cor_func$corr(rep(0.1, npar))
 }
+\seealso{
+\code{\link[=dcopula]{dcopula()}}, \code{\link[=ddcopula]{ddcopula()}}
+}

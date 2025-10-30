@@ -68,3 +68,6 @@ d1 <- dnorm(x, 1, log = TRUE); d2 <- dexp(y, 2, log = TRUE)
 p1 <- pnorm(x, 1); p2 <- pexp(y, 2)
 dcopula(d1, d2, p1, p2, copula = cfrank(2), log = TRUE)
 }
+\seealso{
+\code{\link[=ddcopula]{ddcopula()}}, \code{\link[=dmvcopula]{dmvcopula()}}
+}

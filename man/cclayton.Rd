@@ -2,18 +2,21 @@
 % Please edit documentation in R/copulas.R
 \name{cclayton}
 \alias{cclayton}
-\title{Clayton copula constructor}
+\alias{Cclayton}
+\title{Clayton copula constructors}
 \usage{
 cclayton(theta)
+
+Cclayton(theta)
 }
 \arguments{
 \item{theta}{Positive dependence parameter (\eqn{\theta > 0}).}
 }
 \value{
-A function of two arguments (u,v) returning log copula density.
+A function of two arguments (u,v) returning log copula \strong{density} (\code{cclayton}) or copula \strong{CDF} (\code{Cclayton}).
 }
 \description{
-Returns a function that computes the log density of the bivariate Clayton copula,
+Construct a function that computes the log density or CDF of the bivariate Clayton copula,
 intended to be used with \code{\link{dcopula}}.
 }
 \details{
@@ -28,6 +31,9 @@ x <- c(0.5, 1); y <- c(0.2, 0.8)
 d1 <- dnorm(x, 1, log = TRUE); d2 <- dbeta(y, 2, 1, log = TRUE)
 p1 <- pnorm(x, 1); p2 <- pbeta(y, 2, 1)
 dcopula(d1, d2, p1, p2, copula = cclayton(2), log = TRUE)
+
+# CDF version (for discrete copulas)
+Cclayton(1.5)(0.5, 0.4)
 }
 \seealso{
 \code{\link[=cgaussian]{cgaussian()}}, \code{\link[=cgumbel]{cgumbel()}}, \code{\link[=cfrank]{cfrank()}}
