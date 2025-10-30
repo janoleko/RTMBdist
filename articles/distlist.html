@@ -271,6 +271,20 @@ constructors are:</p>
 <a href="../reference/cfrank.html"><code>cfrank(theta)</code></a>
 (Frank copula)</li>
 </ul>
+<p>For bivariate copulas with <em>discrete</em> margins, use the <a href="../reference/ddcopula.html"><code>ddcopula</code></a> function
+instead. In this case, instead of copula <em>densities</em>, copula
+<em>CDFs</em> are needed. The available constructors for this are:</p>
+<ul>
+<li>
+<a href="../reference/Cclayton.html"><code>Cclayton</code></a>
+(Clayton copula CDF)</li>
+<li>
+<a href="../reference/Cgumbel.html"><code>Cgumbel</code></a> (Gumbel
+copula CDF)</li>
+<li>
+<a href="../reference/Cfrank.html"><code>Cfrank</code></a> (Frank
+copula CDF)</li>
+</ul>
 <p>Multivariate copulas are also possible using the <a href="../reference/dmvcopula.html"><code>dmvcopula</code></a> function
 together with one of the multivariate copula constructors below.
 Currently, only the multivariate Gaussian copula is implemented in two
