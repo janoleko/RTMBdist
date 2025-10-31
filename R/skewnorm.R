@@ -101,11 +101,18 @@ qskewnorm <- function(p, xi = 0, omega = 1, alpha = 0, ...) {
 #' @export
 #' @importFrom sn rsn
 rskewnorm <- function(n, xi = 0, omega = 1, alpha = 0) {
+  if (any(omega <= 0)) stop("omega must be strictly positive.")
 
-  if(!ad_context()) {
-    # ensure omega > 0
-    if (any(omega <= 0)) stop("omega must be strictly positive.")
+  # elementwise generation
+  if (length(xi) == 1L && length(omega) == 1L && length(alpha) == 1L) {
+    return(sn::rsn(n, xi, omega, alpha))
   }
 
-  rsn(n = n, xi = xi, omega = omega, alpha = alpha)
+  len <- max(length(xi), length(omega), length(alpha), n)
+  xi <- rep_len(xi, len)
+  omega <- rep_len(omega, len)
+  alpha <- rep_len(alpha, len)
+
+  vapply(seq_len(len), function(i)
+    sn::rsn(1, xi[i], omega[i], alpha[i]), numeric(1))
 }
