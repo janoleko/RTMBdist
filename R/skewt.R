@@ -38,7 +38,7 @@ NULL
 #' @rdname skewt
 #' @export
 #' @importFrom RTMB dt
-dskewt <- function(x, mu = 0, sigma = 1, skew = 0, df = 1e3, log = FALSE) {
+dskewt <- function(x, mu = 0, sigma = 1, skew = 0, df = 1e2, log = FALSE) {
 
   if (!ad_context()) {
     args <- as.list(environment())
@@ -73,10 +73,10 @@ dskewt <- function(x, mu = 0, sigma = 1, skew = 0, df = 1e3, log = FALSE) {
 #' @rdname skewt
 #' @export
 #' @usage
-#' pskewt(q, mu = 0, sigma = 1, skew = 0, df = 1000,
+#' pskewt(q, mu = 0, sigma = 1, skew = 0, df = 100,
 #'        method = 0, lower.tail = TRUE, log.p = FALSE)
 #' @importFrom sn pst
-pskewt <- function(q, mu = 0, sigma = 1, skew = 0, df = 1e3, method = 0, lower.tail = TRUE, log.p = FALSE) {
+pskewt <- function(q, mu = 0, sigma = 1, skew = 0, df = 1e2, method = 0, lower.tail = TRUE, log.p = FALSE) {
   # ensure sigma, df > 0
   # if (sigma <= 0) stop("sigma must be strictly positive.")
   # if (df <= 0) stop("df must be strictly positive.")
@@ -87,10 +87,10 @@ pskewt <- function(q, mu = 0, sigma = 1, skew = 0, df = 1e3, method = 0, lower.t
 #' @rdname skewt
 #' @export
 #' @usage
-#' qskewt(p, mu = 0, sigma = 1, skew = 0, df = 1000,
+#' qskewt(p, mu = 0, sigma = 1, skew = 0, df = 100,
 #'        tol = 1e-8, method = 0)
 #' @importFrom sn qst
-qskewt <- function(p, mu = 0, sigma = 1, skew = 0, df = 1e3, tol = 1e-8, method = 0) {
+qskewt <- function(p, mu = 0, sigma = 1, skew = 0, df = 1e2, tol = 1e-8, method = 0) {
   # ensure sigma, df > 0
   if (sigma <= 0) stop("sigma must be strictly positive.")
   if (df <= 0) stop("df must be strictly positive.")
@@ -100,7 +100,7 @@ qskewt <- function(p, mu = 0, sigma = 1, skew = 0, df = 1e3, tol = 1e-8, method 
 #' @rdname skewt
 #' @export
 #' @importFrom sn rst
-rskewt <- function(n, mu = 0, sigma = 1, skew = 0, df = 1e3) {
+rskewt <- function(n, mu = 0, sigma = 1, skew = 0, df = 1e2) {
   # ensure sigma, df > 0
   if (sigma <= 0) stop("sigma must be strictly positive.")
   if (df <= 0) stop("df must be strictly positive.")

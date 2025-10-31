@@ -8,15 +8,15 @@
 \alias{rskewt}
 \title{Skewed students t distribution}
 \usage{
-dskewt(x, mu = 0, sigma = 1, skew = 0, df = 1000, log = FALSE)
+dskewt(x, mu = 0, sigma = 1, skew = 0, df = 100, log = FALSE)
 
-pskewt(q, mu = 0, sigma = 1, skew = 0, df = 1000,
+pskewt(q, mu = 0, sigma = 1, skew = 0, df = 100,
        method = 0, lower.tail = TRUE, log.p = FALSE)
 
-qskewt(p, mu = 0, sigma = 1, skew = 0, df = 1000,
+qskewt(p, mu = 0, sigma = 1, skew = 0, df = 100,
        tol = 1e-8, method = 0)
 
-rskewt(n, mu = 0, sigma = 1, skew = 0, df = 1000)
+rskewt(n, mu = 0, sigma = 1, skew = 0, df = 100)
 }
 \arguments{
 \item{x, q}{vector of quantiles}
