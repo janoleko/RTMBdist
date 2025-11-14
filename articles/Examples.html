@@ -148,7 +148,7 @@ probability integral transform using <code><a href="https://rdrr.io/pkg/RTMB/man
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">osa_chick</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RTMB/man/OSA-residuals.html" class="external-link">oneStepPredict</a></span><span class="op">(</span><span class="va">obj_chick</span>, discrete<span class="op">=</span><span class="cn">FALSE</span>, trace<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></span><span class="op">(</span><span class="va">osa_chick</span><span class="op">$</span><span class="va">res</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/residuals-1.png" width="700"></p>
+<p><img src="Examples_files/figure-html/residuals-1.png" class="r-plt" width="700"></p>
 <p>We see that this model is still not a great fit but a bit better than
 the Gaussian model.</p>
 </div>
@@ -214,7 +214,7 @@ more effective than others.</p>
 <span><span class="va">osa_insect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/RTMB/man/OSA-residuals.html" class="external-link">oneStepPredict</a></span><span class="op">(</span><span class="va">obj_insect</span>, method <span class="op">=</span> <span class="st">"oneStepGeneric"</span>, </span>
 <span>                             discrete<span class="op">=</span><span class="cn">TRUE</span>, trace<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></span><span class="op">(</span><span class="va">osa_insect</span><span class="op">$</span><span class="va">res</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/model%20fit3-1.png" width="700"></p>
+<p><img src="Examples_files/figure-html/model%20fit3-1.png" class="r-plt" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="example-3-distributional-regression-with-penalised-splines">Example 3: Distributional regression with penalised splines<a class="anchor" aria-label="anchor" href="#example-3-distributional-regression-with-penalised-splines"></a>
@@ -325,7 +325,7 @@ age.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/polygon.html" class="external-link">polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">age</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">age</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">par</span><span class="op">$</span><span class="va">nu</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">par_sd</span><span class="op">$</span><span class="va">nu</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="va">par</span><span class="op">$</span><span class="va">nu</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="va">par_sd</span><span class="op">$</span><span class="va">nu</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>        col <span class="op">=</span> <span class="st">"#00000020"</span>, border <span class="op">=</span> <span class="st">"NA"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/effects_plot-1.png" width="700"></p>
+<p><img src="Examples_files/figure-html/effects_plot-1.png" class="r-plt" width="700"></p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">oldpar</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
@@ -344,7 +344,7 @@ age.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">age</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span>, <span class="va">q</span><span class="op">[</span><span class="va">ord</span><span class="op">]</span>, col <span class="op">=</span> <span class="st">"deepskyblue"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topleft"</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"deepskyblue"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Mean"</span>, <span class="st">"Quantiles"</span><span class="op">)</span>, bty <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/cond_dist-1.png" width="700"></p>
+<p><img src="Examples_files/figure-html/cond_dist-1.png" class="r-plt" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="example-4-zero-inflation">Example 4: Zero inflation<a class="anchor" aria-label="anchor" href="#example-4-zero-inflation"></a>
@@ -563,7 +563,7 @@ estimated parameters on their natural scale:</p>
 <span>        drawlabels <span class="op">=</span> <span class="cn">FALSE</span>, col <span class="op">=</span> <span class="st">"orange"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour</a></span><span class="op">(</span><span class="va">xseq</span>, <span class="va">yseq</span>, <span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">alpha</span><span class="op">)</span> <span class="op">*</span> <span class="va">f2</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, nlevels <span class="op">=</span> <span class="fl">8</span>,</span>
 <span>        drawlabels <span class="op">=</span> <span class="cn">FALSE</span>, col <span class="op">=</span> <span class="st">"deepskyblue"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Examples_files/figure-html/copula%20results-1.png" width="700"></p>
+<p><img src="Examples_files/figure-html/copula%20results-1.png" class="r-plt" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="example-6-multivariate-stochastic-volatility">Example 6: Multivariate stochastic volatility<a class="anchor" aria-label="anchor" href="#example-6-multivariate-stochastic-volatility"></a>
@@ -638,7 +638,7 @@ the covariance matrix anymore, but only proportional to it.</p>
 <span>  <span class="va">opt_svt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/nlminb.html" class="external-link">nlminb</a></span><span class="op">(</span><span class="va">obj_svt</span><span class="op">$</span><span class="va">par</span>, <span class="va">obj_svt</span><span class="op">$</span><span class="va">fn</span>, <span class="va">obj_svt</span><span class="op">$</span><span class="va">gr</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;    user  system elapsed </span></span>
-<span><span class="co">#&gt;  14.445   0.022  14.468</span></span>
+<span><span class="co">#&gt;  14.559   0.023  14.584</span></span>
 <span><span class="va">rep</span> <span class="op">&lt;-</span> <span class="fu">sdreport</span><span class="op">(</span><span class="va">obj_svt</span><span class="op">)</span></span>
 <span><span class="va">rep</span></span>
 <span><span class="co">#&gt; sdreport(.) result</span></span>
@@ -669,7 +669,7 @@ the covariance matrix anymore, but only proportional to it.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

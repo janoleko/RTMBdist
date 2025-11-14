@@ -1,0 +1,20 @@
+# Authors and Citation
+
+## Authors
+
+- **Jan-Ole Koslik**. Author, maintainer.
+  [](https://orcid.org/0009-0004-1556-9053)
+
+## Citation
+
+Koslik J (2025). *RTMBdist: Distributions Compatible with Automatic
+Differentiation by 'RTMB'*. R package version 0.1.0,
+<https://janoleko.github.io/RTMBdist/>.
+
+    @Manual{,
+      title = {RTMBdist: Distributions Compatible with Automatic Differentiation by 'RTMB'},
+      author = {Jan-Ole Koslik},
+      year = {2025},
+      note = {R package version 0.1.0},
+      url = {https://janoleko.github.io/RTMBdist/},
+    }
