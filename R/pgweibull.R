@@ -1,6 +1,6 @@
-## This was written by Julia Dyck
-## taken from https://github.com/julia-dyck/BWSPsignal/blob/main/R/pgw_functions.R
-## modified to fit package style and RTMB requirements
+## This implementation was written by Julia Dyck
+## and is taken from https://github.com/julia-dyck/BWSPsignal/blob/main/R/pgw_functions.R
+## it is slightly modified to fit package style and RTMB requirements.
 
 #' Power generalized Weibull distribution
 #'
