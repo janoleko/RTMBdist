@@ -11,14 +11,8 @@ spgweibull(x, scale = 1, shape = 1, powershape = 1, log = FALSE)
 
 hpgweibull(x, scale = 1, shape = 1, powershape = 1, log = FALSE)
 
-ppgweibull(
-  x,
-  scale = 1,
-  shape = 1,
-  powershape = 1,
-  lower.tail = TRUE,
-  log.p = FALSE
-)
+ppgweibull(x, scale = 1, shape = 1, powershape = 1,
+           lower.tail = TRUE, log.p = FALSE)
 
 dpgweibull(x, scale = 1, shape = 1, powershape = 1, log = FALSE)
 
