@@ -87,6 +87,9 @@ hpgweibull <- function(x, scale = 1, shape = 1, powershape = 1, log = FALSE) {
 
 #' @rdname pgweibull
 #' @export
+#' @usage
+#' ppgweibull(x, scale = 1, shape = 1, powershape = 1,
+#'            lower.tail = TRUE, log.p = FALSE)
 ppgweibull <- function(x, scale = 1, shape = 1, powershape = 1,
                        lower.tail = TRUE, log.p = FALSE) {
   # renaming to match the formula
