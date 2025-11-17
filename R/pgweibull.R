@@ -50,6 +50,14 @@ NULL
 #' @rdname pgweibull
 #' @export
 spgweibull <- function(x, scale = 1, shape = 1, powershape = 1, log = FALSE) {
+
+  if(!ad_context()) {
+    # ensure scale, shape, powershape > 0
+    if (any(scale <= 0)) stop("scale must be strictly positive.")
+    if (any(shape <= 0)) stop("shape must be strictly positive.")
+    if (any(powershape <= 0)) stop("powershape must be strictly positive.")
+  }
+
   # renaming to match the formula
   theta <- scale
   nu <- shape
@@ -69,6 +77,14 @@ spgweibull <- function(x, scale = 1, shape = 1, powershape = 1, log = FALSE) {
 #' @rdname pgweibull
 #' @export
 hpgweibull <- function(x, scale = 1, shape = 1, powershape = 1, log = FALSE) {
+
+  if(!ad_context()) {
+    # ensure scale, shape, powershape > 0
+    if (any(scale <= 0)) stop("scale must be strictly positive.")
+    if (any(shape <= 0)) stop("shape must be strictly positive.")
+    if (any(powershape <= 0)) stop("powershape must be strictly positive.")
+  }
+
   # renaming to match the formula
   theta <- scale
   nu <- shape
@@ -92,6 +108,14 @@ hpgweibull <- function(x, scale = 1, shape = 1, powershape = 1, log = FALSE) {
 #'            lower.tail = TRUE, log.p = FALSE)
 ppgweibull <- function(x, scale = 1, shape = 1, powershape = 1,
                        lower.tail = TRUE, log.p = FALSE) {
+
+  if(!ad_context()) {
+    # ensure scale, shape, powershape > 0
+    if (any(scale <= 0)) stop("scale must be strictly positive.")
+    if (any(shape <= 0)) stop("shape must be strictly positive.")
+    if (any(powershape <= 0)) stop("powershape must be strictly positive.")
+  }
+
   # renaming to match the formula
   theta <- scale
   nu <- shape
@@ -146,7 +170,15 @@ dpgweibull <- function(x, scale = 1, shape = 1, powershape = 1, log = FALSE) {
 
 #' @rdname pgweibull
 #' @export
-qpgweibull <- function(p, scale = 1, shape = 1, powershape = 1){
+qpgweibull <- function(p, scale = 1, shape = 1, powershape = 1) {
+
+  if(!ad_context()) {
+    # ensure scale, shape, powershape > 0
+    if (any(scale <= 0)) stop("scale must be strictly positive.")
+    if (any(shape <= 0)) stop("shape must be strictly positive.")
+    if (any(powershape <= 0)) stop("powershape must be strictly positive.")
+  }
+
   # renaming to match the formula
   theta <- scale
   nu <- shape
@@ -160,6 +192,12 @@ qpgweibull <- function(p, scale = 1, shape = 1, powershape = 1){
 #' @export
 #' @importFrom stats runif
 rpgweibull <- function(n, scale = 1, shape = 1, powershape = 1){
+
+  # ensure scale, shape, powershape > 0
+  if (any(scale <= 0)) stop("scale must be strictly positive.")
+  if (any(shape <= 0)) stop("shape must be strictly positive.")
+  if (any(powershape <= 0)) stop("powershape must be strictly positive.")
+
   u = stats::runif(n) # generate random sample from uniform distribution
   qpgweibull(u, scale = scale, shape = shape, powershape = powershape)
 }
