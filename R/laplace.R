@@ -34,7 +34,7 @@ dlaplace <- function(x, mu = 0, b = 1, log = FALSE) {
     args <- as.list(environment())
     simulation_check(args) # informative error message if likelihood in wrong order
     # ensure b > 0
-    if (b <= 0) stop("b must be strictly positive.")
+    if (!all(b > 0)) stop("b must be strictly positive.")
   }
 
   # potentially escape to RNG or CDF
@@ -56,7 +56,7 @@ dlaplace <- function(x, mu = 0, b = 1, log = FALSE) {
 plaplace <- function(q, mu = 0, b = 1, lower.tail = TRUE, log.p = FALSE) {
   if (!ad_context()) {
     # ensure b > 0
-    if (b <= 0) stop("b must be strictly positive.")
+    if (!all(b > 0)) stop("b must be strictly positive.")
   }
 
   z <- (q - mu) / b
@@ -76,7 +76,7 @@ qlaplace <- function(p, mu = 0, b = 1, lower.tail = TRUE, log.p = FALSE) {
 
   if (!ad_context()) {
     # ensure b > 0
-    if (b <= 0) stop("b must be strictly positive.")
+    if (!all(b > 0)) stop("b must be strictly positive.")
   }
 
   if (log.p) p <- exp(p)
@@ -91,7 +91,7 @@ qlaplace <- function(p, mu = 0, b = 1, lower.tail = TRUE, log.p = FALSE) {
 #' @export
 rlaplace <- function(n, mu = 0, b = 1) {
   # ensure b > 0
-  if (b <= 0) stop("b must be strictly positive.")
+  if (!all(b > 0)) stop("b must be strictly positive.")
 
   u <- runif(n)
   z <- ifelse(u < 0.5, log(2 * u), -log(2 * (1 - u)))
