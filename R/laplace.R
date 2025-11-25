@@ -13,7 +13,7 @@
 #' @param b scale parameter, must be positive.
 #' @param log,log.p logical; if \code{TRUE}, probabilities/ densities \eqn{p} are returned as \eqn{\log(p)}.
 #' @param lower.tail logical; if \code{TRUE}, probabilities are \eqn{P[X \le x]}, otherwise, \eqn{P[X > x]}.
-#' @param epsilon optional smoothing parameter for \code{dlaplace} to smooth the absolute value function. See \code{\link{abs_smooth}} for details.
+#' @param eps optional smoothing parameter for \code{dlaplace} to smooth the absolute value function. See \code{\link{abs_smooth}} for details.
 #' It is recommended to set this to a small constant like \code{1e-6} for numerical optimisation.
 #'
 #' @return
@@ -30,8 +30,7 @@ NULL
 #' @rdname laplace
 #' @export
 #' @import RTMB
-dlaplace <- function(x, mu = 0, b = 1, log = FALSE,
-                     epsilon = NULL) {
+dlaplace <- function(x, mu = 0, b = 1, eps = NULL, log = FALSE) {
 
   if (!ad_context()) {
     args <- as.list(environment())
@@ -51,7 +50,7 @@ dlaplace <- function(x, mu = 0, b = 1, log = FALSE,
   if(is.null(epsilon)) {
     z <- abs(x - mu) / b
   } else {
-    z <- abs_smooth(x - mu, epsilon) / b
+    z <- abs_smooth(x - mu, eps) / b
   }
 
   logdens <- -z - log(2 * b)
