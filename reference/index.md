@@ -2,6 +2,8 @@
 
 ## All functions
 
+- [`abs_smooth()`](https://janoleko.github.io/RTMBdist/reference/abs_smooth.md)
+  : Smooth approximation to the absolute value function
 - [`dbccg()`](https://janoleko.github.io/RTMBdist/reference/bccg.md)
   [`pbccg()`](https://janoleko.github.io/RTMBdist/reference/bccg.md)
   [`qbccg()`](https://janoleko.github.io/RTMBdist/reference/bccg.md)

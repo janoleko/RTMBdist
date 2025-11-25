@@ -6,7 +6,7 @@ for the Laplace distribution.
 ## Usage
 
 ``` r
-dlaplace(x, mu = 0, b = 1, log = FALSE)
+dlaplace(x, mu = 0, b = 1, log = FALSE, epsilon = NULL)
 
 plaplace(q, mu = 0, b = 1, lower.tail = TRUE, log.p = FALSE)
 
@@ -33,6 +33,14 @@ rlaplace(n, mu = 0, b = 1)
 
   logical; if `TRUE`, probabilities/ densities \\p\\ are returned as
   \\\log(p)\\.
+
+- epsilon:
+
+  optional smoothing parameter for `dlaplace` to smooth the absolute
+  value function. See
+  [`abs_smooth`](https://janoleko.github.io/RTMBdist/reference/abs_smooth.md)
+  for details. It is recommended to set this to a small constant like
+  `1e-6` for numerical optimisation.
 
 - lower.tail:
 

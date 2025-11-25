@@ -46,7 +46,7 @@ the Laplace distribution.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dlaplace</span><span class="op">(</span><span class="va">x</span>, mu <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">1</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">dlaplace</span><span class="op">(</span><span class="va">x</span>, mu <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">1</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, epsilon <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">plaplace</span><span class="op">(</span><span class="va">q</span>, mu <span class="op">=</span> <span class="fl">0</span>, b <span class="op">=</span> <span class="fl">1</span>, lower.tail <span class="op">=</span> <span class="cn">TRUE</span>, log.p <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
@@ -73,6 +73,11 @@ the Laplace distribution.</p>
 
 <dt id="arg-log-log-p">log, log.p<a class="anchor" aria-label="anchor" href="#arg-log-log-p"></a></dt>
 <dd><p>logical; if <code>TRUE</code>, probabilities/ densities \(p\) are returned as \(\log(p)\).</p></dd>
+
+
+<dt id="arg-epsilon">epsilon<a class="anchor" aria-label="anchor" href="#arg-epsilon"></a></dt>
+<dd><p>optional smoothing parameter for <code>dlaplace</code> to smooth the absolute value function. See <code><a href="abs_smooth.html">abs_smooth</a></code> for details.
+It is recommended to set this to a small constant like <code>1e-6</code> for numerical optimisation.</p></dd>
 
 
 <dt id="arg-lower-tail">lower.tail<a class="anchor" aria-label="anchor" href="#arg-lower-tail"></a></dt>
