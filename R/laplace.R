@@ -47,7 +47,7 @@ dlaplace <- function(x, mu = 0, b = 1, eps = NULL, log = FALSE) {
     return(dGenericOSA("dlaplace", x=x, mu=mu, b=b, log=log))
   }
 
-  if(is.null(epsilon)) {
+  if(is.null(eps)) {
     z <- abs(x - mu) / b
   } else {
     z <- abs_smooth(x - mu, eps) / b
