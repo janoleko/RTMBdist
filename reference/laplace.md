@@ -71,7 +71,6 @@ with `RTMB`.
 ``` r
 x <- rlaplace(1, 1, 1)
 d <- dlaplace(x, 1, 1)
-#> Error in dlaplace(x, 1, 1): object 'epsilon' not found
 p <- plaplace(x, 1, 1)
 q <- qlaplace(p, 1, 1)
 ```
