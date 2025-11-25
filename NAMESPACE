@@ -3,6 +3,7 @@
 export(Cclayton)
 export(Cfrank)
 export(Cgumbel)
+export(abs_smooth)
 export(cclayton)
 export(cfrank)
 export(cgaussian)

@@ -28,6 +28,25 @@ erfc <- function(x) {
   1 - erf(x) # + eps
 }
 
+#' Smooth approximation to the absolute value function
+#'
+#' @param x vector of evaluation points
+#' @param epsilon smoothing constant
+#'
+#' @details
+#' We approximate the absolute value here as
+#' \deqn{\vert x \vert \approx \sqrt{x^2 + \epsilon}}
+#'
+#' @returns Smooth absolute value of \code{x}.
+#' @export
+#'
+#' @examples
+#' abs(0)
+#' abs_smooth(0, 1e-4)
+abs_smooth <- function(x, epsilon = 1e-6) {
+  sqrt(x^2 + epsilon)
+}
+
 ## AD pmin/pmax helpers that work for both ad and numeric:
 pmin.ad <- function(x, y) apply(cbind(x,y), 1, min)
 pmax.ad <- function(x, y) apply(cbind(x,y), 1, max)
