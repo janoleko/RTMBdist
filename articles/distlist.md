@@ -209,7 +209,7 @@
 ## Copulas
 
 Bivariate copulas can be implemented in a modular way using the
-[`dcopula`](https://janoleko.github.io/RTMBdist/reference/dcopula)
+[`dcopula`](https://janoleko.github.io/RTMBdist/reference/dcopula.md)
 function together with one of the copula constructors below. Available
 copula constructors are:
 
@@ -235,7 +235,7 @@ function instead. In this case, instead of copula *densities*, copula
   (Frank copula CDF)
 
 Multivariate copulas are also possible using the
-[`dmvcopula`](https://janoleko.github.io/RTMBdist/reference/dmvcopula)
+[`dmvcopula`](https://janoleko.github.io/RTMBdist/reference/dmvcopula.md)
 function together with one of the multivariate copula constructors
 below. Currently, only the multivariate Gaussian copula is implemented
 in two ways:
