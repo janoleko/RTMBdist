@@ -2,7 +2,7 @@
 
 ## Continuous distributions
 
-- [`bccg(mu, sigma, nu)`](https://janoleko.github.io/RTMBdist/help/bccg):
+- [`bccg(mu, sigma, nu)`](https://janoleko.github.io/RTMBdist/html/bccg.md):
   Box-Cox Cole and Green distribution parameterised by location `mu`,
   scale `sigma`, and skewness `nu`
 
