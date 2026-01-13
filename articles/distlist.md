@@ -223,7 +223,7 @@ copula constructors are:
   (Frank copula)
 
 For bivariate copulas with *discrete* margins, use the
-[`ddcopula`](https://janoleko.github.io/RTMBdist/reference/ddcopula)
+[`ddcopula`](https://janoleko.github.io/RTMBdist/reference/ddcopula.md)
 function instead. In this case, instead of copula *densities*, copula
 *CDFs* are needed. The available constructors for this are:
 
