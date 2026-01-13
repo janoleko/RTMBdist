@@ -134,7 +134,7 @@ Bivariate copulas can be implemented in a modular way using the [`dcopula`](../r
 * [`cgumbel(theta)`](../reference/cgumbel.html) (Gumbel copula)
 * [`cfrank(theta)`](../reference/cfrank.html) (Frank copula)
 
-For bivariate copulas with *discrete* margins, use the [`ddcopula`](../reference/ddcopula) function instead. In this case, instead of copula *densities*, copula *CDFs* are needed. The available constructors for this are:
+For bivariate copulas with *discrete* margins, use the [`ddcopula`](../reference/ddcopula.html) function instead. In this case, instead of copula *densities*, copula *CDFs* are needed. The available constructors for this are:
 
 * [`Cclayton`](../reference/Cclayton.html) (Clayton copula CDF)
 * [`Cgumbel`](../reference/Cgumbel.html) (Gumbel copula CDF)
