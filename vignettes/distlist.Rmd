@@ -127,7 +127,7 @@ knitr::opts_chunk$set(
 
 ## Copulas
 
-Bivariate copulas can be implemented in a modular way using the [`dcopula`](../reference/dcopula) function together with one of the copula constructors below. Available copula constructors are:
+Bivariate copulas can be implemented in a modular way using the [`dcopula`](../reference/dcopula.html) function together with one of the copula constructors below. Available copula constructors are:
 
 * [`cgaussian(rho)`](../reference/cgaussian.html) (Gaussian copula)
 * [`cclayton(theta)`](../reference/cclayton.html) (Clayton copula)
@@ -140,7 +140,7 @@ For bivariate copulas with *discrete* margins, use the [`ddcopula`](../reference
 * [`Cgumbel`](../reference/Cgumbel.html) (Gumbel copula CDF)
 * [`Cfrank`](../reference/Cfrank.html) (Frank copula CDF)
 
-Multivariate copulas are also possible using the [`dmvcopula`](../reference/dmvcopula) function together with one of the multivariate copula constructors below. Currently, only the multivariate Gaussian copula is implemented in two ways:
+Multivariate copulas are also possible using the [`dmvcopula`](../reference/dmvcopula.html) function together with one of the multivariate copula constructors below. Currently, only the multivariate Gaussian copula is implemented in two ways:
 
 * [`cmvgauss(R)`](../reference/cmvgauss.html) (multivariate Gaussian copula parameterised by a correlation matrix)
 * [`cgmrf(Q)`](../reference/cgmrf.html) (multivariate Gaussian copula parameterised by an inverse correlation matrix)

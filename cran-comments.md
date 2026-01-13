@@ -1,1 +1,1 @@
-Fixed help-page links in distlist vignette
+Fixed powerexp and powerexp2 links in distlist vignette
