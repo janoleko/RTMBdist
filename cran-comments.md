@@ -1,4 +1,1 @@
-- 'RTMB' in title in single quotes
-- removed spaces/ linebreaks from Description field
-- added references to DESCRIPTION file
-- resetting user's options in Example vignette
+Fixed help-page links in distlist vignette
