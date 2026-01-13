@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Continuous distributions
 
-* [`bccg(mu, sigma, nu)`](../help/bccg): Box-Cox Cole and Green distribution parameterised by location `mu`, scale `sigma`, and skewness `nu`
+* [`bccg(mu, sigma, nu)`](../html/bccg.html): Box-Cox Cole and Green distribution parameterised by location `mu`, scale `sigma`, and skewness `nu`
 
 * [`bcpe(mu, sigma, nu, tau)`](../help/bcpe): Box-Cox power exponential distribution parameterised by location `mu`, scale `sigma`, `nu`, and `tau`
 
